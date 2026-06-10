@@ -357,6 +357,33 @@
     }
     @media (max-width: 600px) {
       .platform-grid { grid-template-columns: 1fr; }
+      .platform-card.more-hidden { display: none; }
+      .platform-grid.expanded .platform-card.more-hidden { display: block; }
+    }
+    .services-more-btn {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .services-more-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin-top: 16px;
+        padding: 14px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 8px;
+        color: rgba(255,255,255,0.7);
+        font-size: 0.9rem;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: border-color 0.2s, background 0.2s;
+      }
+      .services-more-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,160,82,0.05); }
+      .platform-grid.expanded + .services-more-btn { display: none; }
     }
     .platform-card {
       background: var(--black-3);
@@ -950,7 +977,7 @@
         </div>
       </div>
 
-      <div class="platform-card fade-up">
+      <div class="platform-card fade-up more-hidden">
         <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="16" rx="2" stroke="#C9A052" stroke-width="1.8"/><path d="M2 7h20" stroke="#C9A052" stroke-width="1.8"/><rect x="5" y="10" width="6" height="6" rx="1" fill="rgba(201,160,82,0.25)"/><path d="M14 10h5M14 13h5M14 16h3" stroke="#C9A052" stroke-width="1.3" stroke-linecap="round"/></svg>
         </div>
@@ -965,7 +992,7 @@
         </div>
       </div>
 
-      <div class="platform-card fade-up">
+      <div class="platform-card fade-up more-hidden">
         <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#C9A052" stroke-width="1.8"/><path d="M12 8v4l3 3" stroke="#C9A052" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
@@ -980,7 +1007,7 @@
         </div>
       </div>
 
-      <div class="platform-card fade-up">
+      <div class="platform-card fade-up more-hidden">
         <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="2" width="12" height="18" rx="2" stroke="#C9A052" stroke-width="1.8"/><path d="M8 6h6M8 10h6M8 14h4" stroke="#C9A052" stroke-width="1.3" stroke-linecap="round"/><path d="M14 14l4 4" stroke="#C9A052" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
@@ -995,7 +1022,7 @@
         </div>
       </div>
 
-      <div class="platform-card fade-up">
+      <div class="platform-card fade-up more-hidden">
         <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#C9A052" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#C9A052" stroke-width="1.5"/><path d="M2 9h20" stroke="#C9A052" stroke-width="1.3"/></svg>
         </div>
@@ -1011,6 +1038,10 @@
       </div>
 
     </div>
+    <button class="services-more-btn" id="servicesMoreBtn" onclick="toggleServices()">
+      서비스 더보기
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
   </div>
 </section>
 
@@ -1445,6 +1476,13 @@
   const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhd3VjaGptd2huaWNxcGVlcmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMzgyMDEsImV4cCI6MjA5NjYxNDIwMX0.Tc4rSbMti2DEYalFjGyYVkcXe39Xu52xCPKHI83VCtc';
 
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  function toggleServices() {
+    const grid = document.querySelector('.platform-grid');
+    const btn  = document.getElementById('servicesMoreBtn');
+    grid.classList.add('expanded');
+    btn.style.display = 'none';
+  }
 
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
