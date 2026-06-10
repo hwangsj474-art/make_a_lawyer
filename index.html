@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAKE A LAWYER — 로펌 전문 마케팅 대행사</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <style>
+    :root {
+      --gold:       #C9A052;
+      --gold-light: #E2C87A;
+      --gold-dark:  #9A7230;
+      --black:      #0A0A0A;
+      --black-2:    #111111;
+      --black-3:    #161616;
+      --black-4:    #1E1E1E;
+      --white:      #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Pretendard Variable', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── UTILS ───────────────────────────────────────────── */
+    .container    { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .container-sm { max-width:  780px; margin: 0 auto; padding: 0 24px; }
+
+    .gold-text {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 5px 14px;
+      background: rgba(201,160,82,0.1);
+      border: 1px solid rgba(201,160,82,0.3);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      margin-top: 14px;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      color: rgba(255,255,255,0.48);
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 540px;
+    }
+
+    section { padding: 96px 0; }
+
+    /* ─── BUTTONS ──────────────────────────────────────────── */
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 36px;
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn-gold:hover  { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,160,82,0.4); }
+    .btn-gold:focus  { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .btn-gold:active { transform: scale(0.98); }
+    .btn-gold:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 32px;
+      background: transparent;
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn-outline:hover  { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); transform: translateY(-1px); }
+    .btn-outline:focus  { outline: 2px solid rgba(255,255,255,0.4); outline-offset: 3px; }
+    .btn-outline:active { transform: scale(0.98); }
+
+    /* ─── FADE-UP ──────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.3s;
+    }
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { flex-shrink: 0; }
+
+    @media (max-width: 820px) { .nav-links { display: none; } }
+    @media (max-width: 480px) { .nav-cta { font-size: 0.8rem !important; padding: 10px 16px !important; } }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 128px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 30%, rgba(201,160,82,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 85% 55%, rgba(201,160,82,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 25%, transparent 100%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      width: 100%;
+      padding: 0 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 18px;
+      border: 1px solid rgba(201,160,82,0.35);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.8); }
+    }
+    .hero-title {
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      margin-bottom: 24px;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: rgba(255,255,255,0.5);
+      max-width: 540px;
+      margin: 0 auto 44px;
+      line-height: 1.8;
+      font-weight: 400;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .hero-platforms {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .plat-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ─── STATS BAR ─────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--black-3);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .stats-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+    }
+    .stat-item {
+      text-align: center;
+      padding: 44px 20px;
+      position: relative;
+    }
+    .stat-item + .stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 22%; bottom: 22%;
+      width: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+    .stat-num {
+      font-size: clamp(2.2rem,4.5vw,3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label { color: rgba(255,255,255,0.42); font-size: 0.85rem; font-weight: 500; }
+
+    @media (max-width:600px) {
+      .stats-inner { grid-template-columns: 1fr; }
+      .stat-item + .stat-item::before { display: none; }
+      .stat-item { padding: 30px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    }
+
+    /* ─── PAIN ──────────────────────────────────────────────── */
+    #pain { background: var(--black); }
+    .pain-header { text-align: center; margin-bottom: 48px; }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px,1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .pain-card {
+      background: var(--black-2);
+      padding: 36px 28px;
+      transition: background 0.25s;
+    }
+    .pain-card:hover { background: var(--black-3); }
+    .pain-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+    .pain-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; line-height: 1.45; }
+    .pain-desc  { color: rgba(255,255,255,0.42); font-size: 0.875rem; line-height: 1.7; }
+
+    /* ─── PLATFORM SERVICES ─────────────────────────────────── */
+    #services { background: var(--black-2); }
+    .services-header { text-align: center; margin-bottom: 52px; }
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px,1fr));
+      gap: 16px;
+    }
+    .platform-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .platform-card:hover {
+      border-color: rgba(201,160,82,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.5);
+    }
+    .platform-logo {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .platform-lbl {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .platform-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .platform-desc  { color: rgba(255,255,255,0.48); font-size: 0.875rem; line-height: 1.7; margin-bottom: 20px; }
+    .p-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .p-tag  {
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ─── RESULTS / CASE STUDY ──────────────────────────────── */
+    #results { background: var(--black); }
+    .results-header { text-align: center; margin-bottom: 52px; }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px,1fr));
+      gap: 20px;
+    }
+    .result-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .result-card-head {
+      padding: 18px 26px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .result-tag    { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; background: rgba(201,160,82,0.1); color: var(--gold); border-radius: 4px; }
+    .result-period { font-size: 0.8rem; color: rgba(255,255,255,0.38); }
+    .result-metrics {
+      padding: 28px 26px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .metric-block { text-align: center; }
+    .metric-lbl   { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.38); margin-bottom: 8px; }
+    .metric-val   { font-size: 2.1rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+    .metric-sub   { font-size: 0.75rem; color: rgba(255,255,255,0.32); margin-top: 4px; }
+    .metric-arrow { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .arrow-circle {
+      width: 38px; height: 38px;
+      background: rgba(201,160,82,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .arrow-mult { font-size: 0.7rem; font-weight: 800; color: var(--gold); }
+    .result-foot {
+      padding: 14px 26px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    /* ─── WHY ───────────────────────────────────────────────── */
+    #why { background: var(--black-2); }
+    .why-header { text-align: center; margin-bottom: 52px; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px,1fr));
+      gap: 16px;
+    }
+    .why-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color 0.25s;
+    }
+    .why-card:hover { border-color: rgba(201,160,82,0.3); }
+    .why-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,160,82,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+    }
+    .why-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .why-desc  { color: rgba(255,255,255,0.48); font-size: 0.875rem; line-height: 1.7; }
+
+    /* ─── PROCESS ───────────────────────────────────────────── */
+    #process { background: var(--black); }
+    .process-header { text-align: center; margin-bottom: 64px; }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 27px; left: 12%; right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,160,82,0.45), rgba(201,160,82,0.45), transparent);
+    }
+    .process-step { text-align: center; padding: 0 12px; }
+    .process-num {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: var(--black-3);
+      border: 1px solid rgba(201,160,82,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+    }
+    .process-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }
+    .process-desc  { color: rgba(255,255,255,0.42); font-size: 0.82rem; line-height: 1.6; }
+
+    @media (max-width:640px) {
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+    }
+
+    /* ─── TESTIMONIALS ──────────────────────────────────────── */
+    #testimonials { background: var(--black-2); }
+    .testimonials-header { text-align: center; margin-bottom: 52px; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(295px,1fr));
+      gap: 16px;
+    }
+    .t-card {
+      background: var(--black-3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 30px;
+    }
+    .t-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+    .t-star  { color: var(--gold); font-size: 0.88rem; }
+    .t-text  { font-size: 0.93rem; line-height: 1.78; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+    .t-meta  {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .t-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(201,160,82,0.12);
+      border: 1px solid rgba(201,160,82,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .t-name { font-weight: 700; font-size: 0.88rem; }
+    .t-role { font-size: 0.75rem; color: rgba(255,255,255,0.38); }
+    .t-result     { margin-left: auto; text-align: right; }
+    .t-result-num { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.03em; }
+    .t-result-lbl { font-size: 0.7rem; color: rgba(255,255,255,0.38); }
+
+    /* ─── FAQ ───────────────────────────────────────────────── */
+    #faq { background: var(--black); }
+    .faq-header { text-align: center; margin-bottom: 52px; }
+    .faq-list   { max-width: 720px; margin: 0 auto; }
+    .faq-item   { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      text-align: left;
+      padding: 22px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: color 0.2s;
+      font-family: inherit;
+    }
+    .faq-q:hover { color: var(--gold); }
+    .faq-q:focus { outline: none; color: var(--gold); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.45);
+      transition: transform 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); border-color: var(--gold); color: var(--gold); }
+    .faq-a { overflow: hidden; max-height: 0; transition: max-height 0.4s ease; }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-a-inner { padding: 0 0 22px; color: rgba(255,255,255,0.48); font-size: 0.9rem; line-height: 1.8; }
+
+    /* ─── CTA PUSH ──────────────────────────────────────────── */
+    #cta {
+      background: var(--black-3);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(201,160,82,0.055) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-title {
+      font-size: clamp(2rem,5vw,3.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .cta-sub {
+      color: rgba(255,255,255,0.48);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    /* ─── FORM ──────────────────────────────────────────────── */
+    #consultation { background: var(--black-2); }
+    .form-wrapper { max-width: 640px; margin: 0 auto; }
+    .form-header  { text-align: center; margin-bottom: 44px; }
+    .form-steps-indicator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.38);
+      z-index: 1;
+      transition: all 0.3s;
+    }
+    .step-dot.active { background: var(--gold); border-color: var(--gold); color: #000; }
+    .step-dot.done   { background: rgba(201,160,82,0.12); border-color: var(--gold); color: var(--gold); }
+    .step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); max-width: 80px; }
+
+    .form-step-panel        { display: none; }
+    .form-step-panel.active { display: block; }
+
+    .form-field { margin-bottom: 18px; }
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,0.78);
+    }
+    .form-label .req { color: var(--gold); margin-left: 2px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 13px 16px;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,160,82,0.1);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.22); }
+    .form-select option { background: #1a1a1a; }
+    .form-textarea { resize: vertical; min-height: 100px; }
+
+    .form-radio-group { display: flex; flex-direction: column; gap: 9px; }
+    .form-radio-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-radio-label:hover { border-color: rgba(201,160,82,0.4); background: rgba(201,160,82,0.04); }
+    .form-radio-label input[type="radio"] { display: none; }
+    .radio-box {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.22);
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .form-radio-label input[type="radio"]:checked + .radio-box { border-color: var(--gold); background: var(--gold); }
+    .form-nav  { display: flex; gap: 12px; margin-top: 28px; }
+    .form-note { text-align: center; margin-top: 14px; font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+    .form-success      { display: none; text-align: center; padding: 60px 20px; }
+    .form-success.show { display: block; }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 0 36px;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+    }
+    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; gap: 36px; } }
+    .footer-brand-name { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .footer-brand-desc { color: rgba(255,255,255,0.38); font-size: 0.85rem; line-height: 1.7; max-width: 280px; }
+    .footer-heading { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: rgba(255,255,255,0.48); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1120px;
+      margin: 36px auto 0;
+      padding: 20px 24px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-copy { color: rgba(255,255,255,0.28); font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">MAKE A <span>LAWYER</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">서비스</a></li>
+      <li><a href="#results">성과</a></li>
+      <li><a href="#why">차별점</a></li>
+      <li><a href="#process">진행과정</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#consultation" class="btn-gold nav-cta" style="font-size:0.84rem;padding:11px 22px;border-radius:7px">무료 상담 신청</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">로펌 전문 퍼포먼스 마케팅 대행사</div>
+    <h1 class="hero-title">
+      광고비만 나가고<br>
+      <span class="gold-text">수임이 늘지 않는다면</span>
+    </h1>
+    <p class="hero-sub">
+      마케팅 방법이 문제입니다.<br>
+      로펌에 맞는 채널, 로펌에 맞는 전략으로<br>
+      실질적인 수임 DB를 만들어드립니다.
+    </p>
+    <div class="hero-ctas">
+      <a href="#consultation" class="btn-gold" style="font-size:1rem;padding:17px 38px">
+        무료 상담 신청하기
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#results" class="btn-outline" style="font-size:1rem">실제 성과 보기</a>
+    </div>
+    <div class="hero-platforms">
+      <div class="plat-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#03C75A"/><path d="M5 17V7h3.5l4.5 7V7H17v10h-3.5L9 10v7H5z" fill="white"/></svg>
+        네이버
+      </div>
+      <div class="plat-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.39 22.56 15.57 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        구글
+      </div>
+      <div class="plat-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FF0000"/><path d="M9.5 15.5V8.5l7 3.5-7 3.5z" fill="white"/></svg>
+        유튜브
+      </div>
+      <div class="plat-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="ig1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#F58529"/><stop offset="50%" stop-color="#DD2A7B"/><stop offset="100%" stop-color="#8134AF"/></linearGradient></defs><rect width="24" height="24" rx="5" fill="url(#ig1)"/><rect x="3.5" y="3.5" width="17" height="17" rx="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="17" cy="7" r="1.2" fill="white"/></svg>
+        인스타그램
+      </div>
+      <div class="plat-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FEE500"/><path d="M12 4.5C7.3 4.5 3.5 7.5 3.5 11.2c0 2.4 1.6 4.5 4 5.6l-1 3.6c-.1.2.2.4.4.3L11.1 18c.3 0 .6.1.9.1 4.7 0 8.5-3 8.5-6.7S16.7 4.5 12 4.5z" fill="#1A1A1A"/></svg>
+        카카오
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BAR ─────────────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item fade-up">
+      <div class="stat-num gold-text">200+</div>
+      <div class="stat-label">누적 로펌 클라이언트</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-num gold-text">3.8×</div>
+      <div class="stat-label">평균 수임 DB 증가율</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-num gold-text">98%</div>
+      <div class="stat-label">계약 연장률</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PAIN ──────────────────────────────────────────────────────── -->
+<section id="pain">
+  <div class="container">
+    <div class="pain-header fade-up">
+      <span class="chip">공감되시나요</span>
+      <h2 class="section-title">
+        지금 이런 상황이라면,<br>
+        <span class="gold-text">마케팅 방식이 잘못된 겁니다</span>
+      </h2>
+      <p class="section-desc" style="margin:0 auto">많은 로펌이 같은 문제를 반복합니다. 이유는 단 하나 — 로펌에 맞지 않는 마케팅 방식 때문입니다.</p>
+    </div>
+    <div class="pain-grid fade-up">
+      <div class="pain-card">
+        <div class="pain-num">01</div>
+        <div class="pain-title">"키워드 검색하면 우리 로펌이 안 보여요"</div>
+        <div class="pain-desc">경쟁 로펌들이 이미 상단을 점령한 상태. 잠재 의뢰인은 노출조차 안 되는 곳을 선택할 수 없습니다.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">02</div>
+        <div class="pain-title">"광고비는 나가는데 상담이 안 들어와요"</div>
+        <div class="pain-desc">클릭은 발생하지만 상담 신청으로 이어지지 않습니다. 트래픽과 전환 사이에는 큰 간극이 있습니다.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">03</div>
+        <div class="pain-title">"효과가 있는 건지 모르겠어요"</div>
+        <div class="pain-desc">보고서만 쌓이고, 실제 수임이 늘었는지 파악이 안 됩니다. 마케팅 비용이 아깝게 느껴집니다.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">04</div>
+        <div class="pain-title">"마케팅 챙길 시간이 없어요"</div>
+        <div class="pain-desc">사건 처리와 의뢰인 응대로 하루가 꽉 찹니다. 마케팅까지 신경 쓸 여력이 없는 게 현실입니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PLATFORM SERVICES ─────────────────────────────────────────── -->
+<section id="services">
+  <div class="container">
+    <div class="services-header fade-up">
+      <span class="chip">서비스</span>
+      <h2 class="section-title">
+        수임으로 이어지는<br>
+        <span class="gold-text">전 채널 마케팅</span>
+      </h2>
+      <p class="section-desc" style="margin:0 auto">각 채널의 특성과 의뢰인 행동 패턴을 분석해 로펌에 최적화된 마케팅을 실행합니다.</p>
+    </div>
+    <div class="platform-grid">
+
+      <div class="platform-card fade-up">
+        <div class="platform-logo" style="background:rgba(3,199,90,0.1)">
+          <svg width="28" height="28" viewBox="0 0 24 24"><path d="M4 17V7h3.8l4.4 6.8V7H16v10h-3.8L7.8 10.2V17H4z" fill="#03C75A"/></svg>
+        </div>
+        <div class="platform-lbl">NAVER</div>
+        <div class="platform-title">파워링크 + 블로그 SEO</div>
+        <div class="platform-desc">법률 키워드를 검색하는 그 순간, 상단에 노출됩니다. 파워링크 최적화와 블로그 SEO로 클릭 비용 대비 전환율을 극대화합니다.</div>
+        <div class="p-tags">
+          <span class="p-tag">키워드 분석</span>
+          <span class="p-tag">파워링크 운영</span>
+          <span class="p-tag">블로그 콘텐츠</span>
+          <span class="p-tag">VIEW 최적화</span>
+        </div>
+      </div>
+
+      <div class="platform-card fade-up">
+        <div class="platform-logo" style="background:rgba(66,133,244,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.39 22.56 15.57 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="platform-lbl">GOOGLE / YOUTUBE</div>
+        <div class="platform-title">구글 광고 + 유튜브</div>
+        <div class="platform-desc">구글 검색광고와 유튜브 채널 운영으로 네이버 외 채널까지 커버합니다. 전문성 있는 영상 콘텐츠로 신뢰를 쌓습니다.</div>
+        <div class="p-tags">
+          <span class="p-tag">구글 검색광고</span>
+          <span class="p-tag">유튜브 채널</span>
+          <span class="p-tag">숏폼 제작</span>
+          <span class="p-tag">리마케팅</span>
+        </div>
+      </div>
+
+      <div class="platform-card fade-up">
+        <div class="platform-logo" style="background:rgba(221,42,123,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24"><defs><linearGradient id="ig2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#F58529"/><stop offset="50%" stop-color="#DD2A7B"/><stop offset="100%" stop-color="#8134AF"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig2)" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="4.5" stroke="url(#ig2)" stroke-width="2" fill="none"/><circle cx="17.2" cy="6.8" r="1.3" fill="#DD2A7B"/></svg>
+        </div>
+        <div class="platform-lbl">META / INSTAGRAM</div>
+        <div class="platform-title">SNS 마케팅</div>
+        <div class="platform-desc">인스타그램, 페이스북 광고 집행 및 채널 운영. 타겟 의뢰인의 피드에 자연스럽게 노출되어 잠재 수요를 선제적으로 포착합니다.</div>
+        <div class="p-tags">
+          <span class="p-tag">메타 광고</span>
+          <span class="p-tag">릴스 제작</span>
+          <span class="p-tag">정밀 타겟팅</span>
+          <span class="p-tag">채널 운영</span>
+        </div>
+      </div>
+
+      <div class="platform-card fade-up">
+        <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="16" rx="2" stroke="#C9A052" stroke-width="1.8"/><path d="M2 7h20" stroke="#C9A052" stroke-width="1.8"/><rect x="5" y="10" width="6" height="6" rx="1" fill="rgba(201,160,82,0.25)"/><path d="M14 10h5M14 13h5M14 16h3" stroke="#C9A052" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="platform-lbl">LANDING PAGE</div>
+        <div class="platform-title">랜딩페이지 제작</div>
+        <div class="platform-desc">클릭을 상담 신청으로 연결하는 고전환율 랜딩페이지. 분야별로 최적화된 페이지를 설계하고 A/B 테스트로 전환율을 높입니다.</div>
+        <div class="p-tags">
+          <span class="p-tag">분야별 제작</span>
+          <span class="p-tag">A/B 테스트</span>
+          <span class="p-tag">전환율 최적화</span>
+          <span class="p-tag">모바일 최적화</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CASE STUDY / RESULTS ─────────────────────────────────────── -->
+<section id="results">
+  <div class="container">
+    <div class="results-header fade-up">
+      <span class="chip">실제 성과</span>
+      <h2 class="section-title">
+        숫자로 증명하는<br>
+        <span class="gold-text">마케팅 결과</span>
+      </h2>
+      <p class="section-desc" style="margin:0 auto">클릭 수가 아닌 실제 수임 DB 건수로 성과를 보고합니다.</p>
+    </div>
+    <div class="results-grid">
+
+      <div class="result-card fade-up">
+        <div class="result-card-head">
+          <div class="result-tag">이혼·가사</div>
+          <div class="result-period">운영 3개월 후</div>
+        </div>
+        <div class="result-metrics">
+          <div class="metric-block">
+            <div class="metric-lbl">도입 전</div>
+            <div class="metric-val" style="color:rgba(255,255,255,0.35)">12<span style="font-size:1.1rem">건</span></div>
+            <div class="metric-sub">월 상담 DB</div>
+          </div>
+          <div class="metric-arrow">
+            <div class="arrow-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <span class="arrow-mult">3.9×</span>
+          </div>
+          <div class="metric-block">
+            <div class="metric-lbl">도입 후</div>
+            <div class="metric-val gold-text">47<span style="font-size:1.1rem">건</span></div>
+            <div class="metric-sub">월 상담 DB</div>
+          </div>
+        </div>
+        <div class="result-foot">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+          광고비 동결 상태에서 DB 3.9배 증가
+        </div>
+      </div>
+
+      <div class="result-card fade-up">
+        <div class="result-card-head">
+          <div class="result-tag">형사</div>
+          <div class="result-period">운영 2개월 후</div>
+        </div>
+        <div class="result-metrics">
+          <div class="metric-block">
+            <div class="metric-lbl">도입 전</div>
+            <div class="metric-val" style="color:rgba(255,255,255,0.35)">8<span style="font-size:1.1rem">건</span></div>
+            <div class="metric-sub">월 상담 DB</div>
+          </div>
+          <div class="metric-arrow">
+            <div class="arrow-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <span class="arrow-mult">4.5×</span>
+          </div>
+          <div class="metric-block">
+            <div class="metric-lbl">도입 후</div>
+            <div class="metric-val gold-text">36<span style="font-size:1.1rem">건</span></div>
+            <div class="metric-sub">월 상담 DB</div>
+          </div>
+        </div>
+        <div class="result-foot">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+          DB당 획득 비용 68% 절감
+        </div>
+      </div>
+
+      <div class="result-card fade-up">
+        <div class="result-card-head">
+          <div class="result-tag">상속·민사</div>
+          <div class="result-period">운영 4개월 후</div>
+        </div>
+        <div class="result-metrics">
+          <div class="metric-block">
+            <div class="metric-lbl">도입 전</div>
+            <div class="metric-val" style="color:rgba(255,255,255,0.35)">5<span style="font-size:1.1rem">건</span></div>
+            <div class="metric-sub">월 상담 DB</div>
+          </div>
+          <div class="metric-arrow">
+            <div class="arrow-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <span class="arrow-mult">6.2×</span>
+          </div>
+          <div class="metric-block">
+            <div class="metric-lbl">도입 후</div>
+            <div class="metric-val gold-text">31<span style="font-size:1.1rem">건</span></div>
+            <div class="metric-sub">월 상담 DB</div>
+          </div>
+        </div>
+        <div class="result-foot">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+          SNS 신규 채널 추가로 신규 수요 창출
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY ───────────────────────────────────────────────────────── -->
+<section id="why">
+  <div class="container">
+    <div class="why-header fade-up">
+      <span class="chip">차별점</span>
+      <h2 class="section-title">
+        일반 대행사와<br>
+        <span class="gold-text">결정적으로 다른 이유</span>
+      </h2>
+      <p class="section-desc" style="margin:0 auto">로펌을 모르면 로펌 마케팅을 할 수 없습니다. 저희는 처음부터 법률 시장만을 위해 설계되었습니다.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <div class="why-icon">⚖️</div>
+        <div class="why-title">로펌만 합니다</div>
+        <div class="why-desc">쇼핑몰, 병원, 학원과 함께하지 않습니다. 법률 업계에만 집중하기 때문에 의뢰인의 심리와 검색 패턴을 정확히 압니다.</div>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon">📊</div>
+        <div class="why-title">수임 DB로만 성과 측정</div>
+        <div class="why-desc">단순 노출·클릭 수가 아닌 실제 상담 신청 건수로만 보고합니다. 숫자 뒤에 숨지 않습니다.</div>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon">🚀</div>
+        <div class="why-title">전략부터 운영까지 원스톱</div>
+        <div class="why-desc">기획·콘텐츠·광고·분석까지 한 팀에서 담당합니다. 여러 에이전시를 전전할 필요가 없습니다.</div>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon">🎯</div>
+        <div class="why-title">변호사 업무에 0% 개입</div>
+        <div class="why-desc">마케팅 관련 모든 업무를 전담합니다. 변호사님은 사건과 의뢰인에게만 집중하면 됩니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ───────────────────────────────────────────────────── -->
+<section id="process">
+  <div class="container">
+    <div class="process-header fade-up">
+      <span class="chip">진행 과정</span>
+      <h2 class="section-title">
+        상담부터 수임 증가까지<br>
+        <span class="gold-text">단 4단계</span>
+      </h2>
+      <p class="section-desc" style="margin:0 auto">복잡한 절차 없이 빠르게 시작합니다. 첫 미팅부터 2주 내 운영 가능합니다.</p>
+    </div>
+    <div class="process-steps fade-up">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <div class="process-title">무료 상담</div>
+        <div class="process-desc">현재 마케팅 현황 진단 및 목표 설정. 30분 미팅으로 문제를 파악합니다.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <div class="process-title">맞춤 전략 설계</div>
+        <div class="process-desc">로펌 분야·규모·예산에 맞는 마케팅 전략을 제안드립니다.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <div class="process-title">세팅 및 제작</div>
+        <div class="process-desc">광고 계정, 콘텐츠, 랜딩페이지 구축을 2주 내 완료합니다.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <div class="process-title">운영 & 최적화</div>
+        <div class="process-desc">매주 성과를 분석하고 수임 DB 증가를 위해 지속 최적화합니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─────────────────────────────────────────────── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testimonials-header fade-up">
+      <span class="chip">클라이언트 후기</span>
+      <h2 class="section-title">
+        직접 경험한<br>
+        <span class="gold-text">변화의 목소리</span>
+      </h2>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="t-card fade-up">
+        <div class="t-stars"><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span></div>
+        <div class="t-text">"이전 대행사는 노출 숫자만 보내줬는데, 여기는 실제 상담 DB 건수로 보고해줘서 신뢰가 갔습니다. 3개월 만에 월 수임 상담이 40건 넘게 들어오고 있어요."</div>
+        <div class="t-meta">
+          <div class="t-avatar">K</div>
+          <div>
+            <div class="t-name">김 ○ 변호사</div>
+            <div class="t-role">이혼·가사 전문 로펌</div>
+          </div>
+          <div class="t-result">
+            <div class="t-result-num gold-text">+3.9×</div>
+            <div class="t-result-lbl">DB 증가율</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card fade-up">
+        <div class="t-stars"><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span></div>
+        <div class="t-text">"마케팅 비용은 비슷한데 수임이 3배가 늘었어요. 로펌 업계를 잘 아는 덕분에 콘텐츠도 전문적이고 의뢰인 반응도 좋습니다."</div>
+        <div class="t-meta">
+          <div class="t-avatar">L</div>
+          <div>
+            <div class="t-name">이 ○ 변호사</div>
+            <div class="t-role">형사 전문 로펌</div>
+          </div>
+          <div class="t-result">
+            <div class="t-result-num gold-text">+4.5×</div>
+            <div class="t-result-lbl">DB 증가율</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card fade-up">
+        <div class="t-stars"><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span><span class="t-star">★</span></div>
+        <div class="t-text">"처음엔 반신반의했는데 2주만에 랜딩페이지가 나오고, 한 달 후부터 DB가 쌓이기 시작했어요. 마케팅에 시간을 전혀 쓰지 않아도 돼서 만족합니다."</div>
+        <div class="t-meta">
+          <div class="t-avatar">P</div>
+          <div>
+            <div class="t-name">박 ○ 변호사</div>
+            <div class="t-role">부동산·상속 로펌</div>
+          </div>
+          <div class="t-result">
+            <div class="t-result-num gold-text">+6.2×</div>
+            <div class="t-result-lbl">DB 증가율</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ───────────────────────────────────────────────────────── -->
+<section id="faq">
+  <div class="container">
+    <div class="faq-header fade-up">
+      <span class="chip">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+    </div>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">어떤 분야의 로펌도 가능한가요?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">네, 이혼·가사, 형사, 민사, 노동, 부동산, 상속, 기업 법무 등 모든 분야의 로펌과 함께합니다. 분야별로 검색 패턴과 의뢰인 심리가 다르기 때문에, 상담 후 맞춤 전략을 설계해드립니다.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">최소 계약 기간이 있나요?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">기본 3개월 계약을 권장합니다. 마케팅 효과는 통상 2~3개월 이후부터 본격적으로 나타나기 때문입니다. 랜딩페이지·콘텐츠 제작 등 단건 의뢰도 가능합니다.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">마케팅 예산이 얼마나 필요한가요?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">로펌 규모와 목표에 따라 다릅니다. 소형 로펌은 월 100~300만원 내외로도 시작할 수 있으며, 효율적인 예산 배분 방법을 상담에서 안내드립니다. 무리한 예산을 권하지 않습니다.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">성과를 어떻게 확인할 수 있나요?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">매주 성과 리포트를 제공합니다. 노출 수, 클릭 수는 물론 실제 상담 신청 DB 건수까지 투명하게 보고합니다. 별도 대시보드 링크를 통해 실시간 확인도 가능합니다.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">마케팅 콘텐츠 제작에 많이 관여해야 하나요?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">아니요. 초기에 로펌 소개와 방향성을 공유해주시면 이후 기획·작성·디자인·운영을 모두 저희가 담당합니다. 검토·승인 외에 추가 시간을 쓰실 필요가 없습니다.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA PUSH ───────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="container-sm" style="position:relative;text-align:center">
+    <span class="chip fade-up">지금 시작하세요</span>
+    <h2 class="cta-title fade-up">
+      수임이 늘어야<br>
+      <span class="gold-text">진짜 마케팅입니다</span>
+    </h2>
+    <p class="cta-sub fade-up">
+      지금 무료 상담을 신청하시면 현재 마케팅을 무료로 진단해드립니다.<br>
+      부담 없이 30분, 솔직하게 이야기해 드립니다.
+    </p>
+    <div class="fade-up">
+      <a href="#consultation" class="btn-gold" style="font-size:1.05rem;padding:18px 44px">
+        지금 무료 상담 신청하기
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONSULTATION FORM ─────────────────────────────────────────── -->
+<section id="consultation">
+  <div class="container">
+    <div class="form-wrapper">
+      <div class="form-header fade-up">
+        <span class="chip">무료 상담 신청</span>
+        <h2 class="section-title">30분으로<br><span class="gold-text">마케팅을 바꾸세요</span></h2>
+        <p class="section-desc" style="margin:0 auto;text-align:center">작성 후 24시간 내로 연락드립니다.</p>
+      </div>
+
+      <div class="form-steps-indicator fade-up">
+        <div class="step-dot active" id="dot-1">1</div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="dot-2">2</div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="dot-3">3</div>
+      </div>
+
+      <form id="consultForm" class="fade-up">
+        <!-- Step 1 -->
+        <div class="form-step-panel active" id="step-1">
+          <div class="form-field">
+            <label class="form-label">이름 <span class="req">*</span></label>
+            <input class="form-input" type="text" name="name" placeholder="홍길동" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label">연락처 <span class="req">*</span></label>
+            <input class="form-input" type="tel" name="phone" placeholder="010-0000-0000" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label">이메일</label>
+            <input class="form-input" type="email" name="email" placeholder="example@lawfirm.com" />
+          </div>
+          <div class="form-nav">
+            <button type="button" class="btn-gold" style="width:100%;justify-content:center" onclick="nextStep(1)">
+              다음 단계로
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step-panel" id="step-2">
+          <div class="form-field">
+            <label class="form-label">현재 마케팅 방식을 알려주세요</label>
+            <div class="form-radio-group">
+              <label class="form-radio-label"><input type="radio" name="current_marketing" value="파워링크(검색광고)만 운영 중" /><span class="radio-box"></span><span>파워링크(검색광고)만 운영 중</span></label>
+              <label class="form-radio-label"><input type="radio" name="current_marketing" value="SNS 광고 운영 중" /><span class="radio-box"></span><span>SNS 광고 운영 중 (인스타·유튜브 등)</span></label>
+              <label class="form-radio-label"><input type="radio" name="current_marketing" value="블로그/콘텐츠 운영 중" /><span class="radio-box"></span><span>블로그/콘텐츠 운영 중</span></label>
+              <label class="form-radio-label"><input type="radio" name="current_marketing" value="마케팅 거의 안 하고 있음" /><span class="radio-box"></span><span>마케팅 거의 안 하고 있음</span></label>
+              <label class="form-radio-label"><input type="radio" name="current_marketing" value="여러 가지 혼용 중" /><span class="radio-box"></span><span>여러 가지 혼용 중</span></label>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button type="button" class="btn-outline" style="flex:1" onclick="prevStep(2)">이전</button>
+            <button type="button" class="btn-gold" style="flex:2" onclick="nextStep(2)">
+              다음 단계로
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step-panel" id="step-3">
+          <div class="form-field">
+            <label class="form-label">월 마케팅 예산 범위</label>
+            <div class="form-radio-group">
+              <label class="form-radio-label"><input type="radio" name="budget" value="100만원 미만" /><span class="radio-box"></span><span>100만원 미만</span></label>
+              <label class="form-radio-label"><input type="radio" name="budget" value="100~300만원" /><span class="radio-box"></span><span>100 ~ 300만원</span></label>
+              <label class="form-radio-label"><input type="radio" name="budget" value="300~500만원" /><span class="radio-box"></span><span>300 ~ 500만원</span></label>
+              <label class="form-radio-label"><input type="radio" name="budget" value="500만원 이상" /><span class="radio-box"></span><span>500만원 이상</span></label>
+              <label class="form-radio-label"><input type="radio" name="budget" value="미정/상담 후 결정" /><span class="radio-box"></span><span>미정 / 상담 후 결정</span></label>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">추가로 전하고 싶은 말씀</label>
+            <textarea class="form-textarea" name="message" placeholder="로펌 분야, 현재 고민, 원하는 결과 등 자유롭게 적어주세요"></textarea>
+          </div>
+          <div class="form-nav">
+            <button type="button" class="btn-outline" style="flex:1" onclick="prevStep(3)">이전</button>
+            <button type="submit" class="btn-gold" style="flex:2" id="submitBtn">
+              상담 신청하기
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div style="font-size:3rem;margin-bottom:20px">✅</div>
+        <h3 class="section-title" style="font-size:1.8rem;margin-bottom:12px"><span class="gold-text">신청이 완료되었습니다!</span></h3>
+        <p style="color:rgba(255,255,255,0.48);line-height:1.8">24시간 내로 담당자가 연락드릴 예정입니다.<br>감사합니다.</p>
+      </div>
+
+      <div class="form-note">🔒 개인정보는 상담 목적으로만 사용되며 외부에 공유되지 않습니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">MAKE A <span style="color:var(--gold)">LAWYER</span></div>
+      <div class="footer-brand-desc">로펌 전문 퍼포먼스 마케팅 대행사. 네이버·구글·유튜브·SNS 전 채널 — 수임 DB를 늘리는 마케팅만 합니다.</div>
+    </div>
+    <div>
+      <div class="footer-heading">서비스</div>
+      <ul class="footer-links">
+        <li><a href="#services">네이버 파워링크/SEO</a></li>
+        <li><a href="#services">구글·유튜브 광고</a></li>
+        <li><a href="#services">SNS 마케팅</a></li>
+        <li><a href="#services">랜딩페이지 제작</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">상담</div>
+      <ul class="footer-links">
+        <li><a href="#consultation">무료 상담 신청</a></li>
+        <li><a href="#results">실제 성과</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+        <li><a href="#process">진행 과정</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 MAKE A LAWYER. All rights reserved.</span>
+    <span class="footer-copy" style="color:var(--gold)">로펌 전문 마케팅 대행사</span>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────────────────── -->
+<script>
+  // ─── SUPABASE 설정 ──────────────────────────────────────────
+  // ⬇ 아래 두 값을 Supabase 대시보드 Settings → API 에서 복사해서 넣으세요
+  const SUPABASE_URL  = 'https://fawuchjmwhnicqpeerae.supabase.co';   // 예: https://xxxx.supabase.co
+  const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhd3VjaGptd2huaWNxcGVlcmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMzgyMDEsImV4cCI6MjA5NjYxNDIwMX0.Tc4rSbMti2DEYalFjGyYVkcXe39Xu52xCPKHI83VCtc';
+
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  function nextStep(current) {
+    const panel = document.getElementById('step-' + current);
+    for (const input of panel.querySelectorAll('input[required], textarea[required]')) {
+      if (!input.value.trim()) {
+        input.focus();
+        input.style.borderColor = '#E74C3C';
+        setTimeout(() => input.style.borderColor = '', 1500);
+        return;
+      }
+    }
+    document.getElementById('step-' + current).classList.remove('active');
+    document.getElementById('step-' + (current + 1)).classList.add('active');
+    updateDots(current + 1);
+  }
+
+  function prevStep(current) {
+    document.getElementById('step-' + current).classList.remove('active');
+    document.getElementById('step-' + (current - 1)).classList.add('active');
+    updateDots(current - 1);
+  }
+
+  function updateDots(active) {
+    for (let i = 1; i <= 3; i++) {
+      const dot = document.getElementById('dot-' + i);
+      dot.classList.remove('active', 'done');
+      if (i < active) dot.classList.add('done');
+      if (i === active) dot.classList.add('active');
+    }
+  }
+
+  // ─── 폼 제출 → Supabase 저장 ─────────────────────────────────
+  document.getElementById('consultForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '신청 중...';
+
+    const form = e.target;
+    const payload = {
+      name:               form.name.value.trim(),
+      phone:              form.phone.value.trim(),
+      email:              form.email.value.trim() || null,
+      current_marketing:  (form.current_marketing ? [...form.querySelectorAll('[name=current_marketing]:checked')].map(r => r.value)[0] : null) || null,
+      budget:             (form.budget ? [...form.querySelectorAll('[name=budget]:checked')].map(r => r.value)[0] : null) || null,
+      message:            form.message ? form.message.value.trim() || null : null,
+    };
+
+    const { error } = await db.from('consultations').insert([payload]);
+
+    if (error) {
+      console.error('Supabase error:', error);
+      btn.disabled = false;
+      btn.textContent = '다시 시도해주세요';
+      btn.style.background = '#E74C3C';
+      return;
+    }
+
+    document.getElementById('consultForm').style.display = 'none';
+    document.querySelector('.form-steps-indicator').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.borderBottomColor =
+      window.scrollY > 60 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)';
+  });
+</script>
+</body>
+</html>
