@@ -234,9 +234,6 @@
     document.getElementById('month-count').textContent = data.filter(r => r.created_at?.startsWith(month)).length;
     document.getElementById('contract-count').textContent = data.filter(r => r.status === '계약완료').length;
 
-    const statusOrder = { '단순문의': 0, '상담예정': 1, '계약완료': 2 };
-    data.sort((a, b) => (statusOrder[a.status] ?? 1) - (statusOrder[b.status] ?? 1));
-
     if (data.length === 0) {
       tbody.innerHTML = '<tr class="empty-row"><td colspan="10">신청 내역이 없습니다</td></tr>';
       return;
@@ -252,9 +249,9 @@
         <td style="font-size:12px">${row.current_marketing || '-'}</td>
         <td style="max-width:160px; font-size:12px; color:rgba(255,255,255,0.6)">${row.message || '-'}</td>
         <td>
-          <select class="status-select status-${row.status || '상담예정'}" onchange="updateStatus('${row.id}', this)">
-            <option value="상담예정" ${row.status === '상담예정' || !row.status ? 'selected' : ''}>🟡 상담예정</option>
-            <option value="단순문의" ${row.status === '단순문의' ? 'selected' : ''}>🔵 단순문의</option>
+          <select class="status-select status-${row.status || '단순문의'}" onchange="updateStatus('${row.id}', this)">
+            <option value="단순문의" ${row.status === '단순문의' || !row.status ? 'selected' : ''}>🔵 단순문의</option>
+            <option value="상담예정" ${row.status === '상담예정' ? 'selected' : ''}>🟡 상담예정</option>
             <option value="계약완료" ${row.status === '계약완료' ? 'selected' : ''}>🟢 계약완료</option>
           </select>
         </td>
