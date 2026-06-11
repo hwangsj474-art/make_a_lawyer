@@ -317,7 +317,7 @@
     }
 
     tbody.innerHTML = data.map((row, i) => `
-      <tr id="row-${row.id}">
+      <tr id="row-${row.id}" style="${row.status === '계약완료' ? 'background:#e8f4ff;' : ''}">
         <td style="color:#aab0c0">${data.length - i}</td>
         <td style="white-space:nowrap; font-size:13px; color:#7a8099">${formatDate(row.created_at)}</td>
         <td onclick="openModal('${row.id}')" style="cursor:pointer;">
@@ -389,6 +389,8 @@
   async function updateStatus(id, select) {
     const status = select.value;
     select.className = `status-select status-${status}`;
+    const tr = document.getElementById(`row-${id}`);
+    tr.style.background = status === '계약완료' ? '#e8f4ff' : '';
     await db.from('consultations').update({ status }).eq('id', id);
     const { data } = await db.from('consultations').select('status');
     if (data) document.getElementById('contract-count').textContent = data.filter(r => r.status === '계약완료').length;
