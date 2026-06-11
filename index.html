@@ -1735,5 +1735,23 @@
       window.scrollY > 60 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)';
   });
 </script>
+
+<!-- 카카오톡 플로팅 버튼 -->
+<a href="#" target="_blank" id="kakao-float"
+   style="position:fixed; bottom:28px; right:28px; z-index:9000;
+          width:56px; height:56px; border-radius:50%;
+          background:#FEE500; box-shadow:0 4px 16px rgba(0,0,0,0.25);
+          display:flex; align-items:center; justify-content:center;
+          transition:transform 0.2s, box-shadow 0.2s; text-decoration:none;"
+   onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 6px 24px rgba(0,0,0,0.32)';"
+   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.25)';"
+   title="카카오톡 상담">
+  <svg width="30" height="28" viewBox="0 0 40 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M20 0C8.954 0 0 6.895 0 15.4c0 5.374 3.42 10.1 8.627 12.92L6.545 36.7a.75.75 0 0 0 1.08.868l9.888-6.356A24.7 24.7 0 0 0 20 30.8c11.046 0 20-6.895 20-15.4S31.046 0 20 0Z"
+      fill="#3A1D1D"/>
+  </svg>
+</a>
+
 </body>
 </html>
