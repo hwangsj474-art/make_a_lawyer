@@ -1258,7 +1258,8 @@
       <p class="section-desc" style="margin:0 auto;">마케팅 자료부터 채널 분석까지 — 월 구독으로 우리 팀의 노하우를 매달 받아보세요.</p>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; margin:0 auto;">
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:8px;">
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; margin:0 auto; min-width:860px;">
 
       <!-- STANDARD -->
       <div style="background:#111; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:36px 28px; display:flex; flex-direction:column;">
@@ -1300,6 +1301,7 @@
         <button onclick="openSubModal('PREMIUM')" style="width:100%; padding:13px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.borderColor='#C9A052'; this.style.color='#C9A052';" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='#fff';">구독 신청</button>
       </div>
 
+    </div>
     </div>
   </div>
 </section>
