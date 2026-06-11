@@ -761,7 +761,21 @@
     footer {
       background: var(--black);
       border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 60px 0 36px;
+    }
+    @media (max-width: 768px) {
+      footer > div:first-child {
+        grid-template-columns: 1fr 1fr !important;
+        padding: 40px 24px 28px !important;
+        gap: 28px !important;
+      }
+      footer > div:last-child {
+        padding: 16px 24px !important;
+      }
+    }
+    @media (max-width: 480px) {
+      footer > div:first-child {
+        grid-template-columns: 1fr !important;
+      }
     }
     .footer-inner {
       max-width: 1120px;
@@ -1551,11 +1565,15 @@
 
 <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
 <footer>
-  <div class="footer-inner">
+  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:40px; padding:60px 48px 40px; max-width:1200px; margin:0 auto;">
+
+    <!-- 1열: 로고 + 회사소개 -->
     <div>
       <div class="footer-brand-name">MAKE A <span style="color:var(--gold)">LAWYER</span></div>
-      <div class="footer-brand-desc">로펌 전문 마케팅 종합대행사. 네이버·구글·유튜브·SNS 전 채널 — 수임 DB를 늘리는 마케팅만 합니다.</div>
+      <div class="footer-brand-desc">로펌 전문 마케팅 종합대행사.<br>네이버·구글·유튜브·SNS 전 채널 — 수임 DB를 늘리는 마케팅만 합니다.</div>
     </div>
+
+    <!-- 2열: 서비스 -->
     <div>
       <div class="footer-heading">서비스</div>
       <ul class="footer-links">
@@ -1563,29 +1581,47 @@
         <li><a href="#services">구글·유튜브 광고</a></li>
         <li><a href="#services">SNS 마케팅</a></li>
         <li><a href="#services">랜딩페이지 제작</a></li>
+        <li><a href="#services">블로그 마케팅</a></li>
+        <li><a href="#services">바이럴 마케팅</a></li>
       </ul>
     </div>
+
+    <!-- 3열: 성과/차별점/진행과정 -->
+    <div>
+      <div class="footer-heading">소개</div>
+      <ul class="footer-links">
+        <li><a href="#results">실제 성과</a></li>
+        <li><a href="#why">차별점</a></li>
+        <li><a href="#process">진행과정</a></li>
+        <li><a href="#testimonials">클라이언트 후기</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ul>
+    </div>
+
+    <!-- 4열: 상담 -->
     <div>
       <div class="footer-heading">상담</div>
       <ul class="footer-links">
         <li><a href="#consultation">무료 상담 신청</a></li>
-        <li><a href="#results">실제 성과</a></li>
-        <li><a href="#faq">자주 묻는 질문</a></li>
-        <li><a href="#process">진행 과정</a></li>
       </ul>
     </div>
+
   </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2025 MAKE A LAWYER. All rights reserved.</span>
-    <span class="footer-copy" style="color:var(--gold)">로펌 전문 마케팅 대행사</span>
-  </div>
-  <div style="border-top:1px solid rgba(255,255,255,0.1); margin-top:32px; padding-top:24px; padding-left:24px; font-size:13px; color:rgba(255,255,255,0.4); line-height:2;">
-    상호 : 메이크어로이어 &nbsp;|&nbsp; 대표 : 장현지<br>
-    사업자 등록번호 : 367-40-01285 &nbsp;|&nbsp; 이메일 : alla0216@naver.com<br>
-    <a href="#" onclick="document.getElementById('privacy-modal').style.display='flex'" style="color:rgba(255,255,255,0.5); text-decoration:underline; margin-right:16px;">개인정보처리방침</a>
-    <a href="#" onclick="document.getElementById('terms-modal').style.display='flex'" style="color:rgba(255,255,255,0.5); text-decoration:underline;">이용약관</a><br>
-    Copyright © 메이크어로이어. All Rights Reserved.<br>
-    이 사이트에서 수집된 개인정보는 상담 목적으로만 사용되며 외부에 공유되지 않습니다.
+
+  <!-- 회사정보 하단 -->
+  <div style="border-top:1px solid rgba(255,255,255,0.1); padding:20px 48px; font-size:12px; color:rgba(255,255,255,0.35); display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; max-width:1200px; margin:0 auto;">
+    <span>상호 : 메이크어로이어</span>
+    <span>|</span>
+    <span>대표 : 장현지</span>
+    <span>|</span>
+    <span>사업자등록번호 : 367-40-01285</span>
+    <span>|</span>
+    <span>이메일 : alla0216@naver.com</span>
+    <span>|</span>
+    <a href="#" onclick="document.getElementById('privacy-modal').style.display='flex'" style="color:rgba(255,255,255,0.45); text-decoration:underline;">개인정보처리방침</a>
+    <span>|</span>
+    <a href="#" onclick="document.getElementById('terms-modal').style.display='flex'" style="color:rgba(255,255,255,0.45); text-decoration:underline;">이용약관</a>
+    <span style="margin-left:auto;">Copyright © 메이크어로이어. All Rights Reserved.</span>
   </div>
 </footer>
 
