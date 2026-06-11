@@ -557,13 +557,15 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(295px,1fr));
       gap: 16px;
-      align-items: flex-start;
     }
     .t-card {
       background: var(--black-3);
       border: 1px solid rgba(255,255,255,0.07);
       border-radius: 12px;
       padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
     .t-stars { display: flex; gap: 3px; margin-bottom: 14px; }
     .t-star  { color: var(--gold); font-size: 0.88rem; }
