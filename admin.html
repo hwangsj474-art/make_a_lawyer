@@ -89,7 +89,7 @@
     }
     .status-상담예정 { border-color:#C9A052; color:#C9A052; }
     .status-단순문의 { border-color:#4a9eff; color:#4a9eff; }
-    .status-계약 { border-color:#52c41a; color:#52c41a; }
+    .status-계약완료 { border-color:#52c41a; color:#52c41a; }
 
     /* 메모 */
     .memo-input {
@@ -232,7 +232,10 @@
     document.getElementById('total-count').textContent = data.length;
     document.getElementById('today-count').textContent = data.filter(r => r.created_at?.startsWith(today)).length;
     document.getElementById('month-count').textContent = data.filter(r => r.created_at?.startsWith(month)).length;
-    document.getElementById('contract-count').textContent = data.filter(r => r.status === '계약').length;
+    document.getElementById('contract-count').textContent = data.filter(r => r.status === '계약완료').length;
+
+    const statusOrder = { '단순문의': 0, '상담예정': 1, '계약완료': 2 };
+    data.sort((a, b) => (statusOrder[a.status] ?? 1) - (statusOrder[b.status] ?? 1));
 
     if (data.length === 0) {
       tbody.innerHTML = '<tr class="empty-row"><td colspan="10">신청 내역이 없습니다</td></tr>';
@@ -252,7 +255,7 @@
           <select class="status-select status-${row.status || '상담예정'}" onchange="updateStatus('${row.id}', this)">
             <option value="상담예정" ${row.status === '상담예정' || !row.status ? 'selected' : ''}>🟡 상담예정</option>
             <option value="단순문의" ${row.status === '단순문의' ? 'selected' : ''}>🔵 단순문의</option>
-            <option value="계약" ${row.status === '계약' ? 'selected' : ''}>🟢 계약</option>
+            <option value="계약완료" ${row.status === '계약완료' ? 'selected' : ''}>🟢 계약완료</option>
           </select>
         </td>
         <td>
@@ -274,7 +277,7 @@
     await db.from('consultations').update({ status }).eq('id', id);
     // 계약 카운트 갱신
     const { data } = await db.from('consultations').select('status');
-    if (data) document.getElementById('contract-count').textContent = data.filter(r => r.status === '계약').length;
+    if (data) document.getElementById('contract-count').textContent = data.filter(r => r.status === '계약완료').length;
   }
 
   async function saveMemo(id) {
