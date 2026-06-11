@@ -1736,6 +1736,22 @@
   });
 </script>
 
+<!-- 전화 상담 플로팅 버튼 -->
+<a href="tel:010-0000-0000" id="phone-float"
+   style="position:fixed; bottom:96px; right:28px; z-index:9000;
+          width:56px; height:56px; border-radius:50%;
+          background:#2d4a8a; box-shadow:0 4px 16px rgba(0,0,0,0.25);
+          display:flex; align-items:center; justify-content:center;
+          transition:transform 0.2s, box-shadow 0.2s; text-decoration:none;"
+   onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 6px 24px rgba(0,0,0,0.32)';"
+   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.25)';"
+   title="전화 상담">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"
+      fill="#ffffff"/>
+  </svg>
+</a>
+
 <!-- 카카오톡 플로팅 버튼 -->
 <a href="#" target="_blank" id="kakao-float"
    style="position:fixed; bottom:28px; right:28px; z-index:9000;
