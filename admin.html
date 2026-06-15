@@ -19,18 +19,12 @@
     }
     .login-box h1 { font-size:22px; margin-bottom:8px; color:#1a1a2e; }
     .login-box p { font-size:13px; color:#7a8099; margin-bottom:32px; }
-    .pw-wrap { position:relative; margin-bottom:16px; }
     .login-box input {
-      width:100%; padding:14px 44px 14px 16px; background:#f5f7fc;
+      width:100%; padding:14px 16px; background:#f5f7fc;
       border:1px solid #dde3f0; border-radius:8px;
-      color:#1a1a2e; font-size:15px; outline:none;
+      color:#1a1a2e; font-size:15px; margin-bottom:16px; outline:none;
     }
     .login-box input:focus { border-color:#2d4a8a; }
-    .pw-toggle {
-      position:absolute; right:14px; top:50%; transform:translateY(-50%);
-      background:none; border:none; cursor:pointer; color:#aab0c0; padding:0; line-height:0;
-    }
-    .pw-toggle:hover { color:#2d4a8a; }
     .login-btn {
       width:100%; padding:14px; background:#2d4a8a; color:#fff;
       border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer;
@@ -191,11 +185,34 @@
       padding:10px 20px; border-radius:8px; font-size:14px; cursor:pointer;
     }
 
+    /* 모바일 카드형 */
+    .mobile-card {
+      display:none;
+      background:#fff; border:1px solid #dde3f0; border-radius:12px;
+      padding:16px; margin-bottom:12px;
+      box-shadow:0 2px 8px rgba(26,26,46,0.04);
+    }
+    .mobile-card-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .mobile-card-label { font-size:12px; color:#7a8099; font-weight:600; }
+    .mobile-card-val { font-size:14px; color:#1a1a2e; text-align:right; max-width:60%; }
+    .mobile-card-name { font-size:16px; font-weight:700; color:#2d4a8a; margin-bottom:12px; }
+    .mobile-card-actions { display:flex; gap:8px; margin-top:12px; }
+
     @media (max-width:768px) {
-      .admin-body { padding:16px; }
-      table { font-size:13px; }
-      thead th, tbody td { padding:10px 10px; }
-      .tab-btn { padding:12px 16px; font-size:13px; }
+      .admin-body { padding:12px; }
+      .tab-btn { padding:12px 14px; font-size:13px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); display:grid; gap:10px; }
+      .stat-card { padding:14px 16px; min-width:unset; }
+      .stat-card .value { font-size:22px; }
+      .stat-card .label { font-size:12px; }
+      /* 테이블 숨기고 카드 보이기 */
+      .desktop-table { display:none !important; }
+      .mobile-card { display:block; }
+      .table-header { padding:14px 16px; }
+      .table-header h2 { font-size:15px; }
+      .login-box { padding:32px 24px; }
+      .admin-header { padding:12px 16px; }
+      .admin-header h1 { font-size:15px; }
     }
   </style>
 </head>
@@ -206,17 +223,7 @@
   <div class="login-box">
     <h1>MAKE A LAWYER</h1>
     <p>관리자 전용 페이지입니다</p>
-    <div class="pw-wrap">
-      <input type="password" id="password-input" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter') login()" />
-      <button class="pw-toggle" onclick="togglePw()" type="button" id="pw-toggle-btn" aria-label="비밀번호 표시/숨기기">
-        <svg id="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-        </svg>
-        <svg id="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>
-        </svg>
-      </button>
-    </div>
+    <input type="password" id="password-input" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter') login()" />
     <button class="login-btn" onclick="login()">로그인</button>
     <p class="error-msg" id="error-msg">비밀번호가 올바르지 않습니다</p>
   </div>
@@ -251,16 +258,17 @@
           <h2>상담 신청 목록</h2>
           <button class="refresh-btn" onclick="loadConsult()">↻ 새로고침</button>
         </div>
-        <div style="overflow-x:auto;">
+        <div class="desktop-table" style="overflow-x:auto;">
           <table>
             <thead>
               <tr><th>#</th><th>신청일시</th><th>이름</th><th>로펌명</th><th>연락처</th><th>예산</th><th>현재마케팅</th><th>상태</th><th>메모</th><th>삭제</th></tr>
             </thead>
             <tbody id="consult-table">
-              <tr class="empty-row"><td colspan="9">데이터를 불러오는 중...</td></tr>
+              <tr class="empty-row"><td colspan="10">데이터를 불러오는 중...</td></tr>
             </tbody>
           </table>
         </div>
+        <div id="consult-mobile-list" style="padding:12px;"></div>
       </div>
     </div>
   </div>
@@ -279,7 +287,7 @@
           <h2>구독 신청 목록</h2>
           <button class="refresh-btn" onclick="loadSubscriptions()">↻ 새로고침</button>
         </div>
-        <div style="overflow-x:auto;">
+        <div class="desktop-table" style="overflow-x:auto;">
           <table>
             <thead>
               <tr><th>#</th><th>신청일시</th><th>이름</th><th>연락처</th><th>이메일</th><th>플랜</th><th>상태</th><th>메모</th><th>삭제</th></tr>
@@ -289,6 +297,7 @@
             </tbody>
           </table>
         </div>
+        <div id="sub-mobile-list" style="padding:12px;"></div>
       </div>
     </div>
   </div>
@@ -346,14 +355,6 @@
 </div>
 
 <script>
-  function togglePw() {
-    const input = document.getElementById('password-input');
-    const isHidden = input.type === 'password';
-    input.type = isHidden ? 'text' : 'password';
-    document.getElementById('eye-icon').style.display = isHidden ? 'none' : '';
-    document.getElementById('eye-off-icon').style.display = isHidden ? '' : 'none';
-  }
-
   const ADMIN_PASSWORD = 'hjsjforever';
   const SUPABASE_URL = 'https://fawuchjmwhnicqpeerae.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhd3VjaGptd2huaWNxcGVlcmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMzgyMDEsImV4cCI6MjA5NjYxNDIwMX0.Tc4rSbMti2DEYalFjGyYVkcXe39Xu52xCPKHI83VCtc';
@@ -437,8 +438,8 @@
           <strong style="color:#2d4a8a; text-decoration:underline; text-underline-offset:3px;">${row.name || '-'}</strong>
           ${isNew ? '<span class="new-badge">NEW</span>' : ''}
         </td>
-        <td style="font-size:13px">${row.law_firm_name || '-'}</td>
         <td>${row.phone || '-'}</td>
+        <td style="font-size:13px">${row.law_firm_name || '-'}</td>
         <td style="font-size:13px">${row.budget || '-'}</td>
         <td style="font-size:13px">${row.current_marketing || '-'}</td>
         <td>
@@ -453,6 +454,32 @@
         </td>
         <td><button class="delete-btn" onclick="event.stopPropagation(); deleteConsult('${row.id}')">삭제</button></td>
       </tr>`;
+    }).join('');
+
+    // 모바일 카드 렌더링
+    const mobileList = document.getElementById('consult-mobile-list');
+    mobileList.innerHTML = data.map((row, i) => {
+      const isNew = row.created_at > lastVisit;
+      return `
+      <div class="mobile-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div class="mobile-card-name">${row.name || '-'} ${isNew ? '<span class="new-badge">NEW</span>' : ''}</div>
+          <select class="status-select status-${row.status || '단순문의'}" onchange="updateConsultStatus('${row.id}', this)">
+            <option value="단순문의" ${row.status === '단순문의' || !row.status ? 'selected' : ''}>🔵 단순문의</option>
+            <option value="상담예정" ${row.status === '상담예정' ? 'selected' : ''}>🟡 상담예정</option>
+            <option value="계약완료" ${row.status === '계약완료' ? 'selected' : ''}>🟢 계약완료</option>
+          </select>
+        </div>
+        <div class="mobile-card-row"><span class="mobile-card-label">로펌명</span><span class="mobile-card-val">${row.law_firm_name || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">연락처</span><span class="mobile-card-val">${row.phone || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">예산</span><span class="mobile-card-val">${row.budget || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">신청일시</span><span class="mobile-card-val" style="font-size:12px">${formatDate(row.created_at)}</span></div>
+        ${row.memo ? `<div class="mobile-card-row"><span class="mobile-card-label">메모</span><span class="mobile-card-val" style="color:#2d4a8a">${row.memo}</span></div>` : ''}
+        <div class="mobile-card-actions">
+          <button onclick="openConsultModal('${row.id}')" style="flex:1; padding:8px; background:#eef1f8; border:1px solid #2d4a8a; color:#2d4a8a; border-radius:6px; font-size:13px; cursor:pointer;">상세/메모</button>
+          <button onclick="deleteConsult('${row.id}')" class="delete-btn">삭제</button>
+        </div>
+      </div>`;
     }).join('');
 
     setLastVisit('consult_last_visit');
@@ -553,6 +580,33 @@
         </td>
         <td><button class="delete-btn" onclick="event.stopPropagation(); deleteSub('${row.id}')">삭제</button></td>
       </tr>`;
+    }).join('');
+
+    // 모바일 카드
+    const subMobileList = document.getElementById('sub-mobile-list');
+    subMobileList.innerHTML = data.map((row, i) => {
+      const isNew = row.created_at > lastVisit;
+      return `
+      <div class="mobile-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div class="mobile-card-name">${row.name || '-'} ${isNew ? '<span class="new-badge">NEW</span>' : ''}</div>
+          <span class="plan-badge plan-${row.plan}">${row.plan || '-'}</span>
+        </div>
+        <div class="mobile-card-row"><span class="mobile-card-label">연락처</span><span class="mobile-card-val">${row.phone || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">이메일</span><span class="mobile-card-val" style="font-size:12px">${row.email || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">신청일시</span><span class="mobile-card-val" style="font-size:12px">${formatDate(row.created_at)}</span></div>
+        <div class="mobile-card-row">
+          <span class="mobile-card-label">상태</span>
+          <select class="status-select status-${row.status || '구독중'}" onchange="updateSubStatus('${row.id}', this)">
+            <option value="구독중" ${row.status === '구독중' || !row.status ? 'selected' : ''}>🟢 구독중</option>
+            <option value="구독취소" ${row.status === '구독취소' ? 'selected' : ''}>🔴 구독취소</option>
+          </select>
+        </div>
+        <div class="mobile-card-actions">
+          <button onclick="openSubModal('${row.id}')" style="flex:1; padding:8px; background:#eef1f8; border:1px solid #2d4a8a; color:#2d4a8a; border-radius:6px; font-size:13px; cursor:pointer;">상세/메모</button>
+          <button onclick="deleteSub('${row.id}')" class="delete-btn">삭제</button>
+        </div>
+      </div>`;
     }).join('');
 
     setLastVisit('sub_last_visit');
