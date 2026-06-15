@@ -797,7 +797,8 @@
       gap: 60px;
     }
     @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; gap: 36px; } }
-    .footer-brand-name { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .footer-brand-name { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 12px; display: flex; flex-direction: column; line-height: 1.15; }
+    .footer-brand-name .logo-sub { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.55em; color: var(--gold); margin-top: 3px; }
     .footer-brand-desc { color: rgba(255,255,255,0.38); font-size: 0.85rem; line-height: 1.7; max-width: 280px; }
     .footer-heading { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 16px; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -1591,7 +1592,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- 1열: 로고 + 회사소개 -->
     <div>
-      <div class="footer-brand-name">MAKE A <span style="color:var(--gold)">LAWYER</span></div>
+      <div class="footer-brand-name">
+        <span>메이크어<span style="color:var(--gold)">로이어</span></span>
+        <span class="logo-sub">MAKEALAWYER</span>
+      </div>
       <div style="font-size:12px; color:rgba(255,255,255,0.38); line-height:2; margin-top:14px;">
         상호 : 메이크어로이어 &nbsp;|&nbsp; 대표 : 장현지<br>
         사업자 등록번호 : 367-40-01285<br>
