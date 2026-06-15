@@ -270,11 +270,21 @@
       margin-bottom: 60px;
     }
     .hero-platforms {
+      width: 100%;
+      overflow: hidden;
+      -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+    .marquee-track {
       display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 10px;
-      flex-wrap: wrap;
+      width: max-content;
+      animation: marquee 32s linear infinite;
+      padding: 4px 0;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
     .plat-badge {
       display: flex;
@@ -287,6 +297,8 @@
       font-size: 0.8rem;
       font-weight: 600;
       color: rgba(255,255,255,0.6);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* ─── STATS BAR ─────────────────────────────────────────── */
@@ -865,25 +877,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#results" class="btn-outline" style="font-size:1rem">실제 성과 보기</a>
     </div>
     <div class="hero-platforms">
-      <div class="plat-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#03C75A"/><path d="M5 17V7h3.5l4.5 7V7H17v10h-3.5L9 10v7H5z" fill="white"/></svg>
-        네이버
-      </div>
-      <div class="plat-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.39 22.56 15.57 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        구글
-      </div>
-      <div class="plat-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FF0000"/><path d="M9.5 15.5V8.5l7 3.5-7 3.5z" fill="white"/></svg>
-        유튜브
-      </div>
-      <div class="plat-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="ig1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#F58529"/><stop offset="50%" stop-color="#DD2A7B"/><stop offset="100%" stop-color="#8134AF"/></linearGradient></defs><rect width="24" height="24" rx="5" fill="url(#ig1)"/><rect x="3.5" y="3.5" width="17" height="17" rx="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="17" cy="7" r="1.2" fill="white"/></svg>
-        인스타그램
-      </div>
-      <div class="plat-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FEE500"/><path d="M12 4.5C7.3 4.5 3.5 7.5 3.5 11.2c0 2.4 1.6 4.5 4 5.6l-1 3.6c-.1.2.2.4.4.3L11.1 18c.3 0 .6.1.9.1 4.7 0 8.5-3 8.5-6.7S16.7 4.5 12 4.5z" fill="#1A1A1A"/></svg>
-        카카오
+      <div class="marquee-track">
+        <!-- ── Set 1 ── -->
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#03C75A"/><path d="M5 17V7h3.5l4.5 7V7H17v10h-3.5L9 10v7H5z" fill="white"/></svg>네이버</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.39 22.56 15.57 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>구글</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FF0000"/><path d="M9.5 15.5V8.5l7 3.5-7 3.5z" fill="white"/></svg>유튜브</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#C13584"/><rect x="3.5" y="3.5" width="17" height="17" rx="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="17" cy="7" r="1.2" fill="white"/></svg>인스타그램</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="17" text-anchor="middle" font-size="15" fill="white" font-weight="bold" font-family="Arial">@</text></svg>쓰레드</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FEE500"/><path d="M12 4.5C7.3 4.5 3.5 7.5 3.5 11.2c0 2.4 1.6 4.5 4 5.6l-1 3.6c-.1.2.2.4.4.3L11.1 18c.3 0 .6.1.9.1 4.7 0 8.5-3 8.5-6.7S16.7 4.5 12 4.5z" fill="#1A1A1A"/></svg>카카오</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FF2442"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Arial">XHS</text></svg>샤오홍슈</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#1e3a6e"/><rect x="3" y="5.5" width="18" height="13" rx="1.5" stroke="white" stroke-width="1.3"/><line x1="3" y1="8.5" x2="21" y2="8.5" stroke="white" stroke-width="1.3"/><circle cx="5.5" cy="7" r=".9" fill="white"/><circle cx="8" cy="7" r=".9" fill="white"/></svg>홈페이지 제작</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="#E8C060" stroke-width="1.8"/><path d="M15 15l4.5 4.5" stroke="#E8C060" stroke-width="1.8" stroke-linecap="round"/></svg>SEO</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="rgba(255,255,255,0.7)" stroke-width="1.8"/></svg>책 출판</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="rgba(255,255,255,0.7)" stroke-width="1.8"/><path d="M8 21h8M12 19v2" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" stroke-linecap="round"/></svg>방송</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="rgba(255,255,255,0.7)" stroke-width="1.3" stroke-linecap="round"/></svg>언론보도</div>
+        <!-- ── Set 2 (seamless loop duplicate) ── -->
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#03C75A"/><path d="M5 17V7h3.5l4.5 7V7H17v10h-3.5L9 10v7H5z" fill="white"/></svg>네이버</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.39 22.56 15.57 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>구글</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FF0000"/><path d="M9.5 15.5V8.5l7 3.5-7 3.5z" fill="white"/></svg>유튜브</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#C13584"/><rect x="3.5" y="3.5" width="17" height="17" rx="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="17" cy="7" r="1.2" fill="white"/></svg>인스타그램</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="17" text-anchor="middle" font-size="15" fill="white" font-weight="bold" font-family="Arial">@</text></svg>쓰레드</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FEE500"/><path d="M12 4.5C7.3 4.5 3.5 7.5 3.5 11.2c0 2.4 1.6 4.5 4 5.6l-1 3.6c-.1.2.2.4.4.3L11.1 18c.3 0 .6.1.9.1 4.7 0 8.5-3 8.5-6.7S16.7 4.5 12 4.5z" fill="#1A1A1A"/></svg>카카오</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FF2442"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Arial">XHS</text></svg>샤오홍슈</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#1e3a6e"/><rect x="3" y="5.5" width="18" height="13" rx="1.5" stroke="white" stroke-width="1.3"/><line x1="3" y1="8.5" x2="21" y2="8.5" stroke="white" stroke-width="1.3"/><circle cx="5.5" cy="7" r=".9" fill="white"/><circle cx="8" cy="7" r=".9" fill="white"/></svg>홈페이지 제작</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="#E8C060" stroke-width="1.8"/><path d="M15 15l4.5 4.5" stroke="#E8C060" stroke-width="1.8" stroke-linecap="round"/></svg>SEO</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="rgba(255,255,255,0.7)" stroke-width="1.8"/></svg>책 출판</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="rgba(255,255,255,0.7)" stroke-width="1.8"/><path d="M8 21h8M12 19v2" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" stroke-linecap="round"/></svg>방송</div>
+        <div class="plat-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="rgba(255,255,255,0.7)" stroke-width="1.3" stroke-linecap="round"/></svg>언론보도</div>
       </div>
     </div>
   </div>
