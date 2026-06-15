@@ -1755,14 +1755,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     btn.textContent = '신청 중...';
 
     const form = e.target;
+    const el = name => form.elements[name];
     const payload = {
-      name:               form.name.value.trim(),
-      law_firm_name:      form.law_firm_name ? form.law_firm_name.value.trim() || null : null,
-      phone:              form.phone.value.trim(),
-      email:              form.email.value.trim() || null,
-      current_marketing:  (form.current_marketing ? [...form.querySelectorAll('[name=current_marketing]:checked')].map(r => r.value)[0] : null) || null,
-      budget:             (form.budget ? [...form.querySelectorAll('[name=budget]:checked')].map(r => r.value)[0] : null) || null,
-      message:            form.message ? form.message.value.trim() || null : null,
+      name:               el('name').value.trim(),
+      law_firm_name:      el('law_firm_name')?.value.trim() || null,
+      phone:              el('phone').value.trim(),
+      email:              el('email')?.value.trim() || null,
+      current_marketing:  [...form.querySelectorAll('[name=current_marketing]:checked')].map(r => r.value)[0] || null,
+      budget:             [...form.querySelectorAll('[name=budget]:checked')].map(r => r.value)[0] || null,
+      message:            el('message')?.value.trim() || null,
     };
 
     const { error } = await db.from('consultations').insert([payload]);
