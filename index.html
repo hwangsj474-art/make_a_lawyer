@@ -22,9 +22,9 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <style>
     :root {
-      --gold:       #C9A052;
-      --gold-light: #E2C87A;
-      --gold-dark:  #9A7230;
+      --gold:       #E8C060;
+      --gold-light: #F5D878;
+      --gold-dark:  #C9A052;
       --black:      #0A0A0A;
       --black-2:    #111111;
       --black-3:    #161616;
@@ -57,8 +57,8 @@
     .chip {
       display: inline-block;
       padding: 5px 14px;
-      background: rgba(201,160,82,0.1);
-      border: 1px solid rgba(201,160,82,0.3);
+      background: rgba(232,192,96,0.1);
+      border: 1px solid rgba(232,192,96,0.3);
       border-radius: 100px;
       font-size: 0.75rem;
       font-weight: 700;
@@ -103,7 +103,7 @@
       text-decoration: none;
       font-family: inherit;
     }
-    .btn-gold:hover  { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,160,82,0.4); }
+    .btn-gold:hover  { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,192,96,0.4); }
     .btn-gold:focus  { outline: 2px solid var(--gold); outline-offset: 3px; }
     .btn-gold:active { transform: scale(0.98); }
     .btn-gold:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
@@ -166,8 +166,11 @@
       color: var(--white);
       white-space: nowrap;
       flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
     }
-    .nav-logo span { color: var(--gold); }
+    .nav-logo .logo-sub { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold); margin-top: 2px; }
     .nav-links {
       display: flex;
       align-items: center;
@@ -200,8 +203,8 @@
     .hero-glow {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 50% 30%, rgba(201,160,82,0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 85% 55%, rgba(201,160,82,0.03) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 55% at 50% 30%, rgba(232,192,96,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 85% 55%, rgba(232,192,96,0.03) 0%, transparent 60%);
       pointer-events: none;
     }
     .hero-grid {
@@ -224,7 +227,7 @@
       align-items: center;
       gap: 8px;
       padding: 7px 18px;
-      border: 1px solid rgba(201,160,82,0.35);
+      border: 1px solid rgba(232,192,96,0.35);
       border-radius: 100px;
       font-size: 0.8rem;
       font-weight: 600;
@@ -392,7 +395,7 @@
         cursor: pointer;
         transition: border-color 0.2s, background 0.2s;
       }
-      .services-more-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,160,82,0.05); }
+      .services-more-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(232,192,96,0.05); }
       .platform-grid.expanded + .services-more-btn { display: none; }
     }
     .platform-card {
@@ -403,7 +406,7 @@
       transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
     .platform-card:hover {
-      border-color: rgba(201,160,82,0.35);
+      border-color: rgba(232,192,96,0.35);
       transform: translateY(-4px);
       box-shadow: 0 20px 48px rgba(0,0,0,0.5);
     }
@@ -456,7 +459,7 @@
       align-items: center;
       gap: 10px;
     }
-    .result-tag    { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; background: rgba(201,160,82,0.1); color: var(--gold); border-radius: 4px; }
+    .result-tag    { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; background: rgba(232,192,96,0.1); color: var(--gold); border-radius: 4px; }
     .result-period { font-size: 0.8rem; color: rgba(255,255,255,0.38); }
     .result-metrics {
       padding: 28px 26px;
@@ -472,7 +475,7 @@
     .metric-arrow { display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .arrow-circle {
       width: 38px; height: 38px;
-      background: rgba(201,160,82,0.1);
+      background: rgba(232,192,96,0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -505,10 +508,10 @@
       padding: 32px;
       transition: border-color 0.25s;
     }
-    .why-card:hover { border-color: rgba(201,160,82,0.3); }
+    .why-card:hover { border-color: rgba(232,192,96,0.3); }
     .why-icon {
       width: 44px; height: 44px;
-      background: rgba(201,160,82,0.1);
+      background: rgba(232,192,96,0.1);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -532,14 +535,14 @@
       position: absolute;
       top: 27px; left: 12%; right: 12%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(201,160,82,0.45), rgba(201,160,82,0.45), transparent);
+      background: linear-gradient(90deg, transparent, rgba(232,192,96,0.45), rgba(232,192,96,0.45), transparent);
     }
     .process-step { text-align: center; padding: 0 12px; }
     .process-num {
       width: 54px; height: 54px;
       border-radius: 50%;
       background: var(--black-3);
-      border: 1px solid rgba(201,160,82,0.4);
+      border: 1px solid rgba(232,192,96,0.4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -588,8 +591,8 @@
     .t-avatar {
       width: 40px; height: 40px;
       border-radius: 50%;
-      background: rgba(201,160,82,0.12);
-      border: 1px solid rgba(201,160,82,0.3);
+      background: rgba(232,192,96,0.12);
+      border: 1px solid rgba(232,192,96,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -655,7 +658,7 @@
     }
     .cta-glow {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(201,160,82,0.055) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(232,192,96,0.055) 0%, transparent 70%);
       pointer-events: none;
     }
     .cta-title {
@@ -700,7 +703,7 @@
       transition: all 0.3s;
     }
     .step-dot.active { background: var(--gold); border-color: var(--gold); color: #000; }
-    .step-dot.done   { background: rgba(201,160,82,0.12); border-color: var(--gold); color: var(--gold); }
+    .step-dot.done   { background: rgba(232,192,96,0.12); border-color: var(--gold); color: var(--gold); }
     .step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); max-width: 80px; }
 
     .form-step-panel        { display: none; }
@@ -731,7 +734,7 @@
     .form-input:focus, .form-select:focus, .form-textarea:focus {
       outline: none;
       border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(201,160,82,0.1);
+      box-shadow: 0 0 0 3px rgba(232,192,96,0.1);
     }
     .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.22); }
     .form-select option { background: #1a1a1a; }
@@ -750,7 +753,7 @@
       font-size: 0.9rem;
       transition: border-color 0.2s, background 0.2s;
     }
-    .form-radio-label:hover { border-color: rgba(201,160,82,0.4); background: rgba(201,160,82,0.04); }
+    .form-radio-label:hover { border-color: rgba(232,192,96,0.4); background: rgba(232,192,96,0.04); }
     .form-radio-label input[type="radio"] { display: none; }
     .radio-box {
       width: 18px; height: 18px;
@@ -823,7 +826,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ─── NAV ──────────────────────────────────────────────────────── -->
 <nav>
   <div class="nav-inner">
-    <a href="#hero" class="nav-logo">MAKE A <span>LAWYER</span></a>
+    <a href="#hero" class="nav-logo">
+      <span>메이크어<span style="color:var(--gold)">로이어</span></span>
+      <span class="logo-sub">MAKE A LAWYER</span>
+    </a>
     <ul class="nav-links">
       <li><a href="#services">서비스</a></li>
       <li><a href="#results">성과</a></li>
@@ -1009,8 +1015,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="platform-card fade-up more-hidden">
-        <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="16" rx="2" stroke="#C9A052" stroke-width="1.8"/><path d="M2 7h20" stroke="#C9A052" stroke-width="1.8"/><rect x="5" y="10" width="6" height="6" rx="1" fill="rgba(201,160,82,0.25)"/><path d="M14 10h5M14 13h5M14 16h3" stroke="#C9A052" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <div class="platform-logo" style="background:rgba(232,192,96,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="16" rx="2" stroke="#E8C060" stroke-width="1.8"/><path d="M2 7h20" stroke="#E8C060" stroke-width="1.8"/><rect x="5" y="10" width="6" height="6" rx="1" fill="rgba(232,192,96,0.25)"/><path d="M14 10h5M14 13h5M14 16h3" stroke="#E8C060" stroke-width="1.3" stroke-linecap="round"/></svg>
         </div>
         <div class="platform-lbl">WEBSITE</div>
         <div class="platform-title">홈페이지 제작</div>
@@ -1024,8 +1030,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="platform-card fade-up more-hidden">
-        <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="#C9A052" stroke-width="1.8"/><path d="M15 15l4.5 4.5" stroke="#C9A052" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="platform-logo" style="background:rgba(232,192,96,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="#E8C060" stroke-width="1.8"/><path d="M15 15l4.5 4.5" stroke="#E8C060" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="platform-lbl">SEO / AEO / GEO</div>
         <div class="platform-title">검색 최적화</div>
@@ -1039,8 +1045,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="platform-card fade-up more-hidden">
-        <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#C9A052" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#C9A052" stroke-width="1.8"/></svg>
+        <div class="platform-logo" style="background:rgba(232,192,96,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#E8C060" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#E8C060" stroke-width="1.8"/></svg>
         </div>
         <div class="platform-lbl">BOOK</div>
         <div class="platform-title">브랜딩 책 출판</div>
@@ -1054,8 +1060,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="platform-card fade-up more-hidden">
-        <div class="platform-logo" style="background:rgba(201,160,82,0.1)">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#C9A052" stroke-width="1.8"/><path d="M8 21h8" stroke="#C9A052" stroke-width="1.8" stroke-linecap="round"/><path d="M12 19v2" stroke="#C9A052" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="platform-logo" style="background:rgba(232,192,96,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#E8C060" stroke-width="1.8"/><path d="M8 21h8" stroke="#E8C060" stroke-width="1.8" stroke-linecap="round"/><path d="M12 19v2" stroke="#E8C060" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="platform-lbl">BROADCAST</div>
         <div class="platform-title">방송 출연</div>
@@ -1102,7 +1108,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="metric-arrow">
             <div class="arrow-circle">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8C060" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
             <span class="arrow-mult">3.9×</span>
           </div>
@@ -1113,7 +1119,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="result-foot">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8C060" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
           광고비 동결 상태에서 DB 3.9배 증가
         </div>
       </div>
@@ -1131,7 +1137,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="metric-arrow">
             <div class="arrow-circle">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8C060" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
             <span class="arrow-mult">4.5×</span>
           </div>
@@ -1142,7 +1148,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="result-foot">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8C060" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
           DB당 획득 비용 68% 절감
         </div>
       </div>
@@ -1160,7 +1166,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="metric-arrow">
             <div class="arrow-circle">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8C060" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
             <span class="arrow-mult">6.2×</span>
           </div>
@@ -1171,7 +1177,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="result-foot">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A052" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8C060" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
           SNS 신규 채널 추가로 신규 수요 창출
         </div>
       </div>
@@ -1255,18 +1261,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- 구독 모달 -->
 <div id="sub-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; padding:20px;">
-  <div style="background:#161616; border:1px solid rgba(201,160,82,0.3); border-radius:16px; width:100%; max-width:460px; padding:40px; position:relative;">
+  <div style="background:#161616; border:1px solid rgba(232,192,96,0.3); border-radius:16px; width:100%; max-width:460px; padding:40px; position:relative;">
     <button onclick="document.getElementById('sub-modal').style.display='none'" style="position:absolute; top:16px; right:20px; background:none; border:none; color:rgba(255,255,255,0.4); font-size:24px; cursor:pointer;">×</button>
-    <h3 style="font-size:20px; margin-bottom:4px; color:#fff;"><span id="sub-modal-plan" style="color:#C9A052;"></span> 구독 신청</h3>
+    <h3 style="font-size:20px; margin-bottom:4px; color:#fff;"><span id="sub-modal-plan" style="color:#E8C060;"></span> 구독 신청</h3>
     <p style="font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:28px;">신청 후 24시간 내로 연락드립니다.</p>
     <input type="text" id="sub-name" placeholder="이름" style="width:100%; padding:13px 16px; background:#1E1E1E; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; font-size:15px; margin-bottom:12px; outline:none;" />
     <input type="tel" id="sub-phone" placeholder="연락처 (010-0000-0000)" style="width:100%; padding:13px 16px; background:#1E1E1E; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; font-size:15px; margin-bottom:12px; outline:none;" oninput="formatPhone(this)" />
     <input type="email" id="sub-email" placeholder="이메일" style="width:100%; padding:13px 16px; background:#1E1E1E; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; font-size:15px; margin-bottom:20px; outline:none;" />
-    <button onclick="submitSubscription()" style="width:100%; padding:14px; background:#C9A052; color:#000; border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer;">구독 신청하기</button>
+    <button onclick="submitSubscription()" style="width:100%; padding:14px; background:#E8C060; color:#000; border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer;">구독 신청하기</button>
     <p style="font-size:12px; color:rgba(255,255,255,0.3); text-align:center; margin-top:12px;">개인정보는 구독 목적으로만 사용됩니다</p>
     <div id="sub-success" style="display:none; text-align:center; padding:20px 0;">
       <div style="font-size:32px; margin-bottom:12px;">✅</div>
-      <p style="color:#C9A052; font-size:16px; font-weight:600;">신청이 완료되었습니다!</p>
+      <p style="color:#E8C060; font-size:16px; font-weight:600;">신청이 완료되었습니다!</p>
       <p style="color:rgba(255,255,255,0.5); font-size:13px; margin-top:8px;">24시간 내로 연락드리겠습니다.</p>
     </div>
   </div>
@@ -1297,13 +1303,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:14px; color:rgba(255,255,255,0.7);">✓ 강의 무제한 시청</li>
           <li style="padding:8px 0; font-size:14px; color:rgba(255,255,255,0.7);">✓ 강의 자료 제공</li>
         </ul>
-        <button onclick="openSubModal('STANDARD')" style="width:100%; padding:13px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.borderColor='#C9A052'; this.style.color='#C9A052';" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='#fff';">구독 신청</button>
+        <button onclick="openSubModal('STANDARD')" style="width:100%; padding:13px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.borderColor='#E8C060'; this.style.color='#E8C060';" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='#fff';">구독 신청</button>
       </div>
 
       <!-- DELUXE -->
-      <div style="background:#161616; border:2px solid #C9A052; border-radius:16px; padding:36px 28px; display:flex; flex-direction:column; position:relative;">
-        <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#C9A052; color:#000; font-size:11px; font-weight:800; padding:4px 16px; border-radius:20px; letter-spacing:0.05em;">인기</div>
-        <div style="font-size:12px; font-weight:700; letter-spacing:0.1em; color:#C9A052; margin-bottom:12px;">DELUXE</div>
+      <div style="background:#161616; border:2px solid #E8C060; border-radius:16px; padding:36px 28px; display:flex; flex-direction:column; position:relative;">
+        <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#E8C060; color:#000; font-size:11px; font-weight:800; padding:4px 16px; border-radius:20px; letter-spacing:0.05em;">인기</div>
+        <div style="font-size:12px; font-weight:700; letter-spacing:0.1em; color:#E8C060; margin-bottom:12px;">DELUXE</div>
         <div style="font-size:32px; font-weight:800; color:#fff; margin-bottom:4px;">39,900<span style="font-size:16px; font-weight:400;">원</span></div>
         <div style="font-size:12px; color:rgba(255,255,255,0.3); margin-bottom:28px;">월 / VAT 포함</div>
         <ul style="list-style:none; flex:1; margin-bottom:32px;">
@@ -1311,7 +1317,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:14px; color:rgba(255,255,255,0.7);">✓ 마케팅 현황 알림톡 발송</li>
           <li style="padding:8px 0; font-size:14px; color:rgba(255,255,255,0.7);">✓ 채널 분석 리포트</li>
         </ul>
-        <button onclick="openSubModal('DELUXE')" style="width:100%; padding:13px; background:#C9A052; border:none; color:#000; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">구독 신청</button>
+        <button onclick="openSubModal('DELUXE')" style="width:100%; padding:13px; background:#E8C060; border:none; color:#000; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">구독 신청</button>
       </div>
 
       <!-- PREMIUM -->
@@ -1324,7 +1330,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:14px; color:rgba(255,255,255,0.7);">✓ 1:1 전략 컨설팅</li>
           <li style="padding:8px 0; font-size:14px; color:rgba(255,255,255,0.7);">✓ 우선 상담 배정</li>
         </ul>
-        <button onclick="openSubModal('PREMIUM')" style="width:100%; padding:13px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.borderColor='#C9A052'; this.style.color='#C9A052';" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='#fff';">구독 신청</button>
+        <button onclick="openSubModal('PREMIUM')" style="width:100%; padding:13px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.borderColor='#E8C060'; this.style.color='#E8C060';" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='#fff';">구독 신청</button>
       </div>
 
     </div>
@@ -1636,7 +1642,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 개인정보처리방침 모달 -->
 <div id="privacy-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center; padding:20px;">
   <div style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:12px; max-width:640px; width:100%; max-height:80vh; overflow-y:auto; padding:40px;">
-    <h2 style="color:#C9A052; margin-bottom:24px; font-size:20px;">개인정보처리방침</h2>
+    <h2 style="color:#E8C060; margin-bottom:24px; font-size:20px;">개인정보처리방침</h2>
     <div style="color:rgba(255,255,255,0.7); font-size:14px; line-height:2;">
       <p><strong style="color:#fff;">1. 수집하는 개인정보 항목</strong><br>
       회사는 상담 신청 시 이름, 연락처, 이메일, 마케팅 예산 등의 정보를 수집합니다.</p>
@@ -1649,14 +1655,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p style="margin-top:16px;"><strong style="color:#fff;">5. 문의</strong><br>
       개인정보 관련 문의: alla0216@naver.com</p>
     </div>
-    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="margin-top:24px; background:#C9A052; color:#000; border:none; padding:12px 32px; border-radius:8px; cursor:pointer; font-weight:600;">닫기</button>
+    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="margin-top:24px; background:#E8C060; color:#000; border:none; padding:12px 32px; border-radius:8px; cursor:pointer; font-weight:600;">닫기</button>
   </div>
 </div>
 
 <!-- 이용약관 모달 -->
 <div id="terms-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center; padding:20px;">
   <div style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:12px; max-width:640px; width:100%; max-height:80vh; overflow-y:auto; padding:40px;">
-    <h2 style="color:#C9A052; margin-bottom:24px; font-size:20px;">이용약관</h2>
+    <h2 style="color:#E8C060; margin-bottom:24px; font-size:20px;">이용약관</h2>
     <div style="color:rgba(255,255,255,0.7); font-size:14px; line-height:2;">
       <p><strong style="color:#fff;">제1조 (목적)</strong><br>
       본 약관은 메이크어로이어(이하 "회사")가 제공하는 서비스 이용에 관한 조건 및 절차를 규정합니다.</p>
@@ -1669,7 +1675,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p style="margin-top:16px;"><strong style="color:#fff;">제5조 (문의)</strong><br>
       이용약관 관련 문의: alla0216@naver.com</p>
     </div>
-    <button onclick="document.getElementById('terms-modal').style.display='none'" style="margin-top:24px; background:#C9A052; color:#000; border:none; padding:12px 32px; border-radius:8px; cursor:pointer; font-weight:600;">닫기</button>
+    <button onclick="document.getElementById('terms-modal').style.display='none'" style="margin-top:24px; background:#E8C060; color:#000; border:none; padding:12px 32px; border-radius:8px; cursor:pointer; font-weight:600;">닫기</button>
   </div>
 </div>
 
