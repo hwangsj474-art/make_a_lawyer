@@ -1502,6 +1502,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <input class="form-input" type="text" name="name" placeholder="홍길동" required />
           </div>
           <div class="form-field">
+            <label class="form-label">로펌명</label>
+            <input class="form-input" type="text" name="law_firm_name" placeholder="예) 법무법인 OO" />
+          </div>
+          <div class="form-field">
             <label class="form-label">연락처 <span class="req">*</span></label>
             <input class="form-input" type="tel" name="phone" placeholder="010-0000-0000" required oninput="formatPhone(this)" />
           </div>
@@ -1743,6 +1747,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const form = e.target;
     const payload = {
       name:               form.name.value.trim(),
+      law_firm_name:      form.law_firm_name ? form.law_firm_name.value.trim() || null : null,
       phone:              form.phone.value.trim(),
       email:              form.email.value.trim() || null,
       current_marketing:  (form.current_marketing ? [...form.querySelectorAll('[name=current_marketing]:checked')].map(r => r.value)[0] : null) || null,
