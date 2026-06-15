@@ -238,7 +238,7 @@
         <div style="overflow-x:auto;">
           <table>
             <thead>
-              <tr><th>#</th><th>신청일시</th><th>이름</th><th>연락처</th><th>예산</th><th>현재마케팅</th><th>상태</th><th>메모</th><th>삭제</th></tr>
+              <tr><th>#</th><th>신청일시</th><th>이름</th><th>로펌명</th><th>연락처</th><th>예산</th><th>현재마케팅</th><th>상태</th><th>메모</th><th>삭제</th></tr>
             </thead>
             <tbody id="consult-table">
               <tr class="empty-row"><td colspan="9">데이터를 불러오는 중...</td></tr>
@@ -287,6 +287,7 @@
     </div>
     <div class="modal-body">
       <div class="modal-row"><span class="modal-label">이름</span><span class="modal-val" id="m-name">-</span></div>
+      <div class="modal-row"><span class="modal-label">로펌명</span><span class="modal-val" id="m-lawfirm">-</span></div>
       <div class="modal-row"><span class="modal-label">연락처</span><span class="modal-val" id="m-phone">-</span></div>
       <div class="modal-row"><span class="modal-label">이메일</span><span class="modal-val" id="m-email">-</span></div>
       <div class="modal-row"><span class="modal-label">예산</span><span class="modal-val" id="m-budget">-</span></div>
@@ -383,10 +384,10 @@
   async function loadConsult() {
     const lastVisit = getLastVisit('consult_last_visit');
     const tbody = document.getElementById('consult-table');
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">불러오는 중...</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="10">불러오는 중...</td></tr>';
 
     const { data, error } = await db.from('consultations').select('*').order('created_at', { ascending: false });
-    if (error || !data) { tbody.innerHTML = '<tr class="empty-row"><td colspan="9">불러오지 못했습니다</td></tr>'; return; }
+    if (error || !data) { tbody.innerHTML = '<tr class="empty-row"><td colspan="10">불러오지 못했습니다</td></tr>'; return; }
 
     const today = new Date().toISOString().slice(0,10);
     const month = new Date().toISOString().slice(0,7);
@@ -400,7 +401,7 @@
     const badge = document.getElementById('consult-new-count');
     if (newCount > 0) { badge.textContent = newCount; badge.style.display = 'inline-block'; }
 
-    if (!data.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="9">신청 내역이 없습니다</td></tr>'; return; }
+    if (!data.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="10">신청 내역이 없습니다</td></tr>'; return; }
 
     tbody.innerHTML = data.map((row, i) => {
       const isNew = row.created_at > lastVisit;
@@ -412,6 +413,7 @@
           <strong style="color:#2d4a8a; text-decoration:underline; text-underline-offset:3px;">${row.name || '-'}</strong>
           ${isNew ? '<span class="new-badge">NEW</span>' : ''}
         </td>
+        <td style="font-size:13px">${row.law_firm_name || '-'}</td>
         <td>${row.phone || '-'}</td>
         <td style="font-size:13px">${row.budget || '-'}</td>
         <td style="font-size:13px">${row.current_marketing || '-'}</td>
@@ -447,6 +449,7 @@
     if (!data) return;
     document.getElementById('modal-title').textContent = `${data.name || '-'} 상담 상세`;
     document.getElementById('m-name').textContent = data.name || '-';
+    document.getElementById('m-lawfirm').textContent = data.law_firm_name || '-';
     document.getElementById('m-phone').textContent = data.phone || '-';
     document.getElementById('m-email').textContent = data.email || '-';
     document.getElementById('m-budget').textContent = data.budget || '-';
