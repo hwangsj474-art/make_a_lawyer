@@ -390,15 +390,15 @@
     localStorage.setItem(key, new Date().toISOString());
   }
 
-  function login() {
-    function togglePw() {
-      const input = document.getElementById('password-input');
-      const show = input.type === 'password';
-      input.type = show ? 'text' : 'password';
-      document.getElementById('eye-icon').style.display = show ? 'none' : '';
-      document.getElementById('eye-off-icon').style.display = show ? '' : 'none';
-    }
+  function togglePw() {
+    const input = document.getElementById('password-input');
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    document.getElementById('eye-icon').style.display = show ? 'none' : '';
+    document.getElementById('eye-off-icon').style.display = show ? '' : 'none';
+  }
 
+  function login() {
     const pw = document.getElementById('password-input').value;
     if (pw === ADMIN_PASSWORD) {
       sessionStorage.setItem('admin_auth', 'true');
