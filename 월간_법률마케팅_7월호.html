@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>월간 법률마케팅 · 2026년 7월호</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16243D;
+    --navy-deep:#0E1830;
+    --gold:#A98A44;
+    --gold-soft:#C9AE6E;
+    --paper:#FBFAF6;
+    --ink:#2B3242;
+    --ink-soft:#6A7180;
+    --rule:#E3DFD4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Serif KR',serif;
+    font-size:17px;
+    line-height:1.85;
+    word-break:keep-all;
+  }
+  .sans{font-family:'Noto Sans KR',sans-serif;}
+
+  .page{max-width:760px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- Cover ---------- */
+  .cover{
+    background:var(--navy);
+    color:#F4F1E8;
+    padding:110px 28px 90px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::after{
+    content:"";
+    position:absolute;inset:22px;
+    border:1px solid rgba(201,174,110,.35);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:12px;
+    letter-spacing:.45em;
+    text-indent:.45em;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+  }
+  .cover .vol{margin-top:14px;font-family:'Noto Sans KR',sans-serif;font-size:12px;letter-spacing:.35em;text-indent:.35em;color:rgba(244,241,232,.6);}
+  .cover h1{
+    margin:46px 0 10px;
+    font-size:clamp(44px,8vw,68px);
+    font-weight:900;
+    letter-spacing:.02em;
+    line-height:1.25;
+  }
+  .cover .issue{font-size:clamp(20px,3.5vw,26px);font-weight:500;color:var(--gold-soft);letter-spacing:.3em;text-indent:.3em;}
+  .cover .thesis{
+    margin:64px auto 0;
+    display:inline-block;
+    padding:18px 34px;
+    border-top:1px solid var(--gold);
+    border-bottom:1px solid var(--gold);
+    font-size:clamp(18px,3.4vw,23px);
+    font-weight:600;
+    letter-spacing:.12em;
+  }
+  .cover .pub{margin-top:70px;font-family:'Noto Sans KR',sans-serif;font-size:12px;letter-spacing:.25em;color:rgba(244,241,232,.55);}
+
+  /* ---------- Contents ---------- */
+  .contents{padding:90px 0 70px;}
+  .section-label{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:12px;
+    letter-spacing:.4em;
+    text-indent:.4em;
+    color:var(--gold);
+    text-align:center;
+    text-transform:uppercase;
+  }
+  .contents h2{
+    text-align:center;
+    font-size:30px;
+    font-weight:700;
+    color:var(--navy);
+    margin:14px 0 46px;
+  }
+  .toc{list-style:none;}
+  .toc li{border-bottom:1px solid var(--rule);}
+  .toc a{
+    display:flex;
+    align-items:baseline;
+    gap:18px;
+    padding:16px 6px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:color .2s;
+  }
+  .toc a:hover,.toc a:focus-visible{color:var(--gold);}
+  .toc .no{font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:700;color:var(--gold);min-width:32px;letter-spacing:.05em;}
+  .toc .t{font-weight:500;}
+
+  /* ---------- Prologue / Outro ---------- */
+  .plain{padding:60px 0 80px;}
+  .plain h2{
+    text-align:center;font-size:28px;font-weight:700;color:var(--navy);
+    margin:14px 0 12px;
+  }
+  .tick{width:44px;height:2px;background:var(--gold);margin:26px auto 44px;}
+  .plain p{margin-bottom:26px;}
+
+  /* ---------- Chapter divider ---------- */
+  .divider{
+    background:var(--navy);
+    color:#F4F1E8;
+    padding:86px 28px;
+    text-align:center;
+  }
+  .divider .chnum{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:13px;letter-spacing:.5em;text-indent:.5em;color:var(--gold-soft);
+  }
+  .divider h2{
+    margin:24px auto 20px;
+    font-size:clamp(26px,5vw,36px);
+    font-weight:700;
+    line-height:1.5;
+    max-width:640px;
+  }
+  .divider .sub{
+    font-size:15px;color:rgba(244,241,232,.68);line-height:1.9;max-width:520px;margin:0 auto;
+  }
+  .divider .rule{width:44px;height:2px;background:var(--gold);margin:28px auto;}
+
+  /* ---------- Chapter body ---------- */
+  .chapter{padding:70px 0 90px;}
+  .chapter p{margin-bottom:26px;}
+  .chapter h3{
+    margin:52px 0 18px;
+    font-size:21px;font-weight:700;color:var(--navy);
+    padding-left:16px;
+    border-left:4px solid var(--gold);
+    line-height:1.5;
+  }
+  strong{color:var(--navy);font-weight:700;}
+
+  /* pull-quote box (double rule, like the book) */
+  .quote{
+    margin:56px 0;
+    border:1px solid var(--navy);
+    padding:5px;
+  }
+  .quote-inner{
+    border:2px solid var(--navy);
+    padding:46px 34px 40px;
+    position:relative;
+    text-align:center;
+  }
+  .quote-inner::before{
+    content:"\201C";
+    position:absolute;top:14px;left:22px;
+    font-size:44px;color:var(--navy);font-weight:900;line-height:1;
+  }
+  .quote-inner::after{
+    content:"\201D";
+    position:absolute;bottom:6px;right:22px;
+    font-size:44px;color:var(--navy);font-weight:900;line-height:1;
+  }
+  .quote p{
+    margin:0;font-size:19px;font-weight:600;color:var(--navy);line-height:2.1;
+  }
+
+  /* figure / chart */
+  figure{margin:44px 0;}
+  .chart-frame{
+    border:1px solid var(--rule);
+    background:#fff;
+    padding:22px 18px 12px;
+  }
+  figcaption{
+    margin-top:12px;text-align:center;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:13px;color:var(--ink-soft);
+  }
+  .chart-legend{
+    font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:var(--ink-soft);
+    border-top:1px solid var(--rule);margin-top:14px;padding:10px 4px 2px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .dot{width:9px;height:9px;border-radius:50%;background:#1EC800;flex:none;}
+
+  /* callout list */
+  .flag-list{
+    margin:34px 0;
+    border-top:2px solid var(--navy);
+    border-bottom:2px solid var(--navy);
+    padding:10px 0;
+    list-style:none;
+  }
+  .flag-list li{
+    padding:12px 6px;font-weight:500;color:var(--navy);
+  }
+  .flag-list li+li{border-top:1px dashed var(--rule);}
+  .flag-list li::before{content:"—";color:var(--gold);margin-right:12px;font-weight:700;}
+
+  .num-list{list-style:none;margin:34px 0;counter-reset:pt;}
+  .num-list li{
+    counter-increment:pt;
+    position:relative;
+    padding:20px 6px 20px 58px;
+    border-bottom:1px solid var(--rule);
+  }
+  .num-list li:first-child{border-top:1px solid var(--rule);}
+  .num-list li::before{
+    content:"0" counter(pt);
+    position:absolute;left:6px;top:22px;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:14px;font-weight:700;color:var(--gold);letter-spacing:.05em;
+  }
+
+  /* tables */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:40px 0;
+    font-size:15.5px;
+  }
+  caption{
+    caption-side:top;text-align:left;
+    font-size:19px;font-weight:700;color:var(--navy);
+    padding-bottom:14px;
+  }
+  th,td{
+    padding:15px 14px;
+    border-bottom:1px solid var(--rule);
+    text-align:left;vertical-align:top;
+    line-height:1.7;
+  }
+  thead th{
+    background:var(--navy);color:#F4F1E8;
+    font-family:'Noto Sans KR',sans-serif;font-size:13.5px;font-weight:700;
+    border-bottom:none;
+  }
+  tbody th{
+    font-weight:700;color:var(--navy);white-space:nowrap;
+  }
+  tbody tr:nth-child(even){background:#F4F1E9;}
+
+  .stat{
+    margin:40px 0;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--rule);border:1px solid var(--rule);
+  }
+  .stat div{background:#fff;padding:22px 16px;text-align:center;}
+  .stat .n{font-size:26px;font-weight:900;color:var(--navy);}
+  .stat .n em{font-style:normal;color:var(--gold);}
+  .stat .l{font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.6;}
+
+  /* outro */
+  .outro{
+    background:var(--navy);color:#F4F1E8;
+    padding:90px 28px 80px;text-align:center;
+  }
+  .outro .section-label{color:var(--gold-soft);}
+  .outro h2{font-size:28px;font-weight:700;margin:16px 0 40px;}
+  .outro blockquote{
+    font-size:19px;font-weight:500;line-height:2.2;max-width:520px;margin:0 auto;
+  }
+  .outro .sig{margin-top:44px;font-family:'Noto Sans KR',sans-serif;font-size:13px;color:rgba(244,241,232,.6);letter-spacing:.1em;}
+  .outro .brand{margin-top:60px;font-family:'Noto Sans KR',sans-serif;font-size:11px;letter-spacing:.4em;text-indent:.4em;color:var(--gold-soft);}
+
+  .top-link{
+    display:block;text-align:center;
+    padding:26px 0 60px;
+    font-family:'Noto Sans KR',sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--ink-soft);text-decoration:none;background:var(--paper);
+  }
+  .top-link:hover{color:var(--gold);}
+
+  @media (max-width:560px){
+    body{font-size:16px;}
+    .stat{grid-template-columns:1fr;}
+    th,td{padding:12px 10px;font-size:14.5px;}
+    .quote-inner{padding:44px 22px 40px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER ================= -->
+<header class="cover" id="top">
+  <p class="eyebrow">Monthly Legal Marketing Report</p>
+  <p class="vol">2026 JULY · VOL. 7</p>
+  <h1>월간 법률마케팅</h1>
+  <p class="issue">7월호</p>
+  <p class="thesis">전체를 보지 못하면 무너진다</p>
+  <p class="pub">메이크어로이어 · MAKEALAWYER.COM</p>
+</header>
+
+<!-- ================= CONTENTS ================= -->
+<nav class="contents page" aria-label="목차">
+  <p class="section-label">Contents</p>
+  <h2>목차</h2>
+  <ul class="toc sans">
+    <li><a href="#prologue"><span class="no">—</span><span class="t">시작하며</span></a></li>
+    <li><a href="#ch1"><span class="no">01</span><span class="t">전반적으로 저조했던 6월의 법률시장</span></a></li>
+    <li><a href="#ch2"><span class="no">02</span><span class="t">법률마케팅 역사상 가장 변동이 컸던 네이버</span></a></li>
+    <li><a href="#ch3"><span class="no">03</span><span class="t">대체 수단으로 급부상하는 워드프레스와 인블로그</span></a></li>
+    <li><a href="#ch4"><span class="no">04</span><span class="t">ChatGPT·네이버 AI브리핑, 광고의 시대</span></a></li>
+    <li><a href="#ch5"><span class="no">05</span><span class="t">하반기 전략을 세울 시간</span></a></li>
+    <li><a href="#outro"><span class="no">—</span><span class="t">마치며</span></a></li>
+  </ul>
+</nav>
+
+<!-- ================= PROLOGUE ================= -->
+<section class="plain page" id="prologue">
+  <p class="section-label">Prologue</p>
+  <h2>시작하며</h2>
+  <div class="tick"></div>
+  <p>지난 6월, 법률마케팅 시장은 유례없는 격변을 겪었습니다. 법률마케팅의 근간이 되어온 네이버가 노출 영역을 크게 손보았고, 바이럴에 기대어온 수많은 로펌과 전문직이 하루아침에 흔들렸습니다.</p>
+  <p>플랫폼의 규칙이 바뀔 때, 부분만 보는 사람은 흔들리고 전체를 보는 사람은 기회를 잡습니다. 이번 호의 표제를 <strong>‘전체를 보지 못하면 무너진다’</strong>로 정한 이유입니다.</p>
+  <p>이번 호는 6월 한 달의 변화를 빠짐없이 정리하고, 새롭게 떠오르는 채널과 AI 광고 시대의 흐름을 짚은 뒤, 하반기를 준비하는 이들을 위한 실전 전략으로 마무리합니다.</p>
+  <p>변화의 한복판에 서 있는 모든 분들께 이 기록이 나침반이 되기를 바랍니다.</p>
+</section>
+
+<!-- ================= CHAPTER 1 ================= -->
+<section class="divider" id="ch1">
+  <p class="chnum">CHAPTER 1</p>
+  <h2>전반적으로 저조했던<br>6월의 법률시장</h2>
+  <div class="rule"></div>
+  <p class="sub">지방선거와 월드컵, 그리고 네이버 대격변이 겹친 한 달 —<br>DB 감소와 CPC 상승의 배경</p>
+</section>
+
+<section class="chapter page">
+  <p>지난 6월은 <strong>‘전반적으로 문의가 저조했던 달’</strong>로 평가되고 있습니다. 6·3 지방선거와 월드컵이 같은 시기에 진행되면서 상당수 B2C 분야에서 DB가 전체적으로 감소하였습니다.</p>
+  <p>이와 더불어 네이버가 같은 시기 바이럴(블로그·카페 등) 영역을 대대적으로 뒤집으면서, 바이럴 위주로 법률마케팅을 해오던 전문직과 로펌들은 큰 타격을 입게 되었습니다. 그 결과 상대적으로 변화가 없었던 <strong>검색광고와 파워컨텐츠로 광고가 몰렸고, CPC는 전반적으로 상승</strong>하였습니다.</p>
+
+  <figure>
+    <div class="chart-frame">
+      <svg viewBox="0 0 640 240" width="100%" height="auto" role="img" aria-label="변호사 관련 검색어 트렌드: 4월부터 6월 말까지 전반적 하락 추이">
+        <line x1="40" y1="20"  x2="620" y2="20"  stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="70"  x2="620" y2="70"  stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="120" x2="620" y2="120" stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="170" x2="620" y2="170" stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="220" x2="620" y2="220" stroke="#D8D4C8" stroke-width="1"/>
+        <text x="30" y="24"  font-size="11" fill="#9AA0AC" text-anchor="end" font-family="sans-serif">100</text>
+        <text x="30" y="124" font-size="11" fill="#9AA0AC" text-anchor="end" font-family="sans-serif">50</text>
+        <text x="30" y="224" font-size="11" fill="#9AA0AC" text-anchor="end" font-family="sans-serif">0</text>
+        <polyline fill="none" stroke="#1EC800" stroke-width="2" stroke-linejoin="round"
+          points="40,76 60,90 80,32 100,44 120,60 140,26 160,84 180,96 200,70 220,44 240,116 260,84 280,52 300,24 320,110 340,96 360,66 380,70 400,86 420,60 440,72 460,96 480,120 500,72 520,86 540,140 560,190 580,150 600,196 620,132"/>
+        <text x="40"  y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">4.1.</text>
+        <text x="235" y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">5.11.</text>
+        <text x="430" y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">5.31.</text>
+        <text x="590" y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">6.20.</text>
+      </svg>
+      <p class="chart-legend"><span class="dot"></span>변호사&nbsp;|&nbsp;이혼·형사·부동산·민사·행정·기업 전문변호사</p>
+    </div>
+    <figcaption>검색어 트렌드 (2026. 4. 1 ~ 6. 30)</figcaption>
+  </figure>
+
+  <figure>
+    <div class="chart-frame">
+      <svg viewBox="0 0 640 240" width="100%" height="auto" role="img" aria-label="6월 한 달 검색어 트렌드: 월초 대비 뚜렷한 하락 후 소폭 반등">
+        <line x1="40" y1="20"  x2="620" y2="20"  stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="70"  x2="620" y2="70"  stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="120" x2="620" y2="120" stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="170" x2="620" y2="170" stroke="#EEECE4" stroke-width="1"/>
+        <line x1="40" y1="220" x2="620" y2="220" stroke="#D8D4C8" stroke-width="1"/>
+        <text x="30" y="24"  font-size="11" fill="#9AA0AC" text-anchor="end" font-family="sans-serif">100</text>
+        <text x="30" y="124" font-size="11" fill="#9AA0AC" text-anchor="end" font-family="sans-serif">50</text>
+        <text x="30" y="224" font-size="11" fill="#9AA0AC" text-anchor="end" font-family="sans-serif">0</text>
+        <polyline fill="none" stroke="#1EC800" stroke-width="2" stroke-linejoin="round"
+          points="40,22 70,40 100,42 130,86 160,98 190,42 220,36 250,50 280,74 310,80 340,54 370,54 400,132 430,124 460,158 490,90 520,106 550,120 580,164 600,168 620,110"/>
+        <text x="40"  y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">6.1.</text>
+        <text x="230" y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">6.13.</text>
+        <text x="420" y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">6.19.</text>
+        <text x="580" y="238" font-size="11" fill="#9AA0AC" font-family="sans-serif">6.25.</text>
+      </svg>
+      <p class="chart-legend"><span class="dot"></span>변호사&nbsp;|&nbsp;이혼·형사·부동산·민사·행정·기업 전문변호사</p>
+    </div>
+    <figcaption>검색어 트렌드 (2026. 6. 1 ~ 6. 30)</figcaption>
+  </figure>
+
+  <div class="quote">
+    <div class="quote-inner">
+      <p>외부 이벤트로 수요는 줄고,<br>플랫폼 변동으로 공급 채널은 흔들리고 —<br>6월은 수요와 공급이 동시에 요동친 달이었습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 2 ================= -->
+<section class="divider" id="ch2">
+  <p class="chnum">CHAPTER 2</p>
+  <h2>법률마케팅 역사상<br>가장 변동이 컸던 네이버</h2>
+  <div class="rule"></div>
+  <p class="sub">이제 다시 진성 글의 시대로 복귀하나?<br>스마트블록 소멸부터 카페 영구정지까지, 6월 대변동 총정리</p>
+</section>
+
+<section class="chapter page">
+  <p>지난 6월은 법률마케팅 역사상 가장 변동이 컸던 시기가 아닌가 싶습니다. 법률마케팅의 근간이 되어온 네이버가 노출 영역을 크게 손보았고, 특히 바이럴 부분에서 큰 변화가 이루어졌습니다.</p>
+  <p>대표적으로 6월 중순부터 네이버 통합검색에서 웹문서 영역이 비정상적으로 노출되는 현상이 자주 발생했습니다.</p>
+
+  <ul class="flag-list">
+    <li>웹문서가 통째로 사라짐</li>
+    <li>기존 상위 노출 페이지가 갑자기 미노출</li>
+    <li>순위가 몇 시간 단위로 크게 변동</li>
+    <li>모바일과 PC 검색 결과가 다르게 표시</li>
+  </ul>
+
+  <p>이는 특정 키워드만의 문제가 아니라, 네이버가 검색 알고리즘에 변화를 주는 서버 업데이트 과정에서 나타난 현상으로 추측되고 있습니다.</p>
+
+  <h3>기생하던 광고를 전부 밀어버린 네이버</h3>
+  <p>전체적으로 블로그·카페 계정 상당수가 영구정지 및 보호조치되었고, 플랫폼에 직접 광고비를 지급하지 않은 채 자체적으로 운영되던 광고는 대거 삭제·미노출 처리되었습니다. 플레이스에서도 리뷰의 진정성을 기준으로 필터링이 강화되었습니다.</p>
+
+  <h3>사라진 스마트블록</h3>
+  <p>기존에 꾸준히 노출되던 스마트블록이 전부 사라지고 일반 웹 영역으로 변경되는 사례가 증가했습니다. 업데이트 이후 현재까지 복구된 사례가 없는 점으로 보아, 스마트블록을 없애고 그 자리를 AI탭·AI브리핑 등으로 완전히 대체하기 위한 업데이트가 아닌가 추측됩니다.</p>
+
+  <h3>블로그 대량 생성 및 보호조치 증가</h3>
+  <p>6월부터 신규 블로그를 여러 개 생성하고 직후에 포스팅할 경우 ‘보호조치 본인인증 요구’ 또는 ‘로그인 제한’이 걸리는 사례가 크게 늘었습니다. 특히 동일 환경에서의 반복 생성은 보호조치 확률이 높아졌다는 의견이 많았습니다. 그로 인해 예전처럼 블로그를 대량으로 만들어 운영하기 어려워졌고, 실사용 이력과 자연스러운 활동을 중요하게 보는 방향으로 정책이 강화된 것으로 분석됩니다.</p>
+
+  <h3>인기글 지수 영향 감소</h3>
+  <p>기존에는 공감, 댓글, 체류시간, 공유 등으로 인기글 지수가 올라가면 검색에도 어느 정도 긍정적인 영향을 준다는 의견이 많았습니다. 하지만 6월 이후에는 인기글이 되어도 검색 순위 변화가 거의 없는 사례가 크게 늘었고, 반대로 조회수나 공감이 적은 글이 상위에 노출되는 경우도 많아졌습니다. 이에 따라 최근에는 문서 품질, 작성자의 전문성, 검색 의도 적합성의 비중이 더 커졌다는 분석이 나오고 있습니다.</p>
+
+  <h3>블로그 메이트 선정</h3>
+  <p>6월부터 일부 블로그에서 ‘블로그 메이트’ 선정 알림이 노출되기 시작했습니다. 자주 방문하거나 서로 공감·댓글·이웃 활동이 많은 계정을 기반으로 추천되는 형태로, 활동성이 높은 사용자 간 연결을 강화하려는 기능으로 추정됩니다. 다만 아직 테스트 성격이라는 의견이 많아, SEO 영향보다는 ‘체류시간과 커뮤니티 활성화를 위한 기능’으로 보되 좀 더 지켜볼 필요가 있겠습니다.</p>
+
+  <h3>카페 계정 영구정지 사태</h3>
+  <p>대표 카페들이 무너진 것은 6월 법률마케팅에 있어 사실상 가장 큰 이슈입니다. 광고 계정뿐 아니라 정상 활동 계정까지 영구 이용제한, 글쓰기 제한 등이 발생했고, 많은 운영자가 제휴업체를 일괄 내보내는 등 카페를 살리기 위해 고군분투 중입니다.</p>
+
+  <h3>영수증 리뷰 필터링이 강화된 네이버 플레이스</h3>
+  <p>6월부터 등록은 되었지만 노출되지 않는 리뷰, 하루 뒤 사라지는 리뷰, 특정 계정의 리뷰만 미반영되는 사례가 크게 증가했습니다. 특히 ‘짧은 문장’, ‘반복 표현’, ‘비슷한 사진’, ‘동일한 패턴의 리뷰’는 필터링될 확률이 높아졌다는 이야기가 많았습니다. 이전보다 AI 기반 품질검사가 강화된 것으로 추정됩니다.</p>
+
+  <table>
+    <caption>네이버 변동 사항을 종합하자면</caption>
+    <thead>
+      <tr><th scope="col">구분</th><th scope="col">주요 내용 및 변화 방향</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">① 콘텐츠 품질 강화</th><td>인기글 지수보다 문서 자체의 품질과 검색 의도 적합성을 최우선으로 평가</td></tr>
+      <tr><th scope="row">② 어뷰징 차단 강화</th><td>영수증 리뷰, 카페 계정, 블로그 생성 등 반복적·인위적 패턴에 대한 제재 강화</td></tr>
+      <tr><th scope="row">③ 서비스 구조 변화</th><td>블로그 메이트 도입, 스마트블록 개편 등 UX 개선을 위한 테스트 동시 진행</td></tr>
+    </tbody>
+  </table>
+
+  <p>결국 지난 6월은 네이버가 AI 시대에 적합한 플랫폼 생태계를 만들기 위해 불필요하다고 판단한 부분을 대거 정비한 달이 아닐까 싶습니다. 실제로 최근 <strong>‘브랜드 블로그’의 노출도가 상당히 증가</strong>했습니다.</p>
+  <p><strong>진성 글</strong> — 즉, 사람이 공들여 제공한 정보야말로 네이버가 오랜 기간 확고히 바라온 방향입니다. 특히 네이버는 AI 검색에서도 자사 플랫폼 내 정보를 상당 부분 활용해 답변을 추출하고 있기에, 더더욱 ‘진정한 의미의 정보가 담긴 글’을 중시할 수밖에 없습니다.</p>
+
+  <div class="quote">
+    <div class="quote-inner">
+      <p>네이버가 7월 ‘AI브리핑’ 광고 도입을 앞둔 만큼,<br>정당한 광고가 아닌 한<br>다시 ‘순수 정보의 싸움’이 될 확률이 높습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 3 ================= -->
+<section class="divider" id="ch3">
+  <p class="chnum">CHAPTER 3</p>
+  <h2>대체 수단으로 급부상하는<br>워드프레스와 인블로그</h2>
+  <div class="rule"></div>
+  <p class="sub">구글·AI 인용에 유리하다는 홍보,<br>그 이면에서 반드시 따져봐야 할 세 가지</p>
+</section>
+
+<section class="chapter page">
+  <p>네이버 블로그 상위 노출이 어려워짐에 따라 워드프레스(WordPress)와 인블로그(InBlog)에 대한 관심도가 상승하고 있습니다. 네이버 블로그가 구글에 잘 노출되지 않는 것과 달리, 구글과 AI의 답변 인용에 유리하다는 점을 내세워 적극적으로 홍보되고 있습니다.</p>
+  <p>분명 동의하는 부분이 꽤 있으나, 다음의 세 가지를 먼저 고려해야 합니다.</p>
+
+  <ol class="num-list">
+    <li>구글에서 메인 키워드는 광고를 제외하면 여전히 <strong>웹사이트의 노출이 더 많습니다.</strong></li>
+    <li>AI 답변 인용에서도 <strong>웹사이트·기사 등 신뢰도 있는 매체</strong>가 더 많이 활용됩니다.</li>
+    <li>네이버가 광고성 글을 대거 삭제한 지금은 오히려 <strong>상위 노출 공백이 생긴 시점</strong>입니다.</li>
+  </ol>
+
+  <p>따라서 무작정 시작하기보다는, 자신과 자사에게 유리한 상품인지를 먼저 파악하는 것이 좋겠습니다.</p>
+  <p>최근 네이버는 AI브리핑 인용 수를 공개하고 있습니다. 블로그·지식iN·카페 등 프리미엄 콘텐츠의 서비스 프로필에 기본으로 표시함으로써, 질 좋은 콘텐츠 생산을 유도하려는 목적으로 보입니다.</p>
+  <p>따라서 <strong>네이버 내 노출을 원한다면 오히려 브랜드 블로그 운영이 더 유리</strong>할 수 있습니다. 다만 홈페이지를 새로 만들어야 하거나 새로운 매체 발굴이 필요한 상황, 또는 다량의 세부 키워드를 구글에 넓게 깔아놓는 전략이라면 워드프레스와 인블로그가 유리할 수 있습니다.</p>
+</section>
+
+<!-- ================= CHAPTER 4 ================= -->
+<section class="divider" id="ch4">
+  <p class="chnum">CHAPTER 4</p>
+  <h2>ChatGPT·네이버 AI브리핑,<br>광고의 시대가 열린다</h2>
+  <div class="rule"></div>
+  <p class="sub">AI 답변 인용에 광고가 붙는다 —<br>광고주가 지금 정해야 할 방향</p>
+</section>
+
+<section class="chapter page">
+  <p>이번 7월부터 <strong>ChatGPT와 네이버가 AI 답변 인용에 광고를 도입</strong>하기로 공식 발표했습니다.</p>
+  <p>우선 ChatGPT는 현재 전 세계에 순차적으로 광고 서비스를 배포 중입니다. 다만 법률·의료·금융 분야는 소재 가이드라인과 정책을 충족하면 광고 노출은 가능하나 <strong>수임 유도에는 제한</strong>을 두고 있어, 법률마케팅에서 얼마나 효용이 있을지는 아직 미지수입니다.</p>
+
+  <h3>네이버 AI탭</h3>
+  <p>네이버는 지난 6월 AI 기반 대화형 검색 서비스 ‘AI탭’을 정식 출시했습니다. 기존 ‘검색 엔진’에 생성형 AI 형태의 ‘답변 엔진’을 혼용한 <strong>‘하이브리드형 검색 엔진’</strong>으로 성장하겠다는 의지로 보입니다. 이를 바탕으로 7월에는 AI브리핑 영역에 광고를 도입한다고 밝혔으나, 아직 뚜렷한 상품이 공개되지는 않았습니다.</p>
+  <p>AI에 광고가 붙을 수 있다는 이야기는 이미 작년 연말부터 나왔습니다. 광고주 입장에서는 <strong>AI 답변에 ‘인용’되는 것에 중점을 둘 것인지, ‘광고 상품’에 중점을 둘 것인지</strong> 빠른 방향 설정과 비중 분배가 필요한 시점입니다.</p>
+</section>
+
+<!-- ================= CHAPTER 5 ================= -->
+<section class="divider" id="ch5">
+  <p class="chnum">CHAPTER 5</p>
+  <h2>하반기 전략을 세울 시간</h2>
+  <div class="rule"></div>
+  <p class="sub">AI 대중화에도 상승하는 네이버 점유율,<br>그리고 당신을 위한 마케팅 핵심 전략</p>
+</section>
+
+<section class="chapter page">
+  <p>오픈AI의 등장으로 검색 점유율이 네이버에서 AI로 이동할 것이라는 모두의 예측과 달리, AI 대중화에도 네이버 검색 점유율은 오히려 상승 추세에 있습니다.</p>
+
+  <div class="stat sans">
+    <div><p class="n">63.82<em>%</em></p><p class="l">AI탭 베타 출시 전<br>(2026. 1. 1 ~ 4. 26 평균)</p></div>
+    <div><p class="n">66.34<em>%</em></p><p class="l">출시 후<br>(4. 27 ~ 6. 17 평균)</p></div>
+    <div><p class="n">81.34<em>%</em></p><p class="l">6월 24일 기준<br>(출처: 인터넷트렌드)</p></div>
+  </div>
+
+  <p>이는 결국 생성형 AI에게 질문하더라도, 그 답변의 팩트 확인을 위해 익숙한 포털로 돌아가 더블체크하기 때문입니다.</p>
+  <p>법률서비스 수요자 상당수가 변화 대응이 느린 중장년층임을 감안하면 아직은 네이버에 기댄 마케팅이 유효하다고 생각합니다.</p>
+  <p>플랫폼이 크게 변화한다는 것은, 오히려 마케팅 제로베이스 로펌에게 더 유리한 시장이 될 수 있다는 뜻이기도 합니다. 2026년 상반기가 마무리된 만큼, 이번 기회에 하반기 마케팅 전략을 진지하게 구상해보는 것은 어떨까요?</p>
+
+  <table>
+    <caption>당신을 위한 마케팅 핵심 전략</caption>
+    <thead>
+      <tr><th scope="col">구분</th><th scope="col">핵심 전략</th><th scope="col">기대 효과</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">검색광고</th><td>광고 비율 유지 또는 상향</td><td>바이럴이 흔들리는 시기에 확실한 퍼포먼스 효과 확보</td></tr>
+      <tr><th scope="row">브랜드 블로그</th><td>미운영 시 신규 도입</td><td>통합검색 및 새로운 노출 영역 선점 기회</td></tr>
+      <tr><th scope="row">지식iN</th><td>운영 중이면 지속 유지</td><td>통합검색 노출이 꾸준하고 안정적인 채널</td></tr>
+      <tr><th scope="row">네이버 클립</th><td>기존 영상으로 클립 운영</td><td>통합검색 내 영상 노출 증가 추세 활용</td></tr>
+      <tr><th scope="row">외부 매체 확장</th><td>유튜브·SNS 채널 다변화</td><td>단일 매체 의존도를 낮춰 변동성에 대응</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= OUTRO ================= -->
+<footer class="outro" id="outro">
+  <p class="section-label">Outro</p>
+  <h2>마치며</h2>
+  <blockquote>
+    “ 7월은 6월에 비해 콜이<br>
+    전반적으로 회복될 것으로 예상됩니다.<br>
+    모두들 화이팅입니다! ”
+  </blockquote>
+  <p class="sig">— 월간 법률마케팅 7월호를 마치며</p>
+  <p class="brand">MAKEALAWYER · MAKEALAWYER.COM</p>
+</footer>
+
+<a class="top-link" href="#top">↑ 맨 위로</a>
+
+</body>
+</html>
