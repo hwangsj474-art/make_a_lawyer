@@ -392,8 +392,11 @@
   function closeLoginModal() {
     document.getElementById('login-modal').style.display = 'none';
   }
-  document.getElementById('login-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeLoginModal();
+  document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('login-modal');
+    if (modal) modal.addEventListener('click', function(e) {
+      if (e.target === this) closeLoginModal();
+    });
   });
 
   async function doKakaoLogin() {
