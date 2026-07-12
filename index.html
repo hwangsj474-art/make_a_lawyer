@@ -400,93 +400,41 @@
       </div>
     </div>
 
-    <!-- 환불 규정 아코디언 -->
-    <div style="padding:60px 48px;border-top:1px solid rgba(201,164,99,.2)">
-      <div style="max-width:760px;margin:0 auto">
-        <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:28px;text-align:center">환불 규정</div>
-        <div style="font:500 22px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:32px;text-align:center">메이크어로이어 구독 서비스 환불 규정</div>
-
-        <div id="refund-accordion">
-
-          <div class="ra-item" style="border-top:1px solid rgba(201,164,99,.18)">
-            <div onclick="toggleRefund(0)" style="display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer">
-              <span style="font:500 14px 'Noto Sans KR',sans-serif;color:#e9d9a8">청약철회</span>
-              <span class="ra-icon" style="font:300 20px sans-serif;color:#c9a463;transition:transform .3s;line-height:1">+</span>
+    <!-- 환불 규정 토글 -->
+    <div style="padding:0 48px 60px;display:flex;justify-content:center">
+      <div style="width:400px">
+        <div onclick="toggleRefundPanel()" style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid rgba(201,164,99,.2);cursor:pointer">
+          <span style="font:400 12px 'Noto Sans KR',sans-serif;color:#8a8471;letter-spacing:.04em">환불 규정</span>
+          <span id="refund-toggle-icon" style="font:300 18px sans-serif;color:#c9a463;line-height:1;transition:transform .3s;display:inline-block">∨</span>
+        </div>
+        <div id="refund-panel" style="display:none;border:1px solid rgba(201,164,99,.18);padding:24px 20px;margin-top:2px">
+          <div style="font:500 13px 'Noto Serif KR',serif;color:#e9d9a8;margin-bottom:18px">메이크어로이어 구독 서비스 환불 규정</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div>
+              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">청약철회</div>
+              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 구독 신청일로부터 7일 이내 가능<br>· 디지털 콘텐츠 1건 이상 이용 시 불가<br>· 청약철회 시 전액 환불</div>
             </div>
-            <div class="ra-body" style="display:none;padding:0 4px 20px">
-              <div style="font:300 13px/2 'Noto Sans KR',sans-serif;color:#9c9686">
-                · 구독 신청일로부터 7일 이내 가능<br>
-                · 디지털 콘텐츠 1건 이상 이용 시 청약철회 불가<br>
-                · 청약철회 시 전액 환불
-              </div>
+            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
+              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">중도 해지</div>
+              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 언제든 해지 가능<br>· 환불 금액 = 결제 금액 − (월 구독료 ÷ 30일 × 이용일수)</div>
             </div>
-          </div>
-
-          <div class="ra-item" style="border-top:1px solid rgba(201,164,99,.18)">
-            <div onclick="toggleRefund(1)" style="display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer">
-              <span style="font:500 14px 'Noto Sans KR',sans-serif;color:#e9d9a8">중도 해지</span>
-              <span class="ra-icon" style="font:300 20px sans-serif;color:#c9a463;transition:transform .3s;line-height:1">+</span>
+            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
+              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">환불 불가</div>
+              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 강의 영상 시청 / 자료 다운로드 이력이 있는 경우<br>· 구독 기간 만료 후</div>
             </div>
-            <div class="ra-body" style="display:none;padding:0 4px 20px">
-              <div style="font:300 13px/2 'Noto Sans KR',sans-serif;color:#9c9686">
-                · 언제든 해지 가능<br>
-                · 환불 금액 = 결제 금액 − (월 구독료 ÷ 30일 × 이용일수)
-              </div>
+            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
+              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">환불 신청 방법</div>
+              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 카카오톡 채널 (@메이크어로이어) 또는 이메일<br>· 이름 / 연락처 / 플랜 / 사유 기재 필수</div>
             </div>
-          </div>
-
-          <div class="ra-item" style="border-top:1px solid rgba(201,164,99,.18)">
-            <div onclick="toggleRefund(2)" style="display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer">
-              <span style="font:500 14px 'Noto Sans KR',sans-serif;color:#e9d9a8">환불 불가</span>
-              <span class="ra-icon" style="font:300 20px sans-serif;color:#c9a463;transition:transform .3s;line-height:1">+</span>
+            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
+              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">환불 처리 기간</div>
+              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 승인 후 영업일 3~5일 이내 처리<br>· 카드사 정책에 따라 최대 7영업일 소요 가능</div>
             </div>
-            <div class="ra-body" style="display:none;padding:0 4px 20px">
-              <div style="font:300 13px/2 'Noto Sans KR',sans-serif;color:#9c9686">
-                · 강의 영상 시청 또는 자료 다운로드 이력이 있는 경우<br>
-                · 구독 기간 만료 후
-              </div>
+            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
+              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">기타</div>
+              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 전자상거래법을 준수합니다<br>· 규정은 사전 고지 후 변경될 수 있습니다</div>
             </div>
           </div>
-
-          <div class="ra-item" style="border-top:1px solid rgba(201,164,99,.18)">
-            <div onclick="toggleRefund(3)" style="display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer">
-              <span style="font:500 14px 'Noto Sans KR',sans-serif;color:#e9d9a8">환불 신청 방법</span>
-              <span class="ra-icon" style="font:300 20px sans-serif;color:#c9a463;transition:transform .3s;line-height:1">+</span>
-            </div>
-            <div class="ra-body" style="display:none;padding:0 4px 20px">
-              <div style="font:300 13px/2 'Noto Sans KR',sans-serif;color:#9c9686">
-                · 카카오톡 채널 (@메이크어로이어) 또는 이메일로 신청<br>
-                · 이름 / 연락처 / 플랜 / 사유 기재 필수
-              </div>
-            </div>
-          </div>
-
-          <div class="ra-item" style="border-top:1px solid rgba(201,164,99,.18)">
-            <div onclick="toggleRefund(4)" style="display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer">
-              <span style="font:500 14px 'Noto Sans KR',sans-serif;color:#e9d9a8">환불 처리 기간</span>
-              <span class="ra-icon" style="font:300 20px sans-serif;color:#c9a463;transition:transform .3s;line-height:1">+</span>
-            </div>
-            <div class="ra-body" style="display:none;padding:0 4px 20px">
-              <div style="font:300 13px/2 'Noto Sans KR',sans-serif;color:#9c9686">
-                · 승인 후 영업일 3~5일 이내 처리<br>
-                · 카드사 정책에 따라 최대 7영업일 소요 가능
-              </div>
-            </div>
-          </div>
-
-          <div class="ra-item" style="border-top:1px solid rgba(201,164,99,.18);border-bottom:1px solid rgba(201,164,99,.18)">
-            <div onclick="toggleRefund(5)" style="display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer">
-              <span style="font:500 14px 'Noto Sans KR',sans-serif;color:#e9d9a8">기타</span>
-              <span class="ra-icon" style="font:300 20px sans-serif;color:#c9a463;transition:transform .3s;line-height:1">+</span>
-            </div>
-            <div class="ra-body" style="display:none;padding:0 4px 20px">
-              <div style="font:300 13px/2 'Noto Sans KR',sans-serif;color:#9c9686">
-                · 전자상거래 등에서의 소비자보호에 관한 법률을 준수합니다<br>
-                · 규정은 사전 고지 후 변경될 수 있습니다
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
@@ -648,15 +596,12 @@
     window.scrollTo(0, 0);
   }
 
-  function toggleRefund(idx) {
-    var items = document.querySelectorAll('#refund-accordion .ra-item');
-    var item = items[idx];
-    var body = item.querySelector('.ra-body');
-    var icon = item.querySelector('.ra-icon');
-    var isOpen = body.style.display === 'block';
-    body.style.display = isOpen ? 'none' : 'block';
-    icon.textContent = isOpen ? '+' : '−';
-    icon.style.transform = isOpen ? '' : 'rotate(45deg)';
+  function toggleRefundPanel() {
+    var panel = document.getElementById('refund-panel');
+    var icon  = document.getElementById('refund-toggle-icon');
+    var isOpen = panel.style.display === 'block';
+    panel.style.display = isOpen ? 'none' : 'block';
+    icon.style.transform = isOpen ? '' : 'rotate(180deg)';
   }
 
   function selectPlan(plan) {
