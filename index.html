@@ -33,6 +33,8 @@
       <span class="nav-link" data-nav="book" onclick="goPage('book')">BOOK</span>
       <span class="nav-link" data-nav="team" onclick="goPage('team')">TEAM</span>
       <div style="padding:9px 18px;border:1px solid #c9a463;color:#c9a463;font:600 11px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer" onclick="goPage('contact')">CONTACT</div>
+      <div id="nav-login-btn" style="padding:9px 18px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 11px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer" onclick="openLoginModal()">로그인</div>
+      <div id="nav-logout-btn" style="display:none;padding:9px 18px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 11px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer" onclick="doLogout()">로그아웃</div>
     </div>
   </div>
 
@@ -377,6 +379,41 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhd3VjaGptd2huaWNxcGVlcmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMzgyMDEsImV4cCI6MjA5NjYxNDIwMX0.Tc4rSbMti2DEYalFjGyYVkcXe39Xu52xCPKHI83VCtc'
   );
 
+  function updateAuthUI(session) {
+    const loggedIn = !!session;
+    document.getElementById('nav-login-btn').style.display  = loggedIn ? 'none' : '';
+    document.getElementById('nav-logout-btn').style.display = loggedIn ? '' : 'none';
+  }
+
+  function openLoginModal() {
+    const m = document.getElementById('login-modal');
+    m.style.display = 'flex';
+  }
+  function closeLoginModal() {
+    document.getElementById('login-modal').style.display = 'none';
+  }
+  document.getElementById('login-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeLoginModal();
+  });
+
+  async function doKakaoLogin() {
+    await _db.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: { redirectTo: window.location.href }
+    });
+  }
+
+  async function doLogout() {
+    await _db.auth.signOut();
+    updateAuthUI(null);
+  }
+
+  _db.auth.getSession().then(({ data: { session } }) => updateAuthUI(session));
+  _db.auth.onAuthStateChange((_event, session) => {
+    updateAuthUI(session);
+    if (session) closeLoginModal();
+  });
+
   function goPage(name) {
     document.querySelectorAll('.page').forEach(function(el){ el.classList.remove('active'); });
     document.getElementById('page-' + name).classList.add('active');
@@ -418,6 +455,19 @@
     document.getElementById('contact-form-done').style.display = 'block';
   }
 </script>
+
+<!-- 로그인 모달 -->
+<div id="login-modal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#141210;border:1px solid rgba(201,164,99,.3);padding:52px 44px;width:360px;max-width:90vw;text-align:center;position:relative;">
+    <div style="position:absolute;top:16px;right:20px;cursor:pointer;color:#6f6752;font-size:20px;line-height:1;" onclick="closeLoginModal()">×</div>
+    <div style="font:600 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">로그인</div>
+    <div style="font:300 12px 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:36px;letter-spacing:.04em">소셜 계정으로 간편하게 시작하세요</div>
+    <button onclick="doKakaoLogin()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 20px;background:#FEE500;border:none;cursor:pointer;font:600 13px 'Noto Sans KR',sans-serif;color:#191919;letter-spacing:.02em;">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.7 1.6 5.1 4 6.6l-1 3.8c-.07.28.22.5.47.35L10 19c.64.1 1.3.16 2 .16 5.523 0 10-3.477 10-7.8S17.523 3 12 3z" fill="#191919"/></svg>
+      카카오로 로그인
+    </button>
+  </div>
+</div>
 
 <!-- 플로팅 버튼 -->
 <div style="position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;gap:12px;align-items:center;">
