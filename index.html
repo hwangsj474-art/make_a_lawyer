@@ -694,7 +694,7 @@
         상호 : 메이크어로이어 &nbsp;|&nbsp; 대표 : 장현지 &nbsp;|&nbsp; 사업자 등록번호 : 367-40-01285 &nbsp;|&nbsp; 이메일 : <a href="mailto:makealawyer@naver.com" style="color:#6f6752">makealawyer@naver.com</a>
       </div>
       <div style="display:flex;gap:16px;flex:none">
-        <a href="#">개인정보처리방침</a>
+        <a href="#" onclick="event.preventDefault();document.getElementById('privacy-modal').style.display='flex'" style="color:#6f6752;font:300 11px 'Noto Sans KR',sans-serif;text-decoration:none">개인정보처리방침</a>
         <a href="#">이용약관</a>
       </div>
     </div>
@@ -987,6 +987,75 @@
       <path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.7 1.6 5.1 4 6.6l-1 3.8c-.07.28.22.5.47.35L10 19c.64.1 1.3.16 2 .16 5.523 0 10-3.477 10-7.8S17.523 3 12 3z" fill="#C3A66C"/>
     </svg>
   </a>
+</div>
+
+<!-- 개인정보처리방침 모달 -->
+<div id="privacy-modal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto" onclick="if(event.target===this)this.style.display='none'">
+  <div style="width:min(680px,100%);background:#141210;border:1px solid rgba(201,164,99,.3);margin:auto" onclick="event.stopPropagation()">
+    <div style="position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#141210;border-bottom:1px solid rgba(201,164,99,.15)">
+      <div style="font:400 10px 'Noto Sans KR',sans-serif;letter-spacing:.25em;color:#c9a463">PRIVACY POLICY</div>
+      <span onclick="document.getElementById('privacy-modal').style.display='none'" style="cursor:pointer;color:#6f6752;font-size:22px;line-height:1">×</span>
+    </div>
+    <div style="padding:32px 28px;font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#9c9686">
+      <div style="font:600 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:6px">개인정보처리방침</div>
+      <div style="font:300 11px 'Noto Sans KR',sans-serif;color:#6f6752;margin-bottom:24px">시행일자 : 2026년 7월 12일</div>
+      <p style="margin:0 0 28px">메이크어로이어(이하 '회사')는 「개인정보 보호법」 등 관계 법령을 준수하며, 이용자의 개인정보가 안전하게 처리되도록 최선을 다하고 있습니다. 회사는 개인정보처리방침을 통하여 이용자가 제공하는 개인정보가 어떠한 목적과 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">1. 수집하는 개인정보 항목</div>
+      <p style="margin:0 0 10px">회사는 아래와 같은 개인정보를 수집합니다.</p>
+      <p style="margin:0 0 4px">· 회원가입 시 : 이름, 아이디, 비밀번호, 휴대폰번호, 이메일</p>
+      <p style="margin:0 0 4px">· 정기구독 신청 시 : 이름, 카카오톡 연락처(휴대폰번호)</p>
+      <p style="margin:0 0 4px">· 상담·문의 접수 시 : 이름, 회사(로펌)명, 연락처, 문의 내용</p>
+      <p style="margin:0 0 4px">· SNS 계정(네이버·구글·카카오) 연동 로그인 시 : 각 서비스가 제공하는 이메일, 프로필 정보</p>
+      <p style="margin:0 0 28px">· 서비스 이용 과정에서 IP 주소, 쿠키, 방문일시, 서비스 이용기록 등이 자동으로 생성되어 수집될 수 있습니다.</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">2. 개인정보의 수집 및 이용 목적</div>
+      <p style="margin:0 0 4px">· 회원 관리 : 회원제 서비스 이용에 따른 본인 확인, 개인 식별, 부정 이용 방지</p>
+      <p style="margin:0 0 4px">· 서비스 제공 : 정기구독(전자책·카카오톡 브리핑) 발송, 상담 및 문의 응대</p>
+      <p style="margin:0 0 28px">· 마케팅 및 광고 활용 : 신규 서비스 안내, 이벤트 정보 제공(별도 동의 시에 한함)</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">3. 개인정보의 보유 및 이용 기간</div>
+      <p style="margin:0 0 10px">회사는 원칙적으로 개인정보 수집 및 이용목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 다만 관계 법령에 의해 보존할 필요가 있는 경우, 회사는 아래와 같이 관계 법령에서 정한 일정한 기간 동안 회원정보를 보관합니다.</p>
+      <p style="margin:0 0 4px">· 계약 또는 청약철회 등에 관한 기록 : 5년 (전자상거래 등에서의 소비자보호에 관한 법률)</p>
+      <p style="margin:0 0 4px">· 대금결제 및 재화 등의 공급에 관한 기록 : 5년 (전자상거래 등에서의 소비자보호에 관한 법률)</p>
+      <p style="margin:0 0 4px">· 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년 (전자상거래 등에서의 소비자보호에 관한 법률)</p>
+      <p style="margin:0 0 28px">· 웹사이트 방문기록 : 3개월 (통신비밀보호법)</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">4. 개인정보의 파기절차 및 방법</div>
+      <p style="margin:0 0 28px">이용자의 개인정보는 원칙적으로 개인정보의 수집 및 이용목적이 달성되면 지체 없이 파기합니다. 전자적 파일 형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제하며, 종이 문서에 기록·저장된 개인정보는 분쇄기로 분쇄하거나 소각하여 파기합니다.</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">5. 개인정보의 제3자 제공</div>
+      <p style="margin:0 0 10px">회사는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만 아래의 경우에는 예외로 합니다.</p>
+      <p style="margin:0 0 4px">· 이용자가 사전에 제3자 제공에 동의한 경우</p>
+      <p style="margin:0 0 28px">· 법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">6. 개인정보처리 위탁</div>
+      <p style="margin:0 0 10px">회사는 서비스 향상을 위해서 아래와 같이 개인정보를 위탁하고 있으며, 관계 법령에 따라 위탁계약 시 개인정보가 안전하게 관리될 수 있도록 필요한 사항을 규정하고 있습니다.</p>
+      <p style="margin:0 0 4px">· 정기구독 전자책 및 카카오톡 브리핑 발송 업무 : 카카오톡 채널 운영 위탁업체</p>
+      <p style="margin:0 0 28px">· 결제 대행 업무 : 전자결제(PG) 대행사</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">7. 이용자 및 법정대리인의 권리와 그 행사방법</div>
+      <p style="margin:0 0 28px">이용자 및 법정대리인은 언제든지 등록되어 있는 자신 혹은 만 14세 미만 아동의 개인정보를 조회하거나 수정할 수 있으며, 가입 해지를 요청할 수도 있습니다. 개인정보 조회, 수정을 위해서는 하단 개인정보보호책임자에게 서면, 전화 또는 이메일로 연락하시면 지체 없이 조치하겠습니다.</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">8. 쿠키의 운영 및 거부</div>
+      <p style="margin:0 0 28px">회사는 이용자에게 맞춤형 서비스를 제공하기 위해 쿠키(cookie)를 사용할 수 있습니다. 이용자는 웹 브라우저의 옵션 설정을 통해 쿠키 저장을 거부할 수 있으며, 이 경우 일부 서비스 이용에 제한이 있을 수 있습니다.</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">9. 개인정보의 안전성 확보조치</div>
+      <p style="margin:0 0 10px">회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다.</p>
+      <p style="margin:0 0 4px">· 관리적 조치 : 내부관리계획 수립·시행, 개인정보 취급 담당자의 최소화 및 교육</p>
+      <p style="margin:0 0 4px">· 기술적 조치 : 개인정보처리시스템 접근권한 관리, 접근통제시스템 설치, 고유식별정보 등의 암호화, 보안프로그램 설치</p>
+      <p style="margin:0 0 28px">· 물리적 조치 : 전산실, 자료보관실 등의 접근통제</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">10. 개인정보 보호책임자</div>
+      <p style="margin:0 0 10px">회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 이용자의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
+      <p style="margin:0 0 4px">· 성명 : 장현지 (대표)</p>
+      <p style="margin:0 0 10px">· 이메일 : <a href="mailto:alla0216@naver.com" style="color:#c9a463">alla0216@naver.com</a></p>
+      <p style="margin:0 0 28px">이용자는 회사의 서비스를 이용하시면서 발생한 모든 개인정보보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보 보호책임자에게 문의하실 수 있습니다.</p>
+
+      <div style="font:500 14px 'Noto Serif KR',serif;color:#e2dccd;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,164,99,.15)">11. 개인정보처리방침의 변경</div>
+      <p style="margin:0">이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.</p>
+    </div>
+  </div>
 </div>
 
 </body>
