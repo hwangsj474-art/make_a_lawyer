@@ -285,36 +285,75 @@
       <div style="font:300 14px/1.8 'Noto Sans KR',sans-serif;color:#9c9686;margin-top:18px">베이직은 매월 초 법률 마케팅 월간 전자책을,<br>프리미엄은 전자책과 매일 아침 카카오톡 브리핑까지 보내드립니다</div>
     </div>
 
-    <div style="padding:70px 48px;border-bottom:1px solid rgba(201,164,99,.2);display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
-      <div style="background:#141210;border:1px solid rgba(201,164,99,.3);padding:24px;cursor:pointer;transition:border-color .2s" onclick="openBookPreview()" onmouseenter="this.style.borderColor='rgba(201,164,99,.7)'" onmouseleave="this.style.borderColor='rgba(201,164,99,.3)'">
-        <div style="font:10px ui-monospace,monospace;color:#c9a463">VOL. 1 — 2026년 7월호</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#1d1811,#1d1811 10px,#211c14 10px,#211c14 20px);display:flex;align-items:center;justify-content:center">
-          <span style="font:10px ui-monospace,monospace;color:#6f6752">BOOK COVER</span>
+    <div style="padding:70px 48px;border-bottom:1px solid rgba(201,164,99,.2);display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+
+      <!-- VOL.1 — 7월호 (클릭 시 미리보기 모달) -->
+      <div onclick="openBookPreview()" style="cursor:pointer;text-align:left"
+           onmouseenter="this.querySelector('.bk-outer').style.transform='translateY(-5px)';this.querySelector('.bk-outer').style.boxShadow='0 24px 56px rgba(0,0,0,.65)'"
+           onmouseleave="this.querySelector('.bk-outer').style.transform='';this.querySelector('.bk-outer').style.boxShadow='0 12px 36px rgba(0,0,0,.45)'">
+        <div class="bk-outer" style="border:1px solid rgba(201,164,99,.55);padding:16px 16px 0;box-shadow:0 12px 36px rgba(0,0,0,.45);transition:transform .25s,box-shadow .25s">
+          <div style="font:9px ui-monospace,monospace;color:#c9a463;letter-spacing:.12em;margin-bottom:12px">VOL. 1 — 2026년 7월호</div>
+          <div style="background:#1a2744;padding:20px 16px 22px">
+            <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.65);letter-spacing:.1em;margin-bottom:14px">2026 JULY · VOL. 1</div>
+            <div style="font:700 16px/1.45 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">월간 법률마케팅<br>7월호</div>
+            <div style="width:24px;height:1px;background:rgba(201,164,99,.6);margin-bottom:10px"></div>
+            <div style="font:300 11px/1.6 'Noto Sans KR',sans-serif;color:#c9bfa9">전체를 보지 못하면<br>무너진다</div>
+          </div>
         </div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4">전체를 보지 못하면 무너진다</div>
-        <div style="font:300 11px 'Noto Sans KR',sans-serif;color:#c9a463;margin-top:8px;letter-spacing:.04em">미리보기 →</div>
-      </div>
-      <div style="background:#141210;border:1px solid rgba(201,164,99,.18);padding:24px">
-        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 2 — 2026년 8월호</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px);display:flex;align-items:center;justify-content:center">
-          <span style="font:10px ui-monospace,monospace;color:#4d4838">COMING SOON</span>
+        <div style="margin-top:14px">
+          <div style="font:500 14px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:5px">전체를 보지 못하면 무너진다</div>
+          <div style="font:400 11px 'Noto Sans KR',sans-serif;color:#c9a463">미리보기 →</div>
         </div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">다음 호 발간 예정</div>
       </div>
-      <div style="background:#141210;border:1px solid rgba(201,164,99,.18);padding:24px">
-        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 3 — 2026년 9월호</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px);display:flex;align-items:center;justify-content:center">
-          <span style="font:10px ui-monospace,monospace;color:#4d4838">COMING SOON</span>
+
+      <!-- VOL.2 — 8월호 -->
+      <div style="text-align:left;opacity:.72">
+        <div style="border:1px solid rgba(201,164,99,.28);padding:16px 16px 0">
+          <div style="font:9px ui-monospace,monospace;color:#8a8471;letter-spacing:.12em;margin-bottom:12px">VOL. 2 — 2026년 8월호</div>
+          <div style="background:#1a2e20;padding:20px 16px 22px">
+            <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.5);letter-spacing:.1em;margin-bottom:14px">2026 AUGUST · VOL. 2</div>
+            <div style="font:700 16px/1.45 'Noto Serif KR',serif;color:#8a9e88;margin-bottom:10px">월간 법률마케팅<br>8월호</div>
+            <div style="width:24px;height:1px;background:rgba(201,164,99,.3);margin-bottom:10px"></div>
+            <div style="font:300 11px/1.6 'Noto Sans KR',sans-serif;color:#5a6e58">다음 호 발간<br>예정이 있습니다</div>
+          </div>
         </div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">다음 호 발간 예정</div>
-      </div>
-      <div style="background:#141210;border:1px solid rgba(201,164,99,.18);padding:24px">
-        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 4 — 2026년 10월호</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px);display:flex;align-items:center;justify-content:center">
-          <span style="font:10px ui-monospace,monospace;color:#4d4838">COMING SOON</span>
+        <div style="margin-top:14px">
+          <div style="font:500 14px 'Noto Serif KR',serif;color:#7a7060">다음 호 발간 예정</div>
         </div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">다음 호 발간 예정</div>
       </div>
+
+      <!-- VOL.3 — 9월호 -->
+      <div style="text-align:left;opacity:.6">
+        <div style="border:1px solid rgba(201,164,99,.22);padding:16px 16px 0">
+          <div style="font:9px ui-monospace,monospace;color:#8a8471;letter-spacing:.12em;margin-bottom:12px">VOL. 3 — 2026년 9월호</div>
+          <div style="background:#2e1a1a;padding:20px 16px 22px">
+            <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.45);letter-spacing:.1em;margin-bottom:14px">2026 SEPTEMBER · VOL. 3</div>
+            <div style="font:700 16px/1.45 'Noto Serif KR',serif;color:#7a6e5e;margin-bottom:10px">월간 법률마케팅<br>9월호</div>
+            <div style="width:24px;height:1px;background:rgba(201,164,99,.25);margin-bottom:10px"></div>
+            <div style="font:300 11px/1.6 'Noto Sans KR',sans-serif;color:#5c5040">다음 호 발간<br>예정이 있습니다</div>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="font:500 14px 'Noto Serif KR',serif;color:#7a7060">다음 호 발간 예정</div>
+        </div>
+      </div>
+
+      <!-- VOL.4 — 10월호 -->
+      <div style="text-align:left;opacity:.5">
+        <div style="border:1px solid rgba(201,164,99,.18);padding:16px 16px 0">
+          <div style="font:9px ui-monospace,monospace;color:#8a8471;letter-spacing:.12em;margin-bottom:12px">VOL. 4 — 2026년 10월호</div>
+          <div style="background:#2a1f0e;padding:20px 16px 22px">
+            <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.4);letter-spacing:.1em;margin-bottom:14px">2026 OCTOBER · VOL. 4</div>
+            <div style="font:700 16px/1.45 'Noto Serif KR',serif;color:#6e6254;margin-bottom:10px">월간 법률마케팅<br>10월호</div>
+            <div style="width:24px;height:1px;background:rgba(201,164,99,.2);margin-bottom:10px"></div>
+            <div style="font:300 11px/1.6 'Noto Sans KR',sans-serif;color:#5c5040">다음 호 발간<br>예정이 있습니다</div>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="font:500 14px 'Noto Serif KR',serif;color:#7a7060">다음 호 발간 예정</div>
+        </div>
+      </div>
+
     </div>
 
     <div style="padding:70px 48px;border-bottom:1px solid rgba(201,164,99,.2)">
