@@ -23,6 +23,7 @@
   @keyframes filmPulseCore{0%{transform:rotate(45deg) scale(1)}50%{transform:rotate(45deg) scale(1.15)}100%{transform:rotate(45deg) scale(1)}}
   @keyframes filmGlow{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
 
+  .mob-br{display:none}
   /* ─── MOBILE NAV ─── */
   #nav-mobile{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:rgba(13,12,9,.97);flex-direction:column;align-items:center;justify-content:center;gap:36px}
   #nav-mobile.open{display:flex!important}
@@ -30,6 +31,7 @@
 
   /* ─── RESPONSIVE 768px ─── */
   @media(max-width:768px){
+    .mob-br{display:inline}
     /* NAV */
     #nav-bar{padding:14px 20px!important}
     #nav-links{display:none!important}
@@ -153,7 +155,7 @@
     <div class="sp" style="padding:88px 48px 96px;border-top:1px solid rgba(201,164,99,.2);text-align:center">
       <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.3em;color:#c9a463;margin-bottom:20px">MONTHLY PUBLICATION</div>
       <div style="font:600 clamp(20px,2.4vw,33px)/1.2 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:18px">매달, 법률 마케팅의 기준을 발간합니다</div>
-      <div style="font:300 14px/1.8 'Noto Sans KR',sans-serif;color:#9c9686;margin-bottom:60px">정기 구독 시 매일 아침 카카오톡으로 인사이트 브리핑을 보내드립니다</div>
+      <div style="font:300 14px/1.8 'Noto Sans KR',sans-serif;color:#9c9686;margin-bottom:60px">정기 구독 시 매일 아침<span class="mob-br"><br></span>카카오톡으로 인사이트 브리핑을 보내드립니다</div>
 
       <!-- 팬 레이아웃: VOL.3 | VOL.2 | VOL.1(featured) | VOL.4 -->
       <div id="book-fan" style="display:flex;justify-content:center;align-items:flex-end;gap:12px;margin-bottom:52px">
