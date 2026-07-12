@@ -69,9 +69,10 @@
     /* SERVICE PROCESS - 2 columns */
     #service-process{grid-template-columns:repeat(2,1fr)!important;gap:16px!important}
 
-    /* BOOK CARDS - 1 column */
-    #book-cards-grid{grid-template-columns:1fr!important}
-    #book-cards-grid>div{max-width:340px;margin-left:auto;margin-right:auto}
+    /* BOOK CARDS - horizontal swipe slider */
+    #book-cards-grid{display:flex!important;overflow-x:scroll!important;scroll-snap-type:x mandatory!important;gap:16px!important;padding-top:40px!important;padding-bottom:40px!important;scroll-padding-left:20px!important;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    #book-cards-grid::-webkit-scrollbar{display:none}
+    #book-cards-grid>div{flex:none!important;width:calc(100vw - 60px)!important;max-width:none!important;margin:0!important;scroll-snap-align:start!important}
 
     /* BOOK PLAN - 1 column */
     #book-plan-grid{grid-template-columns:1fr!important;max-width:100%!important}
