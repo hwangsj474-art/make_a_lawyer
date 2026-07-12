@@ -381,23 +381,20 @@
 
   function updateAuthUI(session) {
     const loggedIn = !!session;
-    document.getElementById('nav-login-btn').style.display  = loggedIn ? 'none' : '';
-    document.getElementById('nav-logout-btn').style.display = loggedIn ? '' : 'none';
+    const loginBtn  = document.getElementById('nav-login-btn');
+    const logoutBtn = document.getElementById('nav-logout-btn');
+    if (loginBtn)  loginBtn.style.display  = loggedIn ? 'none' : '';
+    if (logoutBtn) logoutBtn.style.display = loggedIn ? '' : 'none';
   }
 
   function openLoginModal() {
     const m = document.getElementById('login-modal');
-    m.style.display = 'flex';
+    if (m) m.style.display = 'flex';
   }
   function closeLoginModal() {
-    document.getElementById('login-modal').style.display = 'none';
+    const m = document.getElementById('login-modal');
+    if (m) m.style.display = 'none';
   }
-  document.addEventListener('DOMContentLoaded', function() {
-    var modal = document.getElementById('login-modal');
-    if (modal) modal.addEventListener('click', function(e) {
-      if (e.target === this) closeLoginModal();
-    });
-  });
 
   async function doKakaoLogin() {
     await _db.auth.signInWithOAuth({
@@ -411,10 +408,17 @@
     updateAuthUI(null);
   }
 
-  _db.auth.getSession().then(({ data: { session } }) => updateAuthUI(session));
-  _db.auth.onAuthStateChange((_event, session) => {
-    updateAuthUI(session);
-    if (session) closeLoginModal();
+  document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('login-modal');
+    if (modal) modal.addEventListener('click', function(e) {
+      if (e.target === this) closeLoginModal();
+    });
+
+    _db.auth.getSession().then(function(res) { updateAuthUI(res.data.session); });
+    _db.auth.onAuthStateChange(function(_event, session) {
+      updateAuthUI(session);
+      if (session) closeLoginModal();
+    });
   });
 
   function goPage(name) {
