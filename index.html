@@ -103,6 +103,11 @@
     .service-break{display:none!important}
     /* BOOK */
     #book-main-title{font-size:26px!important}
+    /* BOOK PREVIEW MODAL */
+    #book-preview-header{display:flex!important;flex-direction:column!important;align-items:center!important;gap:20px!important;padding:24px 20px!important}
+    #book-preview-thumb{width:60%!important;height:auto!important;min-height:160px!important}
+    #book-preview-header>div:last-child{width:100%!important;text-align:center!important}
+    #book-preview-header>div:last-child [style*="font:600 24px"]{font-size:20px!important}
   }
 </style>
 </head>
@@ -882,8 +887,8 @@
     <div style="position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:14px 18px;background:#141210;border-bottom:1px solid rgba(201,164,99,.15)">
       <span style="cursor:pointer;color:#6f6752;font-size:22px;line-height:1" onclick="closeBookPreview()">×</span>
     </div>
-    <div style="display:grid;grid-template-columns:150px 1fr;gap:24px;padding:32px;border-bottom:1px solid rgba(201,164,99,.2)">
-      <div style="height:200px;background:#1a2744;display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px 20px;flex:none">
+    <div id="book-preview-header" style="display:grid;grid-template-columns:150px 1fr;gap:24px;padding:32px;border-bottom:1px solid rgba(201,164,99,.2)">
+      <div id="book-preview-thumb" style="height:200px;background:#1a2744;display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px 20px;flex:none">
         <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.65);letter-spacing:.1em">2026 JULY · VOL. 1</div>
         <div>
           <div style="font:700 15px/1.45 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">월간 법률마케팅<br>7월호</div>
