@@ -359,13 +359,13 @@
     <div style="padding:70px 48px;border-bottom:1px solid rgba(201,164,99,.2)">
       <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:36px;text-align:center">구독 플랜</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:760px;margin:0 auto">
-        <div style="border:1px solid rgba(201,164,99,.25);padding:36px 30px">
+        <div id="plan-card-basic" onclick="selectPlan('basic')" style="border:1px solid #c9a463;padding:36px 30px;background:rgba(201,164,99,.06);cursor:pointer;transition:border-color .2s,background .2s">
           <div style="font:500 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">BASIC</div>
           <div style="font:300 13px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:22px">매월 초 법률 마케팅 월간 전자책 발송</div>
           <div style="font:600 28px 'Noto Serif KR',serif;color:#c9a463;margin-bottom:22px">₩9,900<span style="font:400 12px 'Noto Sans KR',sans-serif;color:#8a8471"> / 월</span></div>
           <div style="font:300 12px/2 'Noto Sans KR',sans-serif;color:#c9bfa9">· 매월 법률 마케팅 전자책 발송<br>· 지난 호 아카이브 열람</div>
         </div>
-        <div style="border:1px solid #c9a463;padding:36px 30px;background:rgba(201,164,99,.06)">
+        <div id="plan-card-premium" onclick="selectPlan('premium')" style="border:1px solid rgba(201,164,99,.25);padding:36px 30px;cursor:pointer;transition:border-color .2s,background .2s">
           <div style="font:500 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">PREMIUM</div>
           <div style="font:300 13px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:22px">월간 전자책 + 매일 카카오톡 브리핑</div>
           <div style="font:600 28px 'Noto Serif KR',serif;color:#c9a463;margin-bottom:22px">₩19,900<span style="font:400 12px 'Noto Sans KR',sans-serif;color:#8a8471"> / 월</span></div>
@@ -549,6 +549,24 @@
       el.classList.toggle('active', el.dataset.nav === name);
     });
     window.scrollTo(0, 0);
+  }
+
+  function selectPlan(plan) {
+    document.getElementById('subPlan').value = plan;
+    var basic   = document.getElementById('plan-card-basic');
+    var premium = document.getElementById('plan-card-premium');
+    if (plan === 'basic') {
+      basic.style.border   = '1px solid #c9a463';
+      basic.style.background = 'rgba(201,164,99,.06)';
+      premium.style.border   = '1px solid rgba(201,164,99,.25)';
+      premium.style.background = '';
+    } else {
+      premium.style.border   = '1px solid #c9a463';
+      premium.style.background = 'rgba(201,164,99,.06)';
+      basic.style.border   = '1px solid rgba(201,164,99,.25)';
+      basic.style.background = '';
+    }
+    document.getElementById('book-form-wrap').scrollIntoView({behavior:'smooth'});
   }
 
   async function onSubscribe() {
