@@ -245,25 +245,34 @@
     </div>
 
     <div style="padding:70px 48px;border-bottom:1px solid rgba(201,164,99,.2);display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
-      <div style="background:#141210;border:1px solid rgba(201,164,99,.3);padding:24px">
-        <div style="font:10px ui-monospace,monospace;color:#c9a463">VOL. 24 — JUL</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#1d1811,#1d1811 10px,#211c14 10px,#211c14 20px)"></div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4">신뢰를 설계하는 법</div>
+      <div style="background:#141210;border:1px solid rgba(201,164,99,.3);padding:24px;cursor:pointer;transition:border-color .2s" onclick="openBookPreview()" onmouseenter="this.style.borderColor='rgba(201,164,99,.7)'" onmouseleave="this.style.borderColor='rgba(201,164,99,.3)'">
+        <div style="font:10px ui-monospace,monospace;color:#c9a463">VOL. 1 — 2026년 7월호</div>
+        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#1d1811,#1d1811 10px,#211c14 10px,#211c14 20px);display:flex;align-items:center;justify-content:center">
+          <span style="font:10px ui-monospace,monospace;color:#6f6752">BOOK COVER</span>
+        </div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4">전체를 보지 못하면 무너진다</div>
+        <div style="font:300 11px 'Noto Sans KR',sans-serif;color:#c9a463;margin-top:8px;letter-spacing:.04em">미리보기 →</div>
       </div>
       <div style="background:#141210;border:1px solid rgba(201,164,99,.18);padding:24px">
-        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 23 — JUN</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px)"></div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">전문가 브랜딩의 시작</div>
+        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 2 — 2026년 8월호</div>
+        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px);display:flex;align-items:center;justify-content:center">
+          <span style="font:10px ui-monospace,monospace;color:#4d4838">COMING SOON</span>
+        </div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">다음 호 발간 예정</div>
       </div>
       <div style="background:#141210;border:1px solid rgba(201,164,99,.18);padding:24px">
-        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 22 — MAY</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px)"></div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">콘텐츠가 곧 자산이다</div>
+        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 3 — 2026년 9월호</div>
+        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px);display:flex;align-items:center;justify-content:center">
+          <span style="font:10px ui-monospace,monospace;color:#4d4838">COMING SOON</span>
+        </div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">다음 호 발간 예정</div>
       </div>
       <div style="background:#141210;border:1px solid rgba(201,164,99,.18);padding:24px">
-        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 21 — APR</div>
-        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px)"></div>
-        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">미디어 채널의 재편</div>
+        <div style="font:10px ui-monospace,monospace;color:#8a8471">VOL. 4 — 2026년 10월호</div>
+        <div style="height:140px;margin:14px 0;background:repeating-linear-gradient(135deg,#19160f,#19160f 10px,#1d1811 10px,#1d1811 20px);display:flex;align-items:center;justify-content:center">
+          <span style="font:10px ui-monospace,monospace;color:#4d4838">COMING SOON</span>
+        </div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#c9bfa9">다음 호 발간 예정</div>
       </div>
     </div>
 
@@ -289,9 +298,13 @@
       <div id="book-form-wrap" style="width:400px">
         <div style="font:500 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:20px;text-align:center">정기구독 신청</div>
         <div style="display:flex;flex-direction:column;gap:12px">
+          <select id="subPlan" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px;appearance:none;cursor:pointer">
+            <option value="basic">BASIC — ₩9,900 / 월</option>
+            <option value="premium">PREMIUM — ₩19,900 / 월</option>
+          </select>
           <input id="subName" type="text" placeholder="이름" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px"/>
           <input id="subPhone" type="tel" placeholder="카카오톡 연락처 (010-0000-0000)" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px"/>
-          <div style="padding:14px 0;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;text-align:center;cursor:pointer;margin-top:8px" onclick="onSubscribe()">구독 신청하기</div>
+          <div id="sub-submit-btn" style="padding:14px 0;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;text-align:center;cursor:pointer;margin-top:8px" onclick="onSubscribe()">구독 신청하기</div>
         </div>
       </div>
       <div id="book-form-done" style="display:none;width:400px;text-align:center;border:1px solid rgba(201,164,99,.3);padding:44px 30px">
@@ -457,9 +470,40 @@
     window.scrollTo(0, 0);
   }
 
-  function onSubscribe() {
+  async function onSubscribe() {
+    const name = document.getElementById('subName').value.trim();
+    const phone = document.getElementById('subPhone').value.trim();
+    const plan = document.getElementById('subPlan').value;
+
+    if (!name || !phone) { alert('이름과 연락처를 입력해주세요.'); return; }
+
+    const btn = document.getElementById('sub-submit-btn');
+    if (btn) { btn.textContent = '처리 중...'; btn.style.pointerEvents = 'none'; }
+
+    try {
+      const { error } = await _db.from('subscriptions').insert([{
+        name: name,
+        phone: phone,
+        plan: plan
+      }]);
+      if (error) throw error;
+    } catch(e) {
+      console.error(e);
+    }
+
     document.getElementById('book-form-wrap').style.display = 'none';
     document.getElementById('book-form-done').style.display = 'block';
+  }
+
+  function openBookPreview() {
+    const m = document.getElementById('book-preview-modal');
+    if (m) m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBookPreview() {
+    const m = document.getElementById('book-preview-modal');
+    if (m) m.style.display = 'none';
+    document.body.style.overflow = '';
   }
 
   async function onSubmitContact() {
@@ -489,6 +533,74 @@
     document.getElementById('contact-form-done').style.display = 'block';
   }
 </script>
+
+<!-- VOL.1 미리보기 모달 -->
+<div id="book-preview-modal" style="display:none;position:fixed;inset:0;background:rgba(8,7,5,.88);z-index:1500;align-items:center;justify-content:center;padding:32px;backdrop-filter:blur(4px)" onclick="if(event.target===this)closeBookPreview()">
+  <div style="width:min(720px,100%);max-height:88vh;overflow-y:auto;background:#141210;border:1px solid rgba(201,164,99,.35)" onclick="event.stopPropagation()">
+    <div style="position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:14px 18px;background:#141210;border-bottom:1px solid rgba(201,164,99,.15)">
+      <span style="cursor:pointer;color:#6f6752;font-size:22px;line-height:1" onclick="closeBookPreview()">×</span>
+    </div>
+    <div style="display:grid;grid-template-columns:150px 1fr;gap:24px;padding:32px;border-bottom:1px solid rgba(201,164,99,.2)">
+      <div style="height:200px;background:repeating-linear-gradient(135deg,#1d1811,#1d1811 10px,#211c14 10px,#211c14 20px);display:flex;align-items:center;justify-content:center;flex:none">
+        <span style="font:10px ui-monospace,monospace;color:#6f6752">COVER</span>
+      </div>
+      <div>
+        <div style="font:400 10px ui-monospace,monospace;color:#c9a463;letter-spacing:.1em;margin-bottom:8px">VOL. 1 — 2026년 7월호</div>
+        <div style="font:600 24px/1.4 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">전체를 보지 못하면 무너진다</div>
+        <div style="font:300 13px/1.8 'Noto Sans KR',sans-serif;color:#8a8471">지난 한 달의 변화를 빠짐없이 정리하고,<br>새롭게 떠오르는 채널과 AI 광고 시대의 흐름을 짚은 뒤,<br>하반기를 준비하는 이들을 위한 실전 전략으로 마무리합니다.</div>
+      </div>
+    </div>
+    <div style="padding:32px;border-bottom:1px solid rgba(201,164,99,.2)">
+      <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.2em;color:#c9a463;margin-bottom:16px">CONTENTS</div>
+      <div style="display:flex;flex-direction:column;gap:9px;font:300 13px/1.6 'Noto Sans KR',sans-serif;color:#c9bfa9">
+        <div style="display:flex;justify-content:space-between"><span>시작하며</span><span style="color:#6f6752">03</span></div>
+        <div style="display:flex;justify-content:space-between"><span>01. 전반적으로 저조했던 6월의 법률시장</span><span style="color:#6f6752">04</span></div>
+        <div style="display:flex;justify-content:space-between"><span>02. 법률마케팅 역사상 가장 변동이 컸던 네이버</span><span style="color:#6f6752">07</span></div>
+        <div style="display:flex;justify-content:space-between"><span>03. 대체 수단으로 급부상하는 워드프레스와 인블로그</span><span style="color:#6f6752">13</span></div>
+        <div style="display:flex;justify-content:space-between"><span>04. ChatGPT·네이버 AI브리핑, 광고의 시대</span><span style="color:#6f6752">16</span></div>
+        <div style="display:flex;justify-content:space-between"><span>05. 하반기 전략을 세울 시간</span><span style="color:#6f6752">19</span></div>
+        <div style="display:flex;justify-content:space-between"><span>마치며</span><span style="color:#6f6752">22</span></div>
+      </div>
+    </div>
+    <div style="padding:32px">
+      <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.2em;color:#c9a463;margin-bottom:20px">FREE SAMPLE — 창간호는 전체를 무료로 공개합니다</div>
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div>
+          <div style="font:600 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">시작하며</div>
+          <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">지난 6월, 법률마케팅 시장은 유례없는 격변을 겪었습니다. 법률마케팅의 근간이 되어온 네이버가 노출 영역을 크게 손보았고, 바이럴에 기대어온 수많은 로펌과 전문직이 하루아침에 흔들렸습니다.<br><br>플랫폼의 규칙이 바뀔 때, 부분만 보는 사람은 흔들리고 전체를 보는 사람은 기회를 잡습니다. 이번 호의 표제를 '전체를 보지 못하면 무너진다'로 정한 이유입니다.<br><br>이번 호는 6월 한 달의 변화를 빠짐없이 정리하고, 새롭게 떠오르는 채널과 AI 광고 시대의 흐름을 짚은 뒤, 하반기를 준비하는 이들을 위한 실전 전략으로 마무리합니다.<br><br>변화의 한복판에 서 있는 모든 분들께 이 기록이 나침반이 되기를 바랍니다.</div>
+        </div>
+        <div>
+          <div style="font:600 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">01 · 전반적으로 저조했던 6월의 법률시장</div>
+          <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">지난 6월은 '전반적으로 문의가 저조했던 달'로 평가되고 있습니다. 6·3 지방선거와 월드컵이 같은 시기에 진행되면서 상당수 B2C 분야에서 DB가 전체적으로 감소하였습니다.<br><br>이와 더불어 네이버가 같은 시기 바이럴(블로그·카페 등) 영역을 대대적으로 뒤집으면서, 바이럴 위주로 법률마케팅을 해오던 전문직과 로펌들은 큰 타격을 입게 되었습니다. 그 결과 상대적으로 변화가 없었던 검색광고와 파워컨텐츠로 광고가 몰렸고, CPC는 전반적으로 상승하였습니다.<br><br>"외부 이벤트로 수요는 줄고, 플랫폼 변동으로 공급 채널은 흔들리고 — 6월은 수요와 공급이 동시에 요동친 달이었습니다."</div>
+        </div>
+        <div>
+          <div style="font:600 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">02 · 법률마케팅 역사상 가장 변동이 컸던 네이버</div>
+          <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">지난 6월은 법률마케팅 역사상 가장 변동이 컸던 시기가 아닌가 싶습니다. 네이버가 노출 영역을 크게 손보았고, 특히 바이럴 부분에서 큰 변화가 이루어졌습니다. 6월 중순부터 통합검색에서 웹문서 영역이 비정상적으로 노출되는 현상이 잦았고, 이는 검색 알고리즘 변화를 위한 서버 업데이트 과정에서 나타난 것으로 추측됩니다.<br><br><b style="color:#e2dccd">기생하던 광고를 전부 밀어버린 네이버</b> — 블로그·카페 계정 상당수가 영구정지 및 보호조치되었고, 플레이스 리뷰도 진정성 기준 필터링이 강화되었습니다.<br><br><b style="color:#e2dccd">사라진 스마트블록</b> — 꾸준히 노출되던 스마트블록이 사라지고 일반 웹 영역으로 대체되는 사례가 늘었습니다. AI탭·AI브리핑으로의 전환을 위한 정비로 추측됩니다.<br><br><b style="color:#e2dccd">인기글 지수 영향 감소</b> — 공감·댓글·체류시간보다 문서 품질, 작성자 전문성, 검색 의도 적합성의 비중이 커졌습니다.<br><br><b style="color:#e2dccd">카페 계정 영구정지 사태</b> — 대표 카페들의 붕괴는 6월 법률마케팅의 가장 큰 이슈였습니다.<br><br>"네이버가 7월 'AI브리핑' 광고 도입을 앞둔 만큼, 정당한 광고가 아닌 한 다시 '순수 정보의 싸움'이 될 확률이 높습니다."</div>
+        </div>
+        <div>
+          <div style="font:600 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">03 · 대체 수단으로 급부상하는 워드프레스와 인블로그</div>
+          <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">네이버 블로그 상위 노출이 어려워짐에 따라 워드프레스와 인블로그에 대한 관심도가 상승하고 있습니다. 구글과 AI 답변 인용에 유리하다는 점이 적극 홍보되지만, 다음 세 가지를 먼저 고려해야 합니다.<br><br>① 구글 메인 키워드는 광고 제외 시 여전히 웹사이트 노출이 더 많습니다.<br>② AI 답변 인용에서도 신뢰도 있는 매체가 더 많이 활용됩니다.<br>③ 네이버가 광고성 글을 대거 삭제한 지금이 오히려 상위 노출 공백기입니다.<br><br>네이버가 AI브리핑 인용 수를 서비스 프로필에 공개하기 시작한 만큼, 네이버 내 노출을 원한다면 브랜드 블로그 운영이 더 유리할 수 있습니다.</div>
+        </div>
+        <div>
+          <div style="font:600 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">04 · ChatGPT·네이버 AI브리핑, 광고의 시대</div>
+          <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">이번 7월부터 ChatGPT와 네이버가 AI 답변 인용에 광고를 도입하기로 공식 발표했습니다. ChatGPT는 전 세계에 순차적으로 광고를 배포 중이나, 법률·의료·금융 분야는 소재 가이드라인 충족 시 노출은 가능해도 수임 유도에는 제한이 있어 효용은 아직 미지수입니다.<br><br>네이버는 지난 6월 AI 기반 대화형 검색 서비스 'AI탭'을 정식 출시했고, 7월에는 AI브리핑 영역에 광고를 도입한다고 밝혔으나 아직 뚜렷한 상품은 공개되지 않았습니다. 광고주는 '인용'과 '광고 상품' 중 어디에 비중을 둘지 빠른 방향 설정이 필요한 시점입니다.</div>
+        </div>
+        <div>
+          <div style="font:600 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">05 · 하반기 전략을 세울 시간</div>
+          <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">AI 대중화에도 네이버 검색 점유율은 오히려 상승 추세입니다. AI탭 출시 전(1.1~4.26) 평균 63.82%였던 점유율이 출시 후(4.27~6.17) 66.34%, 지난달 24일에는 81.34%까지 올랐습니다. (출처: 인터넷트렌드) AI 답변도 결국 팩트 확인을 위해 익숙한 포털로 돌아가게 만들기 때문입니다.<br><br><b style="color:#e2dccd">당신을 위한 마케팅 핵심 전략</b><br>· 검색광고 — 비율 유지 또는 상향, 바이럴 약세기 확실한 퍼포먼스 확보<br>· 브랜드 블로그 — 미운영 시 신규 도입, 새로운 노출 영역 선점 기회<br>· 지식iN — 운영 중이면 지속 유지, 안정적인 노출 채널<br>· 네이버 클립 — 기존 영상으로 클립 운영, 영상 노출 증가 추세 활용<br>· 외부 매체 확장 — 유튜브·SNS 다변화로 단일 매체 의존도 완화</div>
+        </div>
+        <div>
+          <div style="font:600 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">마치며</div>
+          <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">"7월은 6월에 비해 콜이 전반적으로 회복될 것으로 예상됩니다. 모두들 화이팅입니다!"<br>— 월간 법률마케팅 7월호를 마치며</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:34px;padding-top:24px;border-top:1px solid rgba(201,164,99,.18)">
+        <div style="font:300 12px 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:16px">다음 호부터는 구독자에게 전체 내용이 매월 발송됩니다</div>
+        <div style="display:inline-block;padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="closeBookPreview();goPage('book');document.getElementById('book-form-wrap').scrollIntoView({behavior:'smooth'})">정기구독 신청하기</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- 로그인 모달 -->
 <div id="login-modal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
