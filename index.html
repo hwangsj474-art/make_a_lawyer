@@ -18,6 +18,7 @@
   .page.active{display:block}
   .nav-link{font:500 11px 'Noto Sans KR',sans-serif;letter-spacing:.12em;cursor:pointer;color:#8a8471}
   .nav-link.active{color:#c9a463}
+  @keyframes diamond-pulse{0%,100%{transform:rotate(45deg) scale(1)}50%{transform:rotate(45deg) scale(1.15)}}
 </style>
 </head>
 <body>
@@ -55,7 +56,12 @@
 
     <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:0;border-top:1px solid rgba(201,164,99,.2)">
       <div style="min-height:380px;background:repeating-linear-gradient(135deg,#17140f,#17140f 12px,#1d1811 12px,#1d1811 24px);display:flex;align-items:center;justify-content:center">
-        <span style="font:12px ui-monospace,monospace;color:#6f6752;letter-spacing:.1em">BRAND FILM / PHOTO PLACEHOLDER</span>
+        <div style="position:relative;width:100px;height:100px;display:flex;align-items:center;justify-content:center">
+          <!-- 바깥 테두리 다이아몬드 -->
+          <div style="position:absolute;width:88px;height:88px;border:1.5px solid #c9a463;transform:rotate(45deg);animation:diamond-pulse 2s ease-in-out infinite"></div>
+          <!-- 안쪽 채워진 다이아몬드 -->
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#b8913e,#e9d9a8,#c9a463);animation:diamond-pulse 2s ease-in-out infinite"></div>
+        </div>
       </div>
       <div style="padding:56px 48px;display:flex;flex-direction:column;justify-content:center;gap:20px">
         <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.25em;color:#c9a463">OUR PHILOSOPHY</div>
