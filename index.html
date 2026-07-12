@@ -109,6 +109,8 @@
     <span onclick="goPage('book');toggleMobileNav()" style="font:400 16px 'Noto Serif KR',serif;letter-spacing:.2em;color:#e9d9a8;cursor:pointer">BOOK</span>
     <span onclick="goPage('team');toggleMobileNav()" style="font:400 16px 'Noto Serif KR',serif;letter-spacing:.2em;color:#e9d9a8;cursor:pointer">TEAM</span>
     <div onclick="goPage('contact');toggleMobileNav()" style="padding:12px 32px;border:1px solid #c9a463;color:#c9a463;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer;margin-top:8px">CONTACT</div>
+    <div id="mob-login-btn" onclick="openLoginModal();toggleMobileNav()" style="padding:10px 28px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer;margin-top:4px">로그인</div>
+    <div id="mob-logout-btn" onclick="doLogout();toggleMobileNav()" style="display:none;padding:10px 28px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer;margin-top:4px">로그아웃</div>
   </div>
 
   <!-- NAV -->
@@ -696,6 +698,10 @@
     const logoutBtn = document.getElementById('nav-logout-btn');
     if (loginBtn)  loginBtn.style.display  = loggedIn ? 'none' : '';
     if (logoutBtn) logoutBtn.style.display = loggedIn ? '' : 'none';
+    const mobLoginBtn  = document.getElementById('mob-login-btn');
+    const mobLogoutBtn = document.getElementById('mob-logout-btn');
+    if (mobLoginBtn)  mobLoginBtn.style.display  = loggedIn ? 'none' : '';
+    if (mobLogoutBtn) mobLogoutBtn.style.display = loggedIn ? '' : 'none';
   }
 
   function openLoginModal() {
