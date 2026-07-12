@@ -399,7 +399,10 @@
   async function doKakaoLogin() {
     await _db.auth.signInWithOAuth({
       provider: 'kakao',
-      options: { redirectTo: window.location.href }
+      options: {
+        redirectTo: window.location.href,
+        scopes: 'profile_nickname profile_image'
+      }
     });
   }
 
