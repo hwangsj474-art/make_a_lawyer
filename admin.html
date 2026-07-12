@@ -113,6 +113,10 @@
     .status-계약완료 { border-color:#2e9e44; color:#2e9e44; background:#edfaf1; }
     .status-구독중 { border-color:#2e9e44; color:#2e9e44; background:#edfaf1; }
     .status-구독취소 { border-color:#cc0000; color:#cc0000; background:#fff0f0; }
+    .status-주문완료 { border-color:#e6940a; color:#e6940a; background:#fff8ed; }
+    .status-배송중   { border-color:#2d4a8a; color:#2d4a8a; background:#eef1f8; }
+    .status-배송완료 { border-color:#2e9e44; color:#2e9e44; background:#edfaf1; }
+    .status-취소     { border-color:#cc0000; color:#cc0000; background:#fff0f0; }
 
     .plan-badge {
       display:inline-block; padding:4px 12px; border-radius:20px;
@@ -261,6 +265,12 @@
     <button class="tab-btn" id="tab-btn-subscription" onclick="switchTab('subscription', this)">
       구독 신청 <span class="tab-new-count" id="sub-new-count" style="display:none">0</span>
     </button>
+    <button class="tab-btn" id="tab-btn-members" onclick="switchTab('members', this)">
+      회원 관리 <span class="tab-new-count" id="members-new-count" style="display:none">0</span>
+    </button>
+    <button class="tab-btn" id="tab-btn-orders" onclick="switchTab('orders', this)">
+      책 구매내역 <span class="tab-new-count" id="orders-new-count" style="display:none">0</span>
+    </button>
   </div>
 
   <!-- 상담 신청 탭 -->
@@ -321,6 +331,63 @@
     </div>
   </div>
 </div>
+
+  <!-- 회원 관리 탭 -->
+  <div id="tab-members" class="tab-content">
+    <div class="admin-body">
+      <div class="stats-row">
+        <div class="stat-card"><div class="label">전체 회원</div><div class="value" id="members-total">-</div></div>
+        <div class="stat-card"><div class="label">이번 달 가입</div><div class="value" id="members-month">-</div></div>
+        <div class="stat-card"><div class="label">오늘 가입</div><div class="value" id="members-today">-</div></div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-header">
+          <h2>회원 목록</h2>
+          <button class="refresh-btn" onclick="loadMembers()">↻ 새로고침</button>
+        </div>
+        <div class="desktop-table" style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>#</th><th>가입일시</th><th>이름</th><th>이메일</th><th>연락처</th><th>삭제</th></tr>
+            </thead>
+            <tbody id="members-table">
+              <tr class="empty-row"><td colspan="6">데이터를 불러오는 중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="members-mobile-list" style="padding:12px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 책 구매내역 탭 -->
+  <div id="tab-orders" class="tab-content">
+    <div class="admin-body">
+      <div class="stats-row">
+        <div class="stat-card"><div class="label">전체 주문</div><div class="value" id="orders-total">-</div></div>
+        <div class="stat-card"><div class="label">주문완료</div><div class="value" id="orders-pending">-</div></div>
+        <div class="stat-card"><div class="label">배송중</div><div class="value" id="orders-shipping">-</div></div>
+        <div class="stat-card"><div class="label">배송완료</div><div class="value" id="orders-done">-</div></div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-header">
+          <h2>책 구매내역</h2>
+          <button class="refresh-btn" onclick="loadBookOrders()">↻ 새로고침</button>
+        </div>
+        <div class="desktop-table" style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>#</th><th>주문일시</th><th>이름</th><th>이메일</th><th>연락처</th><th>책 제목</th><th>수량</th><th>금액</th><th>상태</th><th>삭제</th></tr>
+            </thead>
+            <tbody id="orders-table">
+              <tr class="empty-row"><td colspan="10">데이터를 불러오는 중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="orders-mobile-list" style="padding:12px;"></div>
+      </div>
+    </div>
+  </div>
 
 <!-- 상담 모달 -->
 <div class="modal-overlay" id="consult-modal">
@@ -406,6 +473,8 @@
       document.getElementById('admin-screen').style.display = 'block';
       loadConsult();
       loadSubNewCount();
+      loadMembersNewCount();
+      loadOrdersNewCount();
     } else {
       document.getElementById('error-msg').style.display = 'block';
     }
@@ -421,15 +490,12 @@
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById(`tab-${tab}`).classList.add('active');
-    if (tab === 'consult') {
-      setLastVisit('consult_last_visit');
-      document.getElementById('consult-new-count').style.display = 'none';
-      loadConsult();
-    } else {
-      setLastVisit('sub_last_visit');
-      document.getElementById('sub-new-count').style.display = 'none';
-      loadSubscriptions();
-    }
+    const countEl = document.getElementById(`${tab === 'consult' ? 'consult' : tab === 'subscription' ? 'sub' : tab === 'members' ? 'members' : 'orders'}-new-count`);
+    if (countEl) countEl.style.display = 'none';
+    if (tab === 'consult') { setLastVisit('consult_last_visit'); loadConsult(); }
+    else if (tab === 'subscription') { setLastVisit('sub_last_visit'); loadSubscriptions(); }
+    else if (tab === 'members') { setLastVisit('members_last_visit'); loadMembers(); }
+    else if (tab === 'orders') { setLastVisit('orders_last_visit'); loadBookOrders(); }
   }
 
   // ─── 상담 신청 ───
@@ -679,6 +745,176 @@
     loadSubscriptions();
   }
 
+  // ─── 회원 관리 ───
+  async function loadMembersNewCount() {
+    const lastVisit = getLastVisit('members_last_visit');
+    const { data } = await db.from('members').select('created_at');
+    if (!data) return;
+    const newCount = data.filter(r => r.created_at > lastVisit).length;
+    const badge = document.getElementById('members-new-count');
+    if (newCount > 0) { badge.textContent = newCount; badge.style.display = 'inline-block'; }
+  }
+
+  async function loadMembers() {
+    const lastVisit = getLastVisit('members_last_visit');
+    const tbody = document.getElementById('members-table');
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">불러오는 중...</td></tr>';
+
+    const { data, error } = await db.from('members').select('*').order('created_at', { ascending: false });
+    if (error || !data) { tbody.innerHTML = '<tr class="empty-row"><td colspan="6">불러오지 못했습니다</td></tr>'; return; }
+
+    const today = new Date().toISOString().slice(0,10);
+    const month = new Date().toISOString().slice(0,7);
+    document.getElementById('members-total').textContent = data.length;
+    document.getElementById('members-month').textContent = data.filter(r => r.created_at?.startsWith(month)).length;
+    document.getElementById('members-today').textContent = data.filter(r => r.created_at?.startsWith(today)).length;
+
+    const newCount = data.filter(r => r.created_at > lastVisit).length;
+    const badge = document.getElementById('members-new-count');
+    if (newCount > 0) { badge.textContent = newCount; badge.style.display = 'inline-block'; }
+
+    if (!data.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="6">회원 내역이 없습니다</td></tr>'; return; }
+
+    tbody.innerHTML = data.map((row, i) => {
+      const isNew = row.created_at > lastVisit;
+      return `
+      <tr id="member-row-${row.id}">
+        <td style="color:#aab0c0">${data.length - i}</td>
+        <td style="white-space:nowrap; font-size:13px; color:#7a8099">${formatDate(row.created_at)}</td>
+        <td>
+          <strong style="color:#1a1a2e">${row.name || '-'}</strong>
+          ${isNew ? '<span class="new-badge">NEW</span>' : ''}
+        </td>
+        <td style="font-size:13px">${row.email || '-'}</td>
+        <td>${row.phone || '-'}</td>
+        <td><button class="delete-btn" onclick="deleteMember('${row.id}')">삭제</button></td>
+      </tr>`;
+    }).join('');
+
+    const mobileList = document.getElementById('members-mobile-list');
+    mobileList.innerHTML = data.map((row) => {
+      const isNew = row.created_at > lastVisit;
+      return `
+      <div class="mobile-card">
+        <div class="mobile-card-name">${row.name || '-'} ${isNew ? '<span class="new-badge">NEW</span>' : ''}</div>
+        <div class="mobile-card-row"><span class="mobile-card-label">이메일</span><span class="mobile-card-val" style="font-size:12px">${row.email || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">연락처</span><span class="mobile-card-val">${row.phone || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">가입일시</span><span class="mobile-card-val" style="font-size:12px">${formatDate(row.created_at)}</span></div>
+        <div class="mobile-card-actions">
+          <button onclick="deleteMember('${row.id}')" class="delete-btn" style="flex:1">삭제</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    setLastVisit('members_last_visit');
+  }
+
+  async function deleteMember(id) {
+    if (!confirm('정말 삭제하시겠습니까?')) return;
+    await db.from('members').delete().eq('id', id);
+    loadMembers();
+  }
+
+  // ─── 책 구매내역 ───
+  async function loadOrdersNewCount() {
+    const lastVisit = getLastVisit('orders_last_visit');
+    const { data } = await db.from('book_orders').select('created_at');
+    if (!data) return;
+    const newCount = data.filter(r => r.created_at > lastVisit).length;
+    const badge = document.getElementById('orders-new-count');
+    if (newCount > 0) { badge.textContent = newCount; badge.style.display = 'inline-block'; }
+  }
+
+  async function loadBookOrders() {
+    const lastVisit = getLastVisit('orders_last_visit');
+    const tbody = document.getElementById('orders-table');
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="10">불러오는 중...</td></tr>';
+
+    const { data, error } = await db.from('book_orders').select('*').order('created_at', { ascending: false });
+    if (error || !data) { tbody.innerHTML = '<tr class="empty-row"><td colspan="10">불러오지 못했습니다</td></tr>'; return; }
+
+    document.getElementById('orders-total').textContent = data.length;
+    document.getElementById('orders-pending').textContent = data.filter(r => (r.status || '주문완료') === '주문완료').length;
+    document.getElementById('orders-shipping').textContent = data.filter(r => r.status === '배송중').length;
+    document.getElementById('orders-done').textContent = data.filter(r => r.status === '배송완료').length;
+
+    const newCount = data.filter(r => r.created_at > lastVisit).length;
+    const badge = document.getElementById('orders-new-count');
+    if (newCount > 0) { badge.textContent = newCount; badge.style.display = 'inline-block'; }
+
+    if (!data.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="10">구매 내역이 없습니다</td></tr>'; return; }
+
+    tbody.innerHTML = data.map((row, i) => {
+      const isNew = row.created_at > lastVisit;
+      const status = row.status || '주문완료';
+      const amt = row.amount != null ? Number(row.amount).toLocaleString('ko-KR') + '원' : '-';
+      return `
+      <tr id="order-row-${row.id}">
+        <td style="color:#aab0c0">${data.length - i}</td>
+        <td style="white-space:nowrap; font-size:13px; color:#7a8099">${formatDate(row.created_at)}</td>
+        <td>
+          <strong style="color:#1a1a2e">${row.name || '-'}</strong>
+          ${isNew ? '<span class="new-badge">NEW</span>' : ''}
+        </td>
+        <td style="font-size:13px">${row.email || '-'}</td>
+        <td>${row.phone || '-'}</td>
+        <td style="font-size:13px; max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${row.book_title || '-'}</td>
+        <td style="text-align:center">${row.quantity ?? '-'}</td>
+        <td style="font-size:13px; white-space:nowrap">${amt}</td>
+        <td>
+          <select class="status-select status-${status}" onchange="updateOrderStatus('${row.id}', this)" onclick="event.stopPropagation()">
+            <option value="주문완료" ${status === '주문완료' ? 'selected' : ''}>🟡 주문완료</option>
+            <option value="배송중"   ${status === '배송중'   ? 'selected' : ''}>🔵 배송중</option>
+            <option value="배송완료" ${status === '배송완료' ? 'selected' : ''}>🟢 배송완료</option>
+            <option value="취소"     ${status === '취소'     ? 'selected' : ''}>🔴 취소</option>
+          </select>
+        </td>
+        <td><button class="delete-btn" onclick="deleteOrder('${row.id}')">삭제</button></td>
+      </tr>`;
+    }).join('');
+
+    const mobileList = document.getElementById('orders-mobile-list');
+    mobileList.innerHTML = data.map((row) => {
+      const isNew = row.created_at > lastVisit;
+      const status = row.status || '주문완료';
+      const amt = row.amount != null ? Number(row.amount).toLocaleString('ko-KR') + '원' : '-';
+      return `
+      <div class="mobile-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div class="mobile-card-name">${row.name || '-'} ${isNew ? '<span class="new-badge">NEW</span>' : ''}</div>
+          <select class="status-select status-${status}" onchange="updateOrderStatus('${row.id}', this)">
+            <option value="주문완료" ${status === '주문완료' ? 'selected' : ''}>🟡 주문완료</option>
+            <option value="배송중"   ${status === '배송중'   ? 'selected' : ''}>🔵 배송중</option>
+            <option value="배송완료" ${status === '배송완료' ? 'selected' : ''}>🟢 배송완료</option>
+            <option value="취소"     ${status === '취소'     ? 'selected' : ''}>🔴 취소</option>
+          </select>
+        </div>
+        <div class="mobile-card-row"><span class="mobile-card-label">책 제목</span><span class="mobile-card-val">${row.book_title || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">수량 / 금액</span><span class="mobile-card-val">${row.quantity ?? '-'}권 / ${amt}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">연락처</span><span class="mobile-card-val">${row.phone || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">이메일</span><span class="mobile-card-val" style="font-size:12px">${row.email || '-'}</span></div>
+        <div class="mobile-card-row"><span class="mobile-card-label">주문일시</span><span class="mobile-card-val" style="font-size:12px">${formatDate(row.created_at)}</span></div>
+        <div class="mobile-card-actions">
+          <button onclick="deleteOrder('${row.id}')" class="delete-btn" style="flex:1">삭제</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    setLastVisit('orders_last_visit');
+  }
+
+  async function updateOrderStatus(id, select) {
+    const status = select.value;
+    select.className = `status-select status-${status}`;
+    await db.from('book_orders').update({ status }).eq('id', id);
+  }
+
+  async function deleteOrder(id) {
+    if (!confirm('정말 삭제하시겠습니까?')) return;
+    await db.from('book_orders').delete().eq('id', id);
+    loadBookOrders();
+  }
+
   function closeModal(id) {
     document.getElementById(id).classList.remove('open');
   }
@@ -697,6 +933,8 @@
     document.getElementById('admin-screen').style.display = 'block';
     loadConsult();
     loadSubNewCount();
+    loadMembersNewCount();
+    loadOrdersNewCount();
   }
 </script>
 </body>
