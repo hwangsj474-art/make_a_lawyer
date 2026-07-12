@@ -390,6 +390,7 @@
           <input id="subName" type="text" placeholder="이름" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px"/>
           <input id="subPhone" type="tel" placeholder="카카오톡 연락처 (010-0000-0000)" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px"/>
           <div id="sub-submit-btn" style="padding:14px 0;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;text-align:center;cursor:pointer;margin-top:8px" onclick="onSubscribe()">구독 신청하기</div>
+          <div id="sub-error-msg" style="display:none;font:300 12px 'Noto Sans KR',sans-serif;color:#e07070;text-align:center;padding-top:4px"></div>
         </div>
       </div>
       <div id="book-form-done" style="display:none;width:400px;text-align:center;border:1px solid rgba(201,164,99,.3);padding:44px 30px">
@@ -563,6 +564,8 @@
     if (!name || !phone) { alert('이름과 연락처를 입력해주세요.'); return; }
 
     const btn = document.getElementById('sub-submit-btn');
+    const errEl = document.getElementById('sub-error-msg');
+    if (errEl) errEl.style.display = 'none';
     if (btn) { btn.textContent = '처리 중...'; btn.style.pointerEvents = 'none'; }
 
     try {
@@ -572,12 +575,13 @@
         plan: plan
       }]);
       if (error) throw error;
+      document.getElementById('book-form-wrap').style.display = 'none';
+      document.getElementById('book-form-done').style.display = 'block';
     } catch(e) {
       console.error(e);
+      if (errEl) { errEl.textContent = '오류가 발생했습니다. 잠시 후 다시 시도해주세요.'; errEl.style.display = 'block'; }
+      if (btn) { btn.textContent = '구독 신청하기'; btn.style.pointerEvents = ''; }
     }
-
-    document.getElementById('book-form-wrap').style.display = 'none';
-    document.getElementById('book-form-done').style.display = 'block';
   }
 
   function openBookPreview() {
