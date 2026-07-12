@@ -166,7 +166,7 @@
       font-family: 'Noto Serif KR', serif;
       font-size: 1.1rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.08em;
       text-decoration: none;
       color: var(--gold);
       white-space: nowrap;
@@ -207,7 +207,7 @@
       align-items: center;
       justify-content: center;
       padding: 120px 24px 80px;
-      background: #0A0A0A;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, #1a1508 0%, #0d0c09 100%);
       position: relative;
       overflow: hidden;
     }
@@ -228,9 +228,12 @@
     .hero-ko {
       font-family: 'Noto Serif KR', serif;
       font-size: clamp(3rem, 8vw, 6.5rem);
-      font-weight: 900;
+      font-weight: 300;
       line-height: 1.1;
-      color: var(--gold);
+      background: linear-gradient(135deg, #D4B87A 0%, #C3A66C 50%, #9E7F46 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 12px;
       letter-spacing: -0.01em;
     }
@@ -875,7 +878,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ─── HERO ─────────────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-content">
-    <p class="hero-agency">legal marketing agency</p>
+    <p class="hero-agency">LEGAL MARKETING AGENCY</p>
     <h1 class="hero-ko">메이크어로이어</h1>
     <p class="hero-en">MAKE A LAWYER</p>
     <div class="hero-divider"></div>
