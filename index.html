@@ -76,9 +76,14 @@
     #home-film-grid>div:first-child{min-height:220px!important}
 
     /* HOME BOOK FAN - horizontal scroll */
-    #book-fan{overflow-x:auto!important;justify-content:flex-start!important;padding:0 24px 16px!important;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    #book-fan{overflow-x:auto!important;justify-content:flex-start!important;padding:0 24px 24px!important;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;align-items:flex-start!important}
     #book-fan::-webkit-scrollbar{display:none}
-    #book-fan>div{flex-shrink:0!important;scroll-snap-align:start}
+    /* 모든 카드 동일 너비 + snap */
+    #book-fan>div{width:75vw!important;flex:none!important;flex-shrink:0!important;scroll-snap-align:start}
+    /* 커버 외부(border) div 고정 높이 + flex 열 방향 */
+    #book-fan>div>div:first-child{height:240px!important;display:flex!important;flex-direction:column!important}
+    /* 커버 내부 색상 배경 div가 남은 높이 채우기 */
+    #book-fan>div>div:first-child>div:nth-child(2){flex:1!important;overflow:hidden!important}
     /* HTML 순서: VOL.3(1) VOL.2(2) VOL.1(3) VOL.4(4) → 모바일에서 VOL.1 먼저 */
     #book-fan>div:nth-child(3){order:1}
     #book-fan>div:nth-child(2){order:2}
