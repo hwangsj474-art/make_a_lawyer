@@ -24,17 +24,17 @@
   @keyframes filmGlow{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
 
   @keyframes introFadeIn{from{opacity:0}to{opacity:1}}
-  @keyframes introShimmer{0%{background-position:-250% center}100%{background-position:250% center}}
+  @keyframes introShimmer{0%{background-position:160% center}100%{background-position:-60% center}}
   #intro-screen{animation:introFadeIn .5s ease forwards}
   #intro-screen span{
     font:300 clamp(28px,5vw,56px)/1 'Noto Serif KR',serif;
     letter-spacing:.25em;
-    background:linear-gradient(90deg,#8a6a30 0%,#C3A66C 35%,#f0dfa0 50%,#C3A66C 65%,#8a6a30 100%);
-    background-size:250% auto;
+    background:linear-gradient(100deg,#C3A66C 30%,#C3A66C 42%,#e4cfa0 49%,#efe4c0 50%,#e4cfa0 51%,#C3A66C 58%,#C3A66C 70%);
+    background-size:300% auto;
     -webkit-background-clip:text;
     background-clip:text;
     -webkit-text-fill-color:transparent;
-    animation:introShimmer 1.6s ease 0.3s 1 forwards;
+    animation:introShimmer 2s ease 0.3s 1 forwards;
   }
   .mob-br{display:none}
   .mobile-br{display:none}
