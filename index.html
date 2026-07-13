@@ -785,27 +785,20 @@
     var el = document.getElementById('mypage-pane-info');
     el.innerHTML = '<div style="color:#6f6752;text-align:center;padding:32px 0">불러오는 중...</div>';
 
-    // auth에서 최신 유저 정보 직접 조회
     var userRes = await _db.auth.getUser();
     var user = userRes.data && userRes.data.user;
     if (!user) { el.innerHTML = '<div style="color:#6f6752;text-align:center;padding:32px 0">로그인 상태를 확인해주세요.</div>'; return; }
 
-    var meta = user.user_metadata || {};
-    var name  = meta.full_name || meta.name || '-';
-    var email = user.email || meta.email || '-';
+    var meta  = user.user_metadata || {};
+    var name  = meta.full_name || meta.name || meta.nickname || '-';
+    var email = user.email || '-';
 
-    // members 테이블: user.id로 먼저 조회, 없으면 email로 fallback
-    var member = null;
-    var r1 = await _db.from('members').select('*').eq('id', user.id).maybeSingle();
-    if (r1.data) {
-      member = r1.data;
-    } else if (email !== '-') {
-      var r2 = await _db.from('members').select('*').eq('email', email).maybeSingle();
-      member = r2.data;
+    // members 테이블에서 연락처만 조회 — 반드시 현재 user.email로 필터
+    var phone = '-';
+    if (email !== '-') {
+      var mRes = await _db.from('members').select('phone').eq('email', email).maybeSingle();
+      if (mRes.data && mRes.data.phone) phone = mRes.data.phone;
     }
-
-    var phone = (member && member.phone) || '-';
-    if (member && member.name) name = member.name;
 
     el.innerHTML =
       '<div style="display:flex;flex-direction:column;gap:18px">' +
