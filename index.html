@@ -36,6 +36,8 @@
     -webkit-text-fill-color:transparent;
     animation:introShimmer 2s ease 0.3s 1 forwards;
   }
+  .mp-tab{padding:10px 20px;font:400 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;color:#6f6752;cursor:pointer;border-bottom:2px solid transparent}
+  .mp-tab.mp-tab-active{color:#c9a463;border-bottom-color:#c9a463}
   .mob-br{display:none}
   .mobile-br{display:none}
   /* ─── MOBILE NAV ─── */
@@ -141,7 +143,7 @@
     <span onclick="goPage('team')" style="font:400 16px 'Noto Serif KR',serif;letter-spacing:.2em;color:#e9d9a8;cursor:pointer">TEAM</span>
     <div onclick="goPage('contact')" style="padding:12px 32px;border:1px solid #c9a463;color:#c9a463;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer;margin-top:8px">CONTACT</div>
     <div id="mob-login-btn" onclick="openLoginModal();toggleMobileNav()" style="padding:10px 28px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer;margin-top:4px">로그인</div>
-    <div id="mob-logout-btn" onclick="doLogout();toggleMobileNav()" style="display:none;padding:10px 28px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer;margin-top:4px">로그아웃</div>
+    <div id="mob-mypage-btn" onclick="openMypageModal();toggleMobileNav()" style="display:none;padding:10px 28px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer;margin-top:4px">마이페이지</div>
   </div>
 
   <!-- NAV -->
@@ -154,7 +156,7 @@
       <span class="nav-link" data-nav="team" onclick="goPage('team')">TEAM</span>
       <div style="padding:9px 18px;border:1px solid #c9a463;color:#c9a463;font:600 11px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer" onclick="goPage('contact')">CONTACT</div>
       <div id="nav-login-btn" style="padding:9px 18px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 11px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer" onclick="openLoginModal()">로그인</div>
-      <div id="nav-logout-btn" style="display:none;padding:9px 18px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 11px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer" onclick="doLogout()">로그아웃</div>
+      <div id="nav-mypage-btn" style="display:none;padding:9px 18px;border:1px solid rgba(201,164,99,.4);color:rgba(201,164,99,.7);font:500 11px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer" onclick="openMypageModal()">마이페이지</div>
     </div>
     <button id="nav-burger" onclick="toggleMobileNav()" style="display:none;background:none;border:none;cursor:pointer;color:#c9a463;font-size:22px;padding:4px 6px;line-height:1" aria-label="메뉴">☰</button>
   </div>
@@ -728,14 +730,73 @@
 
   function updateAuthUI(session) {
     const loggedIn = !!session;
-    const loginBtn  = document.getElementById('nav-login-btn');
-    const logoutBtn = document.getElementById('nav-logout-btn');
+    window._currentSession = session;
+    const loginBtn   = document.getElementById('nav-login-btn');
+    const mypageBtn  = document.getElementById('nav-mypage-btn');
     if (loginBtn)  loginBtn.style.display  = loggedIn ? 'none' : '';
-    if (logoutBtn) logoutBtn.style.display = loggedIn ? '' : 'none';
+    if (mypageBtn) mypageBtn.style.display = loggedIn ? '' : 'none';
     const mobLoginBtn  = document.getElementById('mob-login-btn');
-    const mobLogoutBtn = document.getElementById('mob-logout-btn');
+    const mobMypageBtn = document.getElementById('mob-mypage-btn');
     if (mobLoginBtn)  mobLoginBtn.style.display  = loggedIn ? 'none' : '';
-    if (mobLogoutBtn) mobLogoutBtn.style.display = loggedIn ? '' : 'none';
+    if (mobMypageBtn) mobMypageBtn.style.display = loggedIn ? '' : 'none';
+  }
+
+  function openMypageModal() {
+    document.getElementById('mypage-modal').style.display = 'flex';
+    switchMypageTab('orders');
+  }
+  function closeMypageModal() {
+    document.getElementById('mypage-modal').style.display = 'none';
+  }
+  function switchMypageTab(tab) {
+    ['orders','info'].forEach(function(t) {
+      document.getElementById('mypage-pane-' + t).style.display = t === tab ? 'block' : 'none';
+      var el = document.getElementById('mypage-tab-' + t);
+      if (el) { el.classList.toggle('mp-tab-active', t === tab); }
+    });
+    if (tab === 'orders') loadMyOrders();
+    if (tab === 'info')   loadMyInfo();
+  }
+  async function loadMyOrders() {
+    var session = window._currentSession;
+    var el = document.getElementById('mypage-pane-orders');
+    if (!session) { el.innerHTML = '<div style="color:#6f6752;text-align:center;padding:32px 0">로그인 상태를 확인해주세요.</div>'; return; }
+    el.innerHTML = '<div style="color:#6f6752;text-align:center;padding:32px 0">불러오는 중...</div>';
+    var email = session.user.email;
+    var res = await _db.from('book_orders').select('*').eq('email', email).order('created_at', {ascending: false});
+    var data = res.data;
+    if (!data || data.length === 0) {
+      el.innerHTML = '<div style="color:#6f6752;text-align:center;padding:32px 0">구매 내역이 없습니다.</div>';
+      return;
+    }
+    el.innerHTML = data.map(function(o) {
+      var isVol1 = (o.vol == 1 || (o.book_title && o.book_title.includes('1')));
+      var viewBtn = isVol1 ? '<div onclick="closeMypageModal();openBookPreview()" style="padding:5px 12px;border:1px solid rgba(201,164,99,.4);color:#c9bfa9;font:400 11px \'Noto Sans KR\',sans-serif;cursor:pointer;white-space:nowrap">보기</div>' : '';
+      var date = o.created_at ? new Date(o.created_at).toLocaleDateString('ko-KR') : '-';
+      var amount = o.amount ? Number(o.amount).toLocaleString() + '원' : '-';
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(201,164,99,.1);gap:12px">' +
+        '<div style="min-width:0">' +
+          '<div style="font:500 13px \'Noto Serif KR\',serif;color:#f4efe4;margin-bottom:4px">' + (o.book_title || 'VOL.' + (o.vol || '1') + ' 월간 법률마케팅') + '</div>' +
+          '<div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752">' + date + ' · ' + amount + ' · <span style="color:#c9a463">' + (o.status || '완료') + '</span></div>' +
+        '</div>' + viewBtn + '</div>';
+    }).join('');
+  }
+  async function loadMyInfo() {
+    var session = window._currentSession;
+    var el = document.getElementById('mypage-pane-info');
+    if (!session) return;
+    var email = session.user.email;
+    var res = await _db.from('members').select('*').eq('email', email).maybeSingle();
+    var data = res.data;
+    var name = (data && data.name) || (session.user.user_metadata && session.user.user_metadata.full_name) || '-';
+    var phone = (data && data.phone) || '-';
+    el.innerHTML =
+      '<div style="display:flex;flex-direction:column;gap:18px">' +
+        '<div><div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752;margin-bottom:5px;letter-spacing:.1em">이름</div><div style="font:400 14px \'Noto Sans KR\',sans-serif;color:#f4efe4">' + name + '</div></div>' +
+        '<div><div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752;margin-bottom:5px;letter-spacing:.1em">이메일</div><div style="font:400 14px \'Noto Sans KR\',sans-serif;color:#f4efe4">' + email + '</div></div>' +
+        '<div><div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752;margin-bottom:5px;letter-spacing:.1em">연락처</div><div style="font:400 14px \'Noto Sans KR\',sans-serif;color:#f4efe4">' + phone + '</div></div>' +
+        '<div onclick="doLogout();closeMypageModal()" style="margin-top:8px;padding:13px;border:1px solid rgba(201,164,99,.25);color:#8a8471;font:400 12px \'Noto Sans KR\',sans-serif;text-align:center;cursor:pointer;letter-spacing:.06em">로그아웃</div>' +
+      '</div>';
   }
 
   function openLoginModal() {
@@ -1014,6 +1075,24 @@
       <path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.7 1.6 5.1 4 6.6l-1 3.8c-.07.28.22.5.47.35L10 19c.64.1 1.3.16 2 .16 5.523 0 10-3.477 10-7.8S17.523 3 12 3z" fill="#C3A66C"/>
     </svg>
   </a>
+</div>
+
+<!-- 마이페이지 모달 -->
+<div id="mypage-modal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px 16px" onclick="if(event.target===this)closeMypageModal()">
+  <div style="width:min(520px,100%);background:#141210;border:1px solid rgba(201,164,99,.3);max-height:90vh;display:flex;flex-direction:column" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid rgba(201,164,99,.15)">
+      <div style="font:400 10px 'Noto Sans KR',sans-serif;letter-spacing:.25em;color:#c9a463">MY PAGE</div>
+      <span onclick="closeMypageModal()" style="cursor:pointer;color:#6f6752;font-size:22px;line-height:1">×</span>
+    </div>
+    <div style="display:flex;border-bottom:1px solid rgba(201,164,99,.15)">
+      <div id="mypage-tab-orders" class="mp-tab mp-tab-active" onclick="switchMypageTab('orders')">구매내역</div>
+      <div id="mypage-tab-info"   class="mp-tab"               onclick="switchMypageTab('info')">정보관리</div>
+    </div>
+    <div style="padding:24px;overflow-y:auto;flex:1">
+      <div id="mypage-pane-orders"></div>
+      <div id="mypage-pane-info"   style="display:none"></div>
+    </div>
+  </div>
 </div>
 
 <!-- 이용약관 모달 -->
