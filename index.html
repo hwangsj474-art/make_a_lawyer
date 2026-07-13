@@ -24,8 +24,18 @@
   @keyframes filmGlow{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
 
   @keyframes introFadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes introShimmer{0%{background-position:-250% center}100%{background-position:250% center}}
   #intro-screen{animation:introFadeIn .5s ease forwards}
-  #intro-screen span{font:300 1.1rem/1 'Noto Serif KR',serif}
+  #intro-screen span{
+    font:300 clamp(28px,5vw,56px)/1 'Noto Serif KR',serif;
+    letter-spacing:.25em;
+    background:linear-gradient(90deg,#8a6a30 0%,#C3A66C 35%,#f0dfa0 50%,#C3A66C 65%,#8a6a30 100%);
+    background-size:250% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:introShimmer 1.8s linear infinite;
+  }
   .mob-br{display:none}
   .mobile-br{display:none}
   /* ─── MOBILE NAV ─── */
@@ -117,7 +127,7 @@
 <body>
 
 <div id="intro-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;z-index:9999;display:flex;align-items:center;justify-content:center;">
-  <span style="color:#C3A66C;letter-spacing:0.3em">MAKE A LAWYER</span>
+  <span>MAKE A LAWYER</span>
 </div>
 
 <div style="min-height:100vh;background:#0d0c09;color:#f4efe4">
