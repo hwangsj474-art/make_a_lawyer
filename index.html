@@ -790,24 +790,25 @@
     var user = userRes.data && userRes.data.user;
     if (!user) { el.innerHTML = '<div style="color:#6f6752;text-align:center;padding:32px 0">로그인 상태를 확인해주세요.</div>'; return; }
 
+    // 디버그: 카카오/구글 메타데이터 구조 확인용
+    console.log('[MyPage] session.user:', JSON.parse(JSON.stringify(user)));
+    console.log('[MyPage] session.user.user_metadata:', JSON.parse(JSON.stringify(user.user_metadata || {})));
+
     var meta = user.user_metadata || {};
-    // 디버그: 어떤 메타데이터가 들어오는지 콘솔 확인
-    console.log('[MyPage] auth user:', user.id, user.email, meta);
 
-    // 이름: 카카오(name/nickname) · 구글(full_name) · 공통(user_name) 순으로 탐색
-    // 사이트명(메이크어로이어) 등 회사 관련 값은 걸러냄
-    var SITE_NAMES = ['메이크어로이어', 'make a lawyer', 'makealawyer'];
-    function isValidName(v) {
-      if (!v || typeof v !== 'string') return false;
-      return !SITE_NAMES.some(function(s){ return v.trim().toLowerCase() === s; });
-    }
-    var nameCandidates = [meta.name, meta.nickname, meta.full_name, meta.user_name, meta.preferred_username];
-    var name = '-';
-    for (var i = 0; i < nameCandidates.length; i++) {
-      if (isValidName(nameCandidates[i])) { name = nameCandidates[i].trim(); break; }
-    }
+    var displayName =
+      meta.name ||
+      meta.nickname ||
+      meta.full_name ||
+      meta.user_name ||
+      meta.preferred_username ||
+      '-';
 
-    var email  = user.email || '-';
+    var email =
+      user.email ||
+      meta.email ||
+      '-';
+
     var avatar = meta.avatar_url || meta.picture || '';
 
     // members 테이블: 현재 user.email로만 조회, phone만 가져옴
@@ -824,7 +825,7 @@
     el.innerHTML =
       '<div style="display:flex;flex-direction:column;gap:18px">' +
         (avatarHtml ? '<div style="text-align:center">' + avatarHtml + '</div>' : '') +
-        '<div><div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752;margin-bottom:5px;letter-spacing:.1em">이름</div><div style="font:400 14px \'Noto Sans KR\',sans-serif;color:#f4efe4">' + name + '</div></div>' +
+        '<div><div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752;margin-bottom:5px;letter-spacing:.1em">이름</div><div style="font:400 14px \'Noto Sans KR\',sans-serif;color:#f4efe4">' + displayName + '</div></div>' +
         '<div><div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752;margin-bottom:5px;letter-spacing:.1em">이메일</div><div style="font:400 14px \'Noto Sans KR\',sans-serif;color:#f4efe4">' + email + '</div></div>' +
         '<div><div style="font:300 11px \'Noto Sans KR\',sans-serif;color:#6f6752;margin-bottom:5px;letter-spacing:.1em">연락처</div><div style="font:400 14px \'Noto Sans KR\',sans-serif;color:#f4efe4">' + phone + '</div></div>' +
         '<div onclick="doLogout();closeMypageModal()" style="margin-top:8px;padding:13px;border:1px solid rgba(201,164,99,.25);color:#8a8471;font:400 12px \'Noto Sans KR\',sans-serif;text-align:center;cursor:pointer;letter-spacing:.06em">로그아웃</div>' +
