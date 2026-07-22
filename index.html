@@ -185,7 +185,7 @@
       <div style="width:64px;height:1px;background:#c9a463;margin:36px auto"></div>
       <div style="font:400 18px/1.7 'Noto Serif KR',serif;color:#e2dccd;max-width:520px;margin:0 auto">법률의 신뢰를 브랜드의 언어로 설계합니다</div>
       <div id="hero-buttons" style="display:flex;gap:14px;justify-content:center;margin-top:44px">
-        <div style="padding:14px 30px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="goPage('book')">정기구독 신청</div>
+        <div style="padding:14px 30px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청</div>
         <div style="padding:14px 26px;border:1px solid rgba(201,164,99,.4);color:#c9bfa9;font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.04em;cursor:pointer" onclick="goPage('service')">서비스 살펴보기</div>
       </div>
     </div>
@@ -275,7 +275,7 @@
       </div>
 
       <div style="display:inline-flex;gap:14px;align-items:center">
-        <div style="padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="goPage('book')">정기구독 신청 →</div>
+        <div style="padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청 →</div>
         <div style="padding:14px 28px;border:1px solid rgba(201,164,99,.4);color:#c9bfa9;font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.04em;cursor:pointer" onclick="goPage('book')">지난 호 전체보기</div>
       </div>
     </div>
@@ -511,82 +511,6 @@
 
     </div>
 
-    <div class="sp" style="padding:70px 48px;border-bottom:1px solid rgba(201,164,99,.2)">
-      <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:36px;text-align:center">구독 플랜</div>
-      <div id="book-plan-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:760px;margin:0 auto">
-        <div id="plan-card-basic" onclick="selectPlan('basic')" style="border:1px solid #c9a463;padding:36px 30px;background:rgba(201,164,99,.06);cursor:pointer;transition:border-color .2s,background .2s">
-          <div style="font:500 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">BASIC</div>
-          <div style="font:300 13px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:22px">매월 초 법률 마케팅 월간 전자책 발송</div>
-          <div style="font:600 28px 'Noto Serif KR',serif;color:#c9a463;margin-bottom:22px">₩9,900<span style="font:400 12px 'Noto Sans KR',sans-serif;color:#8a8471"> / 월</span></div>
-          <div style="font:300 12px/2 'Noto Sans KR',sans-serif;color:#c9bfa9">· 매월 법률 마케팅 전자책 발송<br>· 지난 호 아카이브 열람</div>
-        </div>
-        <div id="plan-card-premium" onclick="selectPlan('premium')" style="border:1px solid rgba(201,164,99,.25);padding:36px 30px;cursor:pointer;transition:border-color .2s,background .2s">
-          <div style="font:500 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">PREMIUM</div>
-          <div style="font:300 13px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:22px">월간 전자책 + 매일 카카오톡 브리핑</div>
-          <div style="font:600 28px 'Noto Serif KR',serif;color:#c9a463;margin-bottom:22px">₩19,900<span style="font:400 12px 'Noto Sans KR',sans-serif;color:#8a8471"> / 월</span></div>
-          <div style="font:300 12px/2 'Noto Sans KR',sans-serif;color:#c9bfa9">· BASIC 혜택 전체 포함<br>· 매일 아침 카카오톡 인사이트 브리핑<br>· 우선 상담 예약</div>
-        </div>
-      </div>
-    </div>
-
-    <div id="book-form-section" style="padding:70px 48px;display:flex;justify-content:center">
-      <div id="book-form-wrap" style="width:400px">
-        <div style="font:500 18px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:20px;text-align:center">정기구독 신청</div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <select id="subPlan" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px;appearance:none;cursor:pointer">
-            <option value="basic">BASIC — ₩9,900 / 월</option>
-            <option value="premium">PREMIUM — ₩19,900 / 월</option>
-          </select>
-          <input id="subName" type="text" placeholder="이름" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px"/>
-          <input id="subPhone" type="tel" placeholder="카카오톡 연락처 (010-0000-0000)" style="background:#141210;border:1px solid rgba(201,164,99,.3);color:#f4efe4;padding:13px 16px;font-size:13px"/>
-          <div id="sub-submit-btn" style="padding:14px 0;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;text-align:center;cursor:pointer;margin-top:8px" onclick="onSubscribe()">구독 신청하기</div>
-          <div id="sub-error-msg" style="display:none;font:300 12px 'Noto Sans KR',sans-serif;color:#e07070;text-align:center;padding-top:4px"></div>
-        </div>
-      </div>
-      <div id="book-form-done" style="display:none;width:400px;text-align:center;border:1px solid rgba(201,164,99,.3);padding:44px 30px">
-        <div style="font:500 20px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">구독 신청이 완료되었습니다</div>
-        <div style="font:300 13px/1.8 'Noto Sans KR',sans-serif;color:#8a8471">다음 발간일부터 법률 마케팅 월간 전자책과<br>카카오톡 인사이트 브리핑을 보내드립니다</div>
-      </div>
-    </div>
-
-    <!-- 환불 규정 토글 -->
-    <div id="book-refund-section" style="padding:0 48px 60px;display:flex;justify-content:center">
-      <div style="width:400px">
-        <div onclick="toggleRefundPanel()" style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid rgba(201,164,99,.2);cursor:pointer">
-          <span style="font:400 12px 'Noto Sans KR',sans-serif;color:#8a8471;letter-spacing:.04em">환불 규정</span>
-          <span id="refund-toggle-icon" style="font:300 18px sans-serif;color:#c9a463;line-height:1;transition:transform .3s;display:inline-block">∨</span>
-        </div>
-        <div id="refund-panel" style="display:none;border:1px solid rgba(201,164,99,.18);padding:24px 20px;margin-top:2px">
-          <div style="font:500 13px 'Noto Serif KR',serif;color:#e9d9a8;margin-bottom:18px">메이크어로이어 구독 서비스 환불 규정</div>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div>
-              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">청약철회</div>
-              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 구독 신청일로부터 7일 이내 가능<br>· 디지털 콘텐츠 1건 이상 이용 시 불가<br>· 청약철회 시 전액 환불</div>
-            </div>
-            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
-              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">중도 해지</div>
-              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 언제든 해지 가능<br>· 환불 금액 = 결제 금액 − (월 구독료 ÷ 30일 × 이용일수)</div>
-            </div>
-            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
-              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">환불 불가</div>
-              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 강의 영상 시청 / 자료 다운로드 이력이 있는 경우<br>· 구독 기간 만료 후</div>
-            </div>
-            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
-              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">환불 신청 방법</div>
-              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 카카오톡 채널 (@메이크어로이어) 또는 이메일<br>· 이름 / 연락처 / 플랜 / 사유 기재 필수</div>
-            </div>
-            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
-              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">환불 처리 기간</div>
-              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 승인 후 영업일 3~5일 이내 처리<br>· 카드사 정책에 따라 최대 7영업일 소요 가능</div>
-            </div>
-            <div style="border-top:1px solid rgba(201,164,99,.1);padding-top:16px">
-              <div style="font:500 12px 'Noto Sans KR',sans-serif;color:#c9a463;letter-spacing:.06em;margin-bottom:6px">기타</div>
-              <div style="font:300 12px/1.9 'Noto Sans KR',sans-serif;color:#8a8471">· 전자상거래법을 준수합니다<br>· 규정은 사전 고지 후 변경될 수 있습니다</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- ============ TEAM ============ -->
@@ -1088,7 +1012,7 @@
       </div>
       <div style="text-align:center;margin-top:34px;padding-top:24px;border-top:1px solid rgba(201,164,99,.18)">
         <div style="font:300 12px 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:16px">다음 호부터는 구독자에게 전체 내용이 매월 발송됩니다</div>
-        <div style="display:inline-block;padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="closeBookPreview();goPage('book');document.getElementById('book-form-wrap').scrollIntoView({behavior:'smooth'})">정기구독 신청하기</div>
+        <div style="display:inline-block;padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청하기</div>
       </div>
     </div>
   </div>
