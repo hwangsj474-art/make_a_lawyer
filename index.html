@@ -105,8 +105,8 @@
 
     /* BOOK CARDS - mobile vertical stack */
     #book-cards-grid{flex-direction:column!important;align-items:center!important;gap:24px!important;padding:40px 24px!important}
-    #bk-vol1{width:min(360px,100vw - 48px)!important;order:-1!important}
-    #bk-vol1 .bk-cover{width:100%!important;height:calc(min(360px,100vw - 48px) * 1.5)!important}
+    #bk-vol1{width:min(300px,100vw - 48px)!important;order:-1!important}
+    #bk-vol1 .bk-cover{width:100%!important;height:calc(min(300px,100vw - 48px) * 1.5)!important}
     #book-cards-grid>div:not(#bk-vol1){width:calc(50vw - 32px)!important}
     #book-cards-grid>div:not(#bk-vol1)>div:first-child{width:100%!important;height:calc((50vw - 32px) * 1.5)!important}
 
@@ -447,7 +447,7 @@
       </div>
     </div>
 
-    <div id="book-cards-grid" style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:24px;padding:0 60px;border-bottom:1px solid rgba(201,164,99,.2)">
+    <div id="book-cards-grid" style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:24px;padding:80px 60px;border-bottom:1px solid rgba(201,164,99,.2)">
 
       <!-- VOL.3 — 9월호 -->
       <div style="width:180px;text-align:left;opacity:.35">
@@ -478,10 +478,10 @@
       </div>
 
       <!-- VOL.1 — 7월호 (클릭 시 미리보기 모달) -->
-      <div id="bk-vol1" onclick="openBookPreview()" style="flex:none;width:360px;cursor:pointer;text-align:left"
+      <div id="bk-vol1" onclick="openBookPreview()" style="flex:none;width:300px;cursor:pointer;text-align:left"
            onmouseenter="this.querySelector('.bk-cover').style.transform='translateY(-8px)';this.querySelector('.bk-cover').style.boxShadow='0 40px 80px rgba(0,0,0,.75),6px 0 20px rgba(0,0,0,.4)'"
            onmouseleave="this.querySelector('.bk-cover').style.transform='';this.querySelector('.bk-cover').style.boxShadow='0 20px 56px rgba(0,0,0,.55),4px 0 14px rgba(0,0,0,.3)'">
-        <div class="bk-cover" style="width:360px;height:540px;background:#1a2744;border:1px solid rgba(201,164,99,.6);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:28px 24px 28px 32px;box-shadow:0 20px 56px rgba(0,0,0,.55),4px 0 14px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s">
+        <div class="bk-cover" style="width:300px;height:450px;background:#1a2744;border:1px solid rgba(201,164,99,.6);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:28px 24px 28px 32px;box-shadow:0 20px 56px rgba(0,0,0,.55),4px 0 14px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s">
           <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:linear-gradient(180deg,#c9a463 0%,rgba(201,164,99,.2) 100%)"></div>
           <div>
             <div style="font:9px ui-monospace,monospace;color:rgba(201,164,99,.8);letter-spacing:.16em;margin-bottom:28px">VOL. 1 — 2026 JULY</div>
@@ -507,6 +507,20 @@
             <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.28);letter-spacing:.12em;margin-bottom:14px">VOL. 4 — 2026 OCTOBER</div>
             <div style="width:16px;height:1px;background:rgba(201,164,99,.12);margin-bottom:12px"></div>
             <div style="font:600 14px/1.4 'Noto Serif KR',serif;color:#6e6254">월간<br>법률마케팅<br>10월호</div>
+          </div>
+          <div style="font:300 10px/1.6 'Noto Sans KR',sans-serif;color:#5c5040">다음 호 발간<br>예정이 있습니다</div>
+        </div>
+        <div style="margin-top:10px;font:500 11px 'Noto Serif KR',serif;color:#7a7060">다음 호 발간 예정</div>
+      </div>
+
+      <!-- VOL.5 — 11월호 -->
+      <div style="width:180px;text-align:left;opacity:.35">
+        <div style="width:180px;height:270px;background:#2e1a1a;border:1px solid rgba(201,164,99,.15);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:16px 14px 16px 20px;box-shadow:0 8px 24px rgba(0,0,0,.35)">
+          <div style="position:absolute;left:0;top:0;width:4px;height:100%;background:linear-gradient(180deg,rgba(201,164,99,.22) 0%,rgba(201,164,99,.04) 100%)"></div>
+          <div>
+            <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.35);letter-spacing:.12em;margin-bottom:14px">VOL. 5 — 2026 NOVEMBER</div>
+            <div style="width:16px;height:1px;background:rgba(201,164,99,.14);margin-bottom:12px"></div>
+            <div style="font:600 14px/1.4 'Noto Serif KR',serif;color:#7a6e5e">월간<br>법률마케팅<br>11월호</div>
           </div>
           <div style="font:300 10px/1.6 'Noto Sans KR',sans-serif;color:#5c5040">다음 호 발간<br>예정이 있습니다</div>
         </div>
