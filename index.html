@@ -950,7 +950,7 @@
     }, 1200);
   });
 
-  // 캐러셀: 섹션 진입 시 VOL.1 위치(scrollLeft=0)로 리셋 — 모바일+데스크탑
+  // 캐러셀: 섹션 진입 시 스크롤 리셋
   (function() {
     var isMobile = window.matchMedia('(max-width:768px)').matches;
     function watchReset(id) {
@@ -961,9 +961,34 @@
         entries.forEach(function(e) { if (e.isIntersecting) el.scrollLeft = 0; });
       }, { threshold: 0.3 }).observe(el);
     }
-    if (isMobile) watchReset('book-fan');
-    watchReset('book-cards-grid'); // 데스크탑·모바일 모두 적용
+    function scrollToVol1(grid) {
+      var vol1 = document.getElementById('bk-vol1');
+      if (!grid || !vol1) return;
+      grid.scrollLeft = vol1.offsetLeft - (grid.offsetWidth / 2) + (vol1.offsetWidth / 2);
+    }
+    if (isMobile) {
+      watchReset('book-fan');
+      var bookGrid = document.getElementById('book-cards-grid');
+      if (bookGrid) {
+        new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) { if (e.isIntersecting) scrollToVol1(bookGrid); });
+        }, { threshold: 0.3 }).observe(bookGrid);
+      }
+    } else {
+      watchReset('book-cards-grid');
+    }
   })();
+
+  // BOOK 캐러셀: 모바일 초기 로드 시 VOL.1 중앙 정렬
+  window.addEventListener('load', function() {
+    if (window.innerWidth <= 768) {
+      var grid = document.getElementById('book-cards-grid');
+      var vol1 = document.getElementById('bk-vol1');
+      if (grid && vol1) {
+        grid.scrollLeft = vol1.offsetLeft - (grid.offsetWidth / 2) + (vol1.offsetWidth / 2);
+      }
+    }
+  });
 </script>
 
 <!-- VOL.1 미리보기 모달 -->
