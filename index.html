@@ -106,7 +106,7 @@
     /* BOOK CARDS - mobile horizontal scroll */
     #book-cards-grid{flex-direction:row!important;align-items:center!important;overflow-x:auto!important;gap:16px!important;padding:40px 24px!important;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
     #book-cards-grid>div{scroll-snap-align:center;flex-shrink:0!important}
-    #bk-vol1{order:-1!important;width:220px!important}
+    #bk-vol1{width:220px!important}
     #bk-vol1 .bk-cover{width:220px!important;height:330px!important}
     #book-cards-grid>div:not(#bk-vol1){width:160px!important}
     #book-cards-grid>div:not(#bk-vol1)>div:first-child{width:160px!important;height:240px!important}
@@ -846,6 +846,7 @@
       el.classList.toggle('active', el.dataset.nav === name);
     });
     window.scrollTo(0, 0);
+    if (name === 'book') centerBookVol1();
   }
 
   function toggleRefundPanel() {
@@ -979,16 +980,19 @@
     }
   })();
 
-  // BOOK 캐러셀: 모바일 초기 로드 시 VOL.1 중앙 정렬
-  window.addEventListener('load', function() {
+  // BOOK 캐러셀: 모바일에서 VOL.1 중앙 정렬
+  function centerBookVol1() {
     if (window.innerWidth <= 768) {
       var grid = document.getElementById('book-cards-grid');
       var vol1 = document.getElementById('bk-vol1');
       if (grid && vol1) {
-        grid.scrollLeft = vol1.offsetLeft - (grid.offsetWidth / 2) + (vol1.offsetWidth / 2);
+        setTimeout(function() {
+          grid.scrollLeft = vol1.offsetLeft - (grid.offsetWidth / 2) + (vol1.offsetWidth / 2);
+        }, 100);
       }
     }
-  });
+  }
+  window.addEventListener('load', centerBookVol1);
 </script>
 
 <!-- VOL.1 미리보기 모달 -->
