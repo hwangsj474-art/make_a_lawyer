@@ -139,10 +139,12 @@
     /* BOOK */
     #book-main-title{font-size:26px!important}
     /* BOOK PREVIEW MODAL */
-    #book-preview-header{display:flex!important;flex-direction:column!important;align-items:center!important;gap:20px!important;padding:24px 20px!important}
-    #book-preview-thumb{width:60%!important;height:auto!important;min-height:160px!important}
-    #book-preview-header>div:last-child{width:100%!important;text-align:center!important}
-    #book-preview-header>div:last-child [style*="font:600 24px"]{font-size:20px!important}
+    #book-preview-header,.bk-preview-header{display:flex!important;flex-direction:column!important;align-items:center!important;gap:20px!important;padding:24px 20px!important}
+    #book-preview-thumb,.bk-preview-thumb{width:60%!important;height:auto!important;min-height:160px!important;flex:none!important}
+    #book-preview-header>div:last-child,.bk-preview-header>div:last-child{width:100%!important;text-align:center!important}
+    #book-preview-header>div:last-child [style*="font:600 24px"],.bk-preview-header>div:last-child [style*="font:600 24px"]{font-size:20px!important}
+    .bk-preview-header .bk-badge-row{justify-content:center!important}
+    .bk-preview-header .bk-badge-row span{white-space:nowrap!important}
   }
 </style>
 </head>
@@ -1113,7 +1115,7 @@
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
           <div style="font:400 10px ui-monospace,monospace;color:#c9a463;letter-spacing:.1em">VOL. 1 — 2026년 7월호</div>
-          <span style="font-size:9px;font-weight:700;color:#c9a463;background:rgba(201,163,90,0.12);border:1px solid rgba(201,163,90,0.3);border-radius:100px;padding:2px 8px;letter-spacing:0.05em;">지난 호</span>
+          <span style="font-size:9px;font-weight:700;color:#c9a463;background:rgba(201,163,90,0.12);border:1px solid rgba(201,163,90,0.3);border-radius:100px;padding:2px 8px;letter-spacing:0.05em;white-space:nowrap;">지난 호</span>
         </div>
         <div style="font:600 24px/1.4 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">전체를 보지 못하면 무너진다</div>
         <div style="font:300 13px/1.8 'Noto Sans KR',sans-serif;color:#8a8471">지난 한 달의 변화를 빠짐없이 정리하고,<br>새롭게 떠오르는 채널과 AI 광고 시대의 흐름을 짚은 뒤,<br>하반기를 준비하는 이들을 위한 실전 전략으로 마무리합니다.</div>
@@ -1178,8 +1180,8 @@
       <span style="cursor:pointer;color:#6f6752;font-size:22px;line-height:1" onclick="closeBookPreview()">×</span>
     </div>
     <!-- 헤더 -->
-    <div style="display:grid;grid-template-columns:150px 1fr;gap:24px;padding:32px;border-bottom:1px solid rgba(201,164,99,.2)">
-      <div style="height:200px;background:#12342A;display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px 20px;flex:none;box-shadow:0 0 0 1.5px #c9a35a,0 0 24px -6px rgba(201,163,90,0.4);">
+    <div class="bk-preview-header" style="display:grid;grid-template-columns:150px 1fr;gap:24px;padding:32px;border-bottom:1px solid rgba(201,164,99,.2)">
+      <div class="bk-preview-thumb" style="height:200px;background:#12342A;display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px 20px;flex:none;box-shadow:0 0 0 1.5px #c9a35a,0 0 24px -6px rgba(201,163,90,0.4);">
         <div style="font:8px ui-monospace,monospace;color:rgba(201,164,99,.65);letter-spacing:.1em">2026 AUGUST · VOL. 2</div>
         <div>
           <div style="font:700 15px/1.45 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">월간 법률마케팅<br>8월호</div>
@@ -1187,9 +1189,9 @@
         </div>
       </div>
       <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="bk-badge-row" style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
           <div style="font:400 10px ui-monospace,monospace;color:#c9a463;letter-spacing:.1em">VOL. 2 — 2026년 8월호</div>
-          <span style="font-size:9px;font-weight:700;color:#12342A;background:#c9a35a;border-radius:100px;padding:2px 8px;letter-spacing:0.05em;">이번 호</span>
+          <span style="font-size:9px;font-weight:700;color:#12342A;background:#c9a35a;border-radius:100px;padding:2px 8px;letter-spacing:0.05em;white-space:nowrap;">이번 호</span>
         </div>
         <div style="font:600 24px/1.4 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:10px">진성글의 시대가 되돌아왔다</div>
         <div style="font:300 13px/1.8 'Noto Sans KR',sans-serif;color:#8a8471">네이버 AI 브리핑 광고 정식 출시, 품질지수 폐지,<br>그리고 다시 쓰이는 바이럴 마케팅의 규칙들.<br>8월호는 달라진 플랫폼 위에서 살아남는 법을 다룹니다.</div>
