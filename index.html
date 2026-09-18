@@ -1163,15 +1163,12 @@
     }
   })();
 
-  // ===== COLUMN =====
-  // 비밀번호는 소스코드에 없음 — 최초 접속 시 관리자가 직접 설정, localStorage에 저장
+  // ===== COLUMN (Supabase) =====
 
   function colGetStoredPw() { return localStorage.getItem('col_admin_pw') || ''; }
-
   function colIsAuth() { return sessionStorage.getItem('col_auth') === '1'; }
 
   function colAuthPrompt() {
-    var modal = document.getElementById('col-auth-modal');
     var isFirstTime = !colGetStoredPw();
     document.getElementById('col-auth-pw').value = '';
     document.getElementById('col-auth-pw2-wrap').style.display = isFirstTime ? 'block' : 'none';
@@ -1179,7 +1176,7 @@
     document.getElementById('col-auth-err').style.display = 'none';
     document.getElementById('col-auth-title').textContent = isFirstTime ? '비밀번호 최초 설정' : '관리자 로그인';
     document.getElementById('col-auth-submit').textContent = isFirstTime ? '비밀번호 설정' : '확인';
-    modal.style.display = 'flex';
+    document.getElementById('col-auth-modal').style.display = 'flex';
     setTimeout(function(){ document.getElementById('col-auth-pw').focus(); }, 80);
   }
 
@@ -1214,12 +1211,6 @@
     document.getElementById('col-logout-btn').style.display = auth ? 'inline-block' : 'none';
   }
 
-  function colGetArticles() {
-    try { return JSON.parse(localStorage.getItem('col_articles') || '[]'); } catch(e) { return []; }
-  }
-
-  function colSaveArticles(arr) { localStorage.setItem('col_articles', JSON.stringify(arr)); }
-
   function escHtml(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
@@ -1230,20 +1221,26 @@
     });
   }
 
-  function colRenderList() {
+  async function colRenderList() {
     colShowSection('col-list');
-    var articles = colGetArticles();
-    var auth = colIsAuth();
     var el = document.getElementById('col-list');
+    el.innerHTML = '<div style="padding:80px 0;text-align:center;color:#8a8471;font:400 12px \'Noto Sans KR\',sans-serif;letter-spacing:.1em">불러오는 중...</div>';
+    var result = await _db.from('column_articles').select('*').order('created_at', {ascending: false});
+    if (result.error) {
+      el.innerHTML = '<div style="padding:80px 0;text-align:center;color:#c0745a;font:400 13px \'Noto Sans KR\',sans-serif">글을 불러오는 데 실패했습니다.<br><span style="font-size:11px;color:#8a8471">' + escHtml(result.error.message) + '</span></div>';
+      return;
+    }
+    var articles = result.data || [];
+    var auth = colIsAuth();
     if (!articles.length) {
       el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:280px"><div style="text-align:center"><div style="font:300 13px \'Noto Sans KR\',sans-serif;letter-spacing:.25em;color:#8a8471;margin-bottom:16px">COMING SOON</div><div style="font:400 22px/1.8 \'Noto Serif KR\',serif;color:#c9c0ab">아직 작성된 글이 없습니다</div><div style="width:40px;height:1px;background:#c9a463;margin:28px auto 0"></div></div></div>';
       return;
     }
     var html = '<div style="max-width:800px">';
-    articles.slice().reverse().forEach(function(a) {
-      var summary = a.body.replace(/\n/g,' ').substring(0, 90) + (a.body.length > 90 ? '…' : '');
+    articles.forEach(function(a) {
+      var summary = (a.body || '').replace(/\n/g,' ').substring(0, 90) + ((a.body || '').length > 90 ? '…' : '');
       html += '<div class="col-card" onclick="colShowDetail(\'' + a.id + '\')" style="padding:32px 0;border-bottom:1px solid rgba(201,164,99,.15);cursor:pointer">';
-      html += '<div style="font:300 10px \'Noto Sans KR\',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:10px">' + a.date + '</div>';
+      html += '<div style="font:300 10px \'Noto Sans KR\',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:10px">' + escHtml(a.date) + '</div>';
       html += '<div style="font:600 20px/1.4 \'Noto Serif KR\',serif;color:#f4efe4;margin-bottom:10px">' + escHtml(a.title) + '</div>';
       html += '<div style="font:400 13px/1.8 \'Noto Sans KR\',sans-serif;color:#8a8471">' + escHtml(summary) + '</div>';
       if (auth) {
@@ -1258,14 +1255,18 @@
     el.innerHTML = html;
   }
 
-  function colShowDetail(id) {
-    var a = colGetArticles().find(function(x){ return x.id === id; });
-    if (!a) return;
+  async function colShowDetail(id) {
+    colShowSection('col-detail');
+    var el = document.getElementById('col-detail');
+    el.innerHTML = '<div style="padding:80px 0;text-align:center;color:#8a8471;font:400 12px \'Noto Sans KR\',sans-serif;letter-spacing:.1em">불러오는 중...</div>';
+    var result = await _db.from('column_articles').select('*').eq('id', id).limit(1);
+    var a = result.data && result.data[0];
+    if (!a) { el.innerHTML = '<div style="padding:80px 0;text-align:center;color:#c0745a">글을 찾을 수 없습니다.</div>'; return; }
     var auth = colIsAuth();
     var html = '';
     html += '<button onclick="colRenderList()" style="display:inline-flex;align-items:center;gap:6px;padding:0;background:transparent;border:none;color:#8a8471;font:400 11px \'Noto Sans KR\',sans-serif;cursor:pointer;letter-spacing:.05em;margin-bottom:48px">← 목록으로</button>';
     html += '<div style="max-width:720px">';
-    html += '<div style="font:300 10px \'Noto Sans KR\',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:14px">' + a.date + '</div>';
+    html += '<div style="font:300 10px \'Noto Sans KR\',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:14px">' + escHtml(a.date) + '</div>';
     html += '<div style="font:700 32px/1.4 \'Noto Serif KR\',serif;color:#f4efe4;margin-bottom:28px">' + escHtml(a.title) + '</div>';
     html += '<div style="width:40px;height:1px;background:#c9a463;margin-bottom:36px"></div>';
     html += '<div style="font:400 15px/2.0 \'Noto Sans KR\',sans-serif;color:#c9c0ab;white-space:pre-wrap">' + escHtml(a.body) + '</div>';
@@ -1276,14 +1277,17 @@
       html += '</div>';
     }
     html += '</div>';
-    document.getElementById('col-detail').innerHTML = html;
-    colShowSection('col-detail');
+    el.innerHTML = html;
     window.scrollTo(0, 0);
   }
 
-  function colShowWrite(id) {
+  async function colShowWrite(id) {
     if (!colIsAuth()) { colAuthPrompt(); return; }
-    var a = id ? colGetArticles().find(function(x){ return x.id === id; }) : null;
+    var a = null;
+    if (id) {
+      var result = await _db.from('column_articles').select('*').eq('id', id).limit(1);
+      a = result.data && result.data[0];
+    }
     var isEdit = !!a;
     var html = '';
     html += '<button onclick="colRenderList()" style="display:inline-flex;align-items:center;gap:6px;padding:0;background:transparent;border:none;color:#8a8471;font:400 11px \'Noto Sans KR\',sans-serif;cursor:pointer;letter-spacing:.05em;margin-bottom:48px">← 목록으로</button>';
@@ -1296,7 +1300,7 @@
     html += '<textarea id="col-form-body" placeholder="내용을 입력하세요" style="width:100%;padding:16px;background:#0d0c09;border:1px solid rgba(201,164,99,.3);color:#c9c0ab;font:400 14px/1.9 \'Noto Sans KR\',sans-serif;outline:none;box-sizing:border-box;min-height:360px;resize:vertical">' + (a ? escHtml(a.body) : '') + '</textarea></div>';
     html += '<div id="col-form-err" style="display:none;font:400 12px \'Noto Sans KR\',sans-serif;color:#c0745a">제목과 본문을 모두 입력해 주세요.</div>';
     html += '<div style="display:flex;gap:12px">';
-    html += '<button onclick="colSaveForm(\'' + (id || '') + '\')" style="padding:13px 28px;background:#c9a463;border:none;color:#0d0c09;font:600 12px \'Noto Sans KR\',sans-serif;letter-spacing:.1em;cursor:pointer">' + (isEdit ? '수정 완료' : '발행') + '</button>';
+    html += '<button id="col-save-btn" onclick="colSaveForm(\'' + (id || '') + '\')" style="padding:13px 28px;background:#c9a463;border:none;color:#0d0c09;font:600 12px \'Noto Sans KR\',sans-serif;letter-spacing:.1em;cursor:pointer">' + (isEdit ? '수정 완료' : '발행') + '</button>';
     html += '<button onclick="colRenderList()" style="padding:13px 24px;background:transparent;border:1px solid rgba(201,164,99,.3);color:#8a8471;font:500 12px \'Noto Sans KR\',sans-serif;cursor:pointer">취소</button>';
     html += '</div></div>';
     document.getElementById('col-write-form').innerHTML = html;
@@ -1304,27 +1308,35 @@
     window.scrollTo(0, 0);
   }
 
-  function colSaveForm(id) {
+  async function colSaveForm(id) {
     var title = document.getElementById('col-form-title').value.trim();
     var body = document.getElementById('col-form-body').value.trim();
     if (!title || !body) { document.getElementById('col-form-err').style.display = 'block'; return; }
     document.getElementById('col-form-err').style.display = 'none';
-    var articles = colGetArticles();
+    var btn = document.getElementById('col-save-btn');
+    if (btn) { btn.disabled = true; btn.textContent = '저장 중...'; }
+    var err;
     if (id) {
-      var idx = articles.findIndex(function(x){ return x.id === id; });
-      if (idx > -1) { articles[idx].title = title; articles[idx].body = body; }
+      var r = await _db.from('column_articles').update({ title: title, body: body }).eq('id', id);
+      err = r.error;
     } else {
       var now = new Date();
       var d = now.getFullYear() + '.' + String(now.getMonth()+1).padStart(2,'0') + '.' + String(now.getDate()).padStart(2,'0');
-      articles.push({ id: String(Date.now()), title: title, body: body, date: d });
+      var r = await _db.from('column_articles').insert([{ title: title, body: body, date: d }]);
+      err = r.error;
     }
-    colSaveArticles(articles);
+    if (err) {
+      alert('저장에 실패했습니다: ' + err.message);
+      if (btn) { btn.disabled = false; btn.textContent = id ? '수정 완료' : '발행'; }
+      return;
+    }
     colRenderList();
   }
 
-  function colDeleteArticle(id) {
+  async function colDeleteArticle(id) {
     if (!confirm('이 글을 삭제하시겠습니까?')) return;
-    colSaveArticles(colGetArticles().filter(function(x){ return x.id !== id; }));
+    var { error } = await _db.from('column_articles').delete().eq('id', id);
+    if (error) { alert('삭제에 실패했습니다: ' + error.message); return; }
     colRenderList();
   }
 
