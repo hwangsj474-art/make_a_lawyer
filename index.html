@@ -222,7 +222,7 @@
       <div style="width:64px;height:1px;background:#c9a463;margin:36px auto"></div>
       <div style="font:400 18px/1.7 'Noto Serif KR',serif;color:#e2dccd;max-width:520px;margin:0 auto">법률의 신뢰를 브랜드의 언어로 설계합니다</div>
       <div id="hero-buttons" style="display:flex;gap:14px;justify-content:center;margin-top:44px">
-        <div style="padding:14px 30px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청</div>
+        <div style="padding:14px 30px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="openBookPreview(3)">이번 호 구독 신청</div>
         <div style="padding:14px 26px;border:1px solid rgba(201,164,99,.4);color:#c9bfa9;font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.04em;cursor:pointer" onclick="goPage('service')">서비스 살펴보기</div>
       </div>
     </div>
@@ -243,7 +243,7 @@
     <div class="sp" style="padding:88px 48px 96px;border-top:1px solid rgba(201,164,99,.2);text-align:center">
       <div style="font:400 11px 'Noto Sans KR',sans-serif;letter-spacing:.3em;color:#c9a463;margin-bottom:20px">MONTHLY PUBLICATION</div>
       <div style="font:600 clamp(20px,2.4vw,33px)/1.2 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:18px">매달, 법률 마케팅의 기준을 발간합니다</div>
-      <div style="font:300 14px/1.8 'Noto Sans KR',sans-serif;color:#9c9686;margin-bottom:60px">정기 구독 시 매일 아침 <span class="mob-br"><br></span>카카오톡으로 인사이트 브리핑을 보내드립니다</div>
+      <div style="font:300 14px/1.8 'Noto Sans KR',sans-serif;color:#9c9686;margin-bottom:60px">이메일을 등록하시면 <span class="mob-br"><br></span>매달 새 호를 무료로 받아보실 수 있습니다</div>
 
       <!-- 팬 레이아웃: VOL.1(지난 호) | VOL.2(featured, 이번 호) | VOL.3 | VOL.4 -->
       <div id="book-fan" style="display:flex;justify-content:center;align-items:flex-end;gap:12px;margin-bottom:52px">
@@ -312,7 +312,7 @@
       </div>
 
       <div style="display:inline-flex;gap:14px;align-items:center">
-        <div style="padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청 →</div>
+        <div style="padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="openBookPreview(3)">이번 호 구독 신청 →</div>
         <div style="padding:14px 28px;border:1px solid rgba(201,164,99,.4);color:#c9bfa9;font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.04em;cursor:pointer" onclick="goPage('book')">지난 호 전체보기</div>
       </div>
     </div>
@@ -1163,6 +1163,37 @@
     }
   })();
 
+  // ===== 뉴스레터 이메일 구독 =====
+  async function modalSubscribeSubmit(volId) {
+    var email = (document.getElementById('modal-email-' + volId) || {}).value;
+    if (email) email = email.trim();
+    var agree = (document.getElementById('modal-agree-' + volId) || {}).checked;
+    var errEl = document.getElementById('modal-sub-err-' + volId);
+    var btn = document.getElementById('modal-sub-btn-' + volId);
+    if (!email || !email.includes('@')) {
+      if (errEl) { errEl.textContent = '유효한 이메일 주소를 입력해 주세요.'; errEl.style.display = 'block'; }
+      return;
+    }
+    if (!agree) {
+      if (errEl) { errEl.textContent = '개인정보 수집·이용에 동의해 주세요.'; errEl.style.display = 'block'; }
+      return;
+    }
+    if (errEl) errEl.style.display = 'none';
+    if (btn) { btn.disabled = true; btn.textContent = '처리 중...'; }
+    try {
+      var { error } = await _db.from('newsletter_subscribers').insert([{ email: email, agreed_privacy: true }]);
+      if (error) throw error;
+      var form = document.getElementById('modal-sub-form-' + volId);
+      var done = document.getElementById('modal-sub-done-' + volId);
+      if (form) form.style.display = 'none';
+      if (done) done.style.display = 'block';
+    } catch(e) {
+      if (btn) { btn.disabled = false; btn.textContent = '신청하기'; }
+      if (errEl) { errEl.textContent = '오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'; errEl.style.display = 'block'; }
+    }
+  }
+  // ===== END 뉴스레터 =====
+
   // ===== COLUMN (Supabase) =====
 
   function colGetStoredPw() { return localStorage.getItem('col_admin_pw') || ''; }
@@ -1428,9 +1459,34 @@
           <div style="font:300 13px/1.9 'Noto Sans KR',sans-serif;color:#c9bfa9">"7월은 6월에 비해 콜이 전반적으로 회복될 것으로 예상됩니다. 모두들 화이팅입니다!"<br>— 월간 법률마케팅 7월호를 마치며</div>
         </div>
       </div>
-      <div style="text-align:center;margin-top:34px;padding-top:24px;border-top:1px solid rgba(201,164,99,.18)">
-        <div style="font:300 12px 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:16px">다음 호부터는 구독자에게 전체 내용이 매월 발송됩니다</div>
-        <div style="display:inline-block;padding:14px 32px;background:#c9a463;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청하기</div>
+      <div style="margin-top:34px;padding-top:28px;border-top:1px solid rgba(201,164,99,.18)">
+        <a href="월간_법률마케팅_7월호.pdf" download style="display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:transparent;border:1px solid rgba(201,164,99,.5);color:#c9a463;font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;text-decoration:none;margin-bottom:32px">↓ PDF 다운로드 (7월호)</a>
+        <div id="modal-sub-form-vol1" style="display:flex;flex-direction:column;gap:12px;max-width:480px">
+          <div style="font:300 11px 'Noto Sans KR',sans-serif;letter-spacing:.22em;color:#c9a463;margin-bottom:2px">SUBSCRIBE</div>
+          <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:2px">매달 새 호를 무료로 받아보세요</div>
+          <div style="font:300 12px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:4px">이메일을 등록하시면 발행 즉시 발송됩니다</div>
+          <input id="modal-email-vol1" type="email" placeholder="이메일 주소를 입력하세요" style="width:100%;padding:12px 14px;background:#0d0c09;border:1px solid rgba(201,164,99,.3);color:#f4efe4;font:400 13px 'Noto Sans KR',sans-serif;outline:none;box-sizing:border-box">
+          <div>
+            <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
+              <input type="checkbox" id="modal-agree-vol1" style="margin-top:3px;flex:none;accent-color:#c9a463">
+              <span style="font:300 11px/1.6 'Noto Sans KR',sans-serif;color:#8a8471">(필수) 개인정보 수집·이용에 동의합니다 <button onclick="event.preventDefault();event.stopPropagation();var d=document.getElementById('privacy-vol1');d.hidden=!d.hidden" style="background:none;border:none;color:#c9a463;font:400 11px 'Noto Sans KR',sans-serif;cursor:pointer;padding:0;text-decoration:underline">내용 보기</button></span>
+            </label>
+            <div id="privacy-vol1" hidden style="margin-top:8px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(201,164,99,.12);font:300 11px/1.7 'Noto Sans KR',sans-serif;color:#6f6752">
+              <b style="color:#8a8471;display:block;margin-bottom:4px">개인정보 수집·이용 동의</b>
+              · 수집 항목: 이메일 주소<br>
+              · 수집 목적: 월간 법률마케팅 발행 안내 및 발송<br>
+              · 보유 기간: 구독 해지 요청 시까지 (최대 2년)<br>
+              · 귀하는 동의를 거부할 권리가 있으며, 거부 시 뉴스레터 구독 서비스를 이용하실 수 없습니다.
+            </div>
+          </div>
+          <div id="modal-sub-err-vol1" style="display:none;font:400 11px 'Noto Sans KR',sans-serif;color:#c0745a"></div>
+          <button id="modal-sub-btn-vol1" onclick="modalSubscribeSubmit('vol1')" style="padding:13px;background:#c9a463;border:none;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer">신청하기</button>
+        </div>
+        <div id="modal-sub-done-vol1" style="display:none;padding:24px 0;text-align:center">
+          <div style="font:300 11px 'Noto Sans KR',sans-serif;letter-spacing:.2em;color:#c9a463;margin-bottom:10px">THANK YOU</div>
+          <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4">등록이 완료되었습니다</div>
+          <div style="font:300 12px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-top:6px">다음 호부터 발송해드립니다</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1528,22 +1584,33 @@
         <p style="margin:0">이번 호는 네이버 플랫폼의 방향성을 짚고, 무너진 바이럴 영역의 대응책과 주요 사회 이슈별 마케팅 영향을 정리한 뒤, 두 분의 실무 전문가 인터뷰로 마무리합니다.</p>
       </div>
     </div>
-    <!-- 잠금 챕터 카드 -->
-    <div style="padding:32px;">
-      <!-- 흐릿한 챕터 미리보기 -->
-      <div style="position:relative;margin-bottom:20px;overflow:hidden;border-radius:4px;">
-        <div style="padding:20px 24px;background:rgba(201,163,90,0.04);border:1px solid rgba(201,163,90,0.12);filter:blur(1.5px);user-select:none;pointer-events:none;">
-          <div style="font:600 15px 'Noto Serif KR',serif;color:rgba(244,241,234,0.35);margin-bottom:8px">01. 네이버 플랫폼 방향성 체크</div>
-          <div style="font:300 13px/1.8 'Noto Sans KR',sans-serif;color:rgba(201,191,169,0.3)">AI 브리핑 광고가 정식 출시되면서 검색광고 운영의 기준이 달라졌습니다. 품질지수가 폐지되고 AI 연관도가 새 기준이 된 지금, 계정 관리의 중요성과 플레이스 영역의 변화를 살펴봅니다...</div>
+    <!-- 이메일 구독 -->
+    <div style="padding:32px">
+      <div id="modal-sub-form-vol2" style="display:flex;flex-direction:column;gap:12px;max-width:480px">
+        <div style="font:300 11px 'Noto Sans KR',sans-serif;letter-spacing:.22em;color:#c9a463;margin-bottom:2px">SUBSCRIBE</div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:2px">매달 새 호를 무료로 받아보세요</div>
+        <div style="font:300 12px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:4px">이메일을 등록하시면 발행 즉시 발송됩니다</div>
+        <input id="modal-email-vol2" type="email" placeholder="이메일 주소를 입력하세요" style="width:100%;padding:12px 14px;background:#0d0c09;border:1px solid rgba(201,164,99,.3);color:#f4efe4;font:400 13px 'Noto Sans KR',sans-serif;outline:none;box-sizing:border-box">
+        <div>
+          <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
+            <input type="checkbox" id="modal-agree-vol2" style="margin-top:3px;flex:none;accent-color:#c9a463">
+            <span style="font:300 11px/1.6 'Noto Sans KR',sans-serif;color:#8a8471">(필수) 개인정보 수집·이용에 동의합니다 <button onclick="event.preventDefault();event.stopPropagation();var d=document.getElementById('privacy-vol2');d.hidden=!d.hidden" style="background:none;border:none;color:#c9a463;font:400 11px 'Noto Sans KR',sans-serif;cursor:pointer;padding:0;text-decoration:underline">내용 보기</button></span>
+          </label>
+          <div id="privacy-vol2" hidden style="margin-top:8px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(201,164,99,.12);font:300 11px/1.7 'Noto Sans KR',sans-serif;color:#6f6752">
+            <b style="color:#8a8471;display:block;margin-bottom:4px">개인정보 수집·이용 동의</b>
+            · 수집 항목: 이메일 주소<br>
+            · 수집 목적: 월간 법률마케팅 발행 안내 및 발송<br>
+            · 보유 기간: 구독 해지 요청 시까지 (최대 2년)<br>
+            · 귀하는 동의를 거부할 권리가 있으며, 거부 시 뉴스레터 구독 서비스를 이용하실 수 없습니다.
+          </div>
         </div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(20,18,16,0) 0%, rgba(20,18,16,0.7) 60%, rgba(20,18,16,0.95) 100%);pointer-events:none;"></div>
+        <div id="modal-sub-err-vol2" style="display:none;font:400 11px 'Noto Sans KR',sans-serif;color:#c0745a"></div>
+        <button id="modal-sub-btn-vol2" onclick="modalSubscribeSubmit('vol2')" style="padding:13px;background:#c9a463;border:none;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer">신청하기</button>
       </div>
-      <!-- 구독 유도 -->
-      <div style="text-align:center;padding:28px 24px;background:rgba(201,163,90,0.05);border:1px solid rgba(201,163,90,0.18);border-radius:4px;">
-        <div style="font-size:18px;margin-bottom:12px;">🔒</div>
-        <div style="font:600 16px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">01장부터는 정기구독자에게 공개됩니다</div>
-        <div style="font:300 13px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:24px">매월 새 호가 발행되면 구독자에게 전체 내용이 발송됩니다.<br>지금 구독하시면 8월호 전문을 바로 받아보실 수 있습니다.</div>
-        <div style="display:inline-block;padding:14px 36px;background:#c9a463;color:#0d0c09;font:600 13px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer;border-radius:2px;" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청하기 →</div>
+      <div id="modal-sub-done-vol2" style="display:none;padding:24px 0;text-align:center">
+        <div style="font:300 11px 'Noto Sans KR',sans-serif;letter-spacing:.2em;color:#c9a463;margin-bottom:10px">THANK YOU</div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4">등록이 완료되었습니다</div>
+        <div style="font:300 12px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-top:6px">다음 호부터 발송해드립니다</div>
       </div>
     </div>
   </div>
@@ -1631,20 +1698,34 @@
         <p style="margin:0">네이버가 독주해온 검색 시장에서, 처음으로 그 숫자가 흔들리기 시작했습니다. 법률마케팅에 있어 무엇이 바뀌었고, 무엇이 기회가 되는지 — 9월호는 그 질문에 답합니다.</p>
       </div>
     </div>
-    <!-- 잠금 챕터 카드 -->
-    <div style="padding:32px;">
-      <div style="position:relative;margin-bottom:20px;overflow:hidden;border-radius:4px;">
-        <div style="padding:20px 24px;background:rgba(201,163,90,0.04);border:1px solid rgba(201,163,90,0.12);filter:blur(1.5px);user-select:none;pointer-events:none;">
-          <div style="font:600 15px 'Noto Serif KR',serif;color:rgba(244,241,234,0.35);margin-bottom:8px">목차 및 전체 내용</div>
-          <div style="font:300 13px/1.8 'Noto Sans KR',sans-serif;color:rgba(201,191,169,0.3)">네이버 검색 점유율 변화 분석, 법률 분야별 마케팅 영향, 실무 전문가 인사이트, 10월 전략 제언...</div>
+    <!-- PDF 다운로드 + 이메일 구독 -->
+    <div style="padding:32px">
+      <a href="월간_법률마케팅_9월호_PDF버전.pdf" download style="display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:transparent;border:1px solid rgba(201,164,99,.5);color:#c9a463;font:500 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;text-decoration:none;margin-bottom:32px">↓ PDF 다운로드 (9월호)</a>
+      <div id="modal-sub-form-vol3" style="display:flex;flex-direction:column;gap:12px;max-width:480px">
+        <div style="font:300 11px 'Noto Sans KR',sans-serif;letter-spacing:.22em;color:#c9a463;margin-bottom:2px">SUBSCRIBE</div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:2px">매달 새 호를 무료로 받아보세요</div>
+        <div style="font:300 12px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:4px">이메일을 등록하시면 발행 즉시 발송됩니다</div>
+        <input id="modal-email-vol3" type="email" placeholder="이메일 주소를 입력하세요" style="width:100%;padding:12px 14px;background:#0d0c09;border:1px solid rgba(201,164,99,.3);color:#f4efe4;font:400 13px 'Noto Sans KR',sans-serif;outline:none;box-sizing:border-box">
+        <div>
+          <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
+            <input type="checkbox" id="modal-agree-vol3" style="margin-top:3px;flex:none;accent-color:#c9a463">
+            <span style="font:300 11px/1.6 'Noto Sans KR',sans-serif;color:#8a8471">(필수) 개인정보 수집·이용에 동의합니다 <button onclick="event.preventDefault();event.stopPropagation();var d=document.getElementById('privacy-vol3');d.hidden=!d.hidden" style="background:none;border:none;color:#c9a463;font:400 11px 'Noto Sans KR',sans-serif;cursor:pointer;padding:0;text-decoration:underline">내용 보기</button></span>
+          </label>
+          <div id="privacy-vol3" hidden style="margin-top:8px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(201,164,99,.12);font:300 11px/1.7 'Noto Sans KR',sans-serif;color:#6f6752">
+            <b style="color:#8a8471;display:block;margin-bottom:4px">개인정보 수집·이용 동의</b>
+            · 수집 항목: 이메일 주소<br>
+            · 수집 목적: 월간 법률마케팅 발행 안내 및 발송<br>
+            · 보유 기간: 구독 해지 요청 시까지 (최대 2년)<br>
+            · 귀하는 동의를 거부할 권리가 있으며, 거부 시 뉴스레터 구독 서비스를 이용하실 수 없습니다.
+          </div>
         </div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(20,18,16,0) 0%, rgba(20,18,16,0.7) 60%, rgba(20,18,16,0.95) 100%);pointer-events:none;"></div>
+        <div id="modal-sub-err-vol3" style="display:none;font:400 11px 'Noto Sans KR',sans-serif;color:#c0745a"></div>
+        <button id="modal-sub-btn-vol3" onclick="modalSubscribeSubmit('vol3')" style="padding:13px;background:#c9a463;border:none;color:#0d0c09;font:600 12px 'Noto Sans KR',sans-serif;letter-spacing:.08em;cursor:pointer">신청하기</button>
       </div>
-      <div style="text-align:center;padding:28px 24px;background:rgba(201,163,90,0.05);border:1px solid rgba(201,163,90,0.18);border-radius:4px;">
-        <div style="font-size:18px;margin-bottom:12px;">🔒</div>
-        <div style="font:600 16px 'Noto Serif KR',serif;color:#f4efe4;margin-bottom:8px">전체 내용은 정기구독자에게 공개됩니다</div>
-        <div style="font:300 13px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-bottom:24px">매월 새 호가 발행되면 구독자에게 전체 내용이 발송됩니다.<br>지금 구독하시면 9월호 전문을 바로 받아보실 수 있습니다.</div>
-        <div style="display:inline-block;padding:14px 36px;background:#c9a463;color:#0d0c09;font:600 13px 'Noto Sans KR',sans-serif;letter-spacing:.06em;cursor:pointer;border-radius:2px;" onclick="window.open('https://makealawyer.store/', '_blank')">정기구독 신청하기 →</div>
+      <div id="modal-sub-done-vol3" style="display:none;padding:24px 0;text-align:center">
+        <div style="font:300 11px 'Noto Sans KR',sans-serif;letter-spacing:.2em;color:#c9a463;margin-bottom:10px">THANK YOU</div>
+        <div style="font:500 15px 'Noto Serif KR',serif;color:#f4efe4">등록이 완료되었습니다</div>
+        <div style="font:300 12px/1.7 'Noto Sans KR',sans-serif;color:#8a8471;margin-top:6px">다음 호부터 발송해드립니다</div>
       </div>
     </div>
   </div>
