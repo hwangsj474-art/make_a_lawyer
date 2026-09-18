@@ -1302,7 +1302,7 @@
       el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:280px"><div style="text-align:center"><div style="font:300 13px \'Noto Sans KR\',sans-serif;letter-spacing:.25em;color:#8a8471;margin-bottom:16px">COMING SOON</div><div style="font:400 22px/1.8 \'Noto Serif KR\',serif;color:#c9c0ab">아직 작성된 글이 없습니다</div><div style="width:40px;height:1px;background:#c9a463;margin:28px auto 0"></div></div></div>';
       return;
     }
-    var html = '<div style="max-width:800px">';
+    var html = '<div style="max-width:800px;margin:0 auto">';
     articles.forEach(function(a) {
       var summary = (a.body || '').replace(/\n/g,' ').substring(0, 90) + ((a.body || '').length > 90 ? '…' : '');
       html += '<div class="col-card" onclick="colShowDetail(\'' + a.id + '\')" style="padding:32px 0;border-bottom:1px solid rgba(201,164,99,.15);cursor:pointer">';
@@ -1330,8 +1330,8 @@
     if (!a) { el.innerHTML = '<div style="padding:80px 0;text-align:center;color:#c0745a">글을 찾을 수 없습니다.</div>'; return; }
     var auth = colIsAuth();
     var html = '';
+    html += '<div style="max-width:720px;margin:0 auto">';
     html += '<button onclick="colRenderList()" style="display:inline-flex;align-items:center;gap:6px;padding:0;background:transparent;border:none;color:#8a8471;font:400 11px \'Noto Sans KR\',sans-serif;cursor:pointer;letter-spacing:.05em;margin-bottom:48px">← 목록으로</button>';
-    html += '<div style="max-width:720px">';
     html += '<div style="font:300 10px \'Noto Sans KR\',sans-serif;letter-spacing:.25em;color:#c9a463;margin-bottom:14px">' + escHtml(a.date) + '</div>';
     html += '<div style="font:700 32px/1.4 \'Noto Serif KR\',serif;color:#f4efe4;margin-bottom:28px">' + escHtml(a.title) + '</div>';
     html += '<div style="width:40px;height:1px;background:#c9a463;margin-bottom:36px"></div>';
@@ -1355,11 +1355,11 @@
       a = result.data && result.data[0];
     }
     var isEdit = !!a;
-    var html = '';
+    var html = '<div style="max-width:720px;margin:0 auto">';
     html += '<button onclick="colRenderList()" style="display:inline-flex;align-items:center;gap:6px;padding:0;background:transparent;border:none;color:#8a8471;font:400 11px \'Noto Sans KR\',sans-serif;cursor:pointer;letter-spacing:.05em;margin-bottom:48px">← 목록으로</button>';
     html += '<div style="font:300 10px \'Noto Sans KR\',sans-serif;letter-spacing:.3em;color:#c9a463;margin-bottom:14px">' + (isEdit ? 'EDIT' : 'WRITE') + '</div>';
     html += '<div style="font:600 28px \'Noto Serif KR\',serif;color:#f4efe4;margin-bottom:36px">' + (isEdit ? '글 수정' : '새 글 쓰기') + '</div>';
-    html += '<div style="max-width:720px;display:flex;flex-direction:column;gap:20px">';
+    html += '<div style="display:flex;flex-direction:column;gap:20px">';
     html += '<div><div style="font:400 11px \'Noto Sans KR\',sans-serif;letter-spacing:.15em;color:#8a8471;margin-bottom:10px">제목</div>';
     html += '<input id="col-form-title" type="text" value="' + (a ? escHtml(a.title) : '') + '" placeholder="제목을 입력하세요" style="width:100%;padding:14px 16px;background:#0d0c09;border:1px solid rgba(201,164,99,.3);color:#f4efe4;font:500 16px \'Noto Serif KR\',serif;outline:none;box-sizing:border-box"></div>';
     html += '<div><div style="font:400 11px \'Noto Sans KR\',sans-serif;letter-spacing:.15em;color:#8a8471;margin-bottom:10px">본문</div>';
@@ -1368,7 +1368,7 @@
     html += '<div style="display:flex;gap:12px">';
     html += '<button id="col-save-btn" onclick="colSaveForm(\'' + (id || '') + '\')" style="padding:13px 28px;background:#c9a463;border:none;color:#0d0c09;font:600 12px \'Noto Sans KR\',sans-serif;letter-spacing:.1em;cursor:pointer">' + (isEdit ? '수정 완료' : '발행') + '</button>';
     html += '<button onclick="colRenderList()" style="padding:13px 24px;background:transparent;border:1px solid rgba(201,164,99,.3);color:#8a8471;font:500 12px \'Noto Sans KR\',sans-serif;cursor:pointer">취소</button>';
-    html += '</div></div>';
+    html += '</div></div></div>';
     document.getElementById('col-write-form').innerHTML = html;
     colShowSection('col-write-form');
     window.scrollTo(0, 0);
