@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>메이크어로이어</title>
+</head>
+<body>
+<script>
+  // SPA 라우팅: GitHub Pages에서 /book, /service 등 직접 접근 시
+  // 의도한 URL을 sessionStorage에 저장하고 루트(/)로 리다이렉트
+  sessionStorage.setItem('_spa_redirect', location.href);
+  location.replace(location.origin + '/');
+</script>
+</body>
+</html>

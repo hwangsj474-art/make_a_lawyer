@@ -1016,17 +1016,52 @@
     if (m) m.classList.toggle('open');
   }
 
-  function goPage(name) {
+  var _SPA_PAGES = ['home','service','book','team','column','contact'];
+
+  function goPage(name, _skipHistory) {
     var _mn=document.getElementById('nav-mobile');if(_mn)_mn.classList.remove('open');
     document.querySelectorAll('.page').forEach(function(el){ el.classList.remove('active'); });
-    document.getElementById('page-' + name).classList.add('active');
+    var target = document.getElementById('page-' + name);
+    if (!target) return;
+    target.classList.add('active');
     document.querySelectorAll('.nav-link').forEach(function(el){
       el.classList.toggle('active', el.dataset.nav === name);
     });
     window.scrollTo(0, 0);
     if (name === 'book') centerBookVol2();
     if (name === 'column') colInit();
+    // URL 업데이트
+    if (!_skipHistory) {
+      var url = (name === 'home') ? '/' : '/' + name;
+      if (location.pathname !== url) history.pushState({page: name}, '', url);
+    }
   }
+
+  // 브라우저 뒤로가기/앞으로가기
+  window.addEventListener('popstate', function() {
+    var seg = location.pathname.replace(/^\/+|\/+$/g, '');
+    var page = (_SPA_PAGES.indexOf(seg) > -1) ? seg : 'home';
+    goPage(page, true);
+  });
+
+  // 초기 진입 시 URL → 페이지 이동
+  (function() {
+    // GitHub Pages 404.html redirect 처리
+    var redir = sessionStorage.getItem('_spa_redirect');
+    if (redir) {
+      sessionStorage.removeItem('_spa_redirect');
+      try {
+        var seg = new URL(redir).pathname.replace(/^\/+|\/+$/g, '');
+        var target = (_SPA_PAGES.indexOf(seg) > -1) ? seg : 'home';
+        history.replaceState(null, '', target === 'home' ? '/' : '/' + target);
+        if (target !== 'home') { goPage(target, true); return; }
+      } catch(e) {}
+    }
+    // 직접 URL 접근 / 새로고침 처리
+    var seg = location.pathname.replace(/^\/+|\/+$/g, '');
+    var page = (_SPA_PAGES.indexOf(seg) > -1) ? seg : 'home';
+    if (page !== 'home') goPage(page, true);
+  })();
 
   function toggleRefundPanel() {
     var panel = document.getElementById('refund-panel');
